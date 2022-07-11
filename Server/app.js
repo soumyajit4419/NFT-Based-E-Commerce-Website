@@ -12,6 +12,21 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const generateDocs = require("./swagger");
+
+const swaggerUi = require("swagger-ui-express");
+
+generateDocs().then(() => {
+  const swaggerDocs = require("./swagger_output.json");
+  app.use(
+    "/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs, {
+      customSiteTitle: `Flipkart Grid NFT Backend API`
+    })
+  );
+});
+
 app.use("/api", userroutes);
 
 mongoConnect();

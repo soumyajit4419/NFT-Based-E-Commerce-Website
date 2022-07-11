@@ -1,10 +1,10 @@
 {
-  "name": "metatestbackend",
+  "name": "flipkart_grid_nft",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js --ignore 'swagger_output.json'"
   },
   "keywords": [],
   "author": "",
@@ -27,8 +27,12 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.12.14",
     "multer": "^1.4.2",
+    "nanoid": "^3.1.30",
+    "nodemon": "^2.0.19",
     "shortid": "^2.2.16",
     "speakeasy": "^2.0.0",
+    "swagger-autogen": "^2.21.5",
+    "swagger-ui-express": "^4.4.0",
     "uniqid": "^5.3.0",
     "web3": "^1.5.2"
   }

@@ -80,3 +80,21 @@ exports.each_category_products = async (req, res) => {
     });
   }
 };
+
+exports.each_product = async (req, res) => {
+  try {
+    var productid = req.params.productid;
+
+    var product = await product_model.findOne({ product_id: productid });
+
+    res.status(200).json({
+      message: "Product details fetched Successfully",
+      product: product
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Some error occured",
+      error: `${error.name}, ${error.message}, ${error.stack}`
+    });
+  }
+};

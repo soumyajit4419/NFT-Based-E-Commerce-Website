@@ -12,6 +12,8 @@ app.route("/all_category").get(product.get_all_categories);
 
 app.route("/category_products").get(product.each_category_products);
 
+app.route("/product/:productid").get(product.each_product);
+
 // user routes
 app.route("/add_user").post(user.newuser);
 

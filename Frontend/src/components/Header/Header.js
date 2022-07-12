@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../logo.png";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Web3 from "web3";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useWeb3React } from "@web3-react/core";
 
 const Header = () => {
   const history = useHistory();
   const [isVerified, setIsVerified] = useState(false);
+  const { active, account, activate, deactivate } = useWeb3React();
 
+  console.log(account, "dsf");
   const logout = async () => {
     if (window.ethereum) {
       // If the cached provider is not cleared,
@@ -38,45 +41,45 @@ const Header = () => {
     }
   };
 
-  if (window.ethereum) {
-    window.ethereum.on("accountsChanged", (accounts) => {
-      logout();
-    });
+  // if (window.ethereum) {
+  //   window.ethereum.on("accountsChanged", (accounts) => {
+  //     logout();
+  //   });
 
-    window.ethereum.on("disconnect", () => {
-      logout();
-    });
+  //   window.ethereum.on("disconnect", () => {
+  //     logout();
+  //   });
 
-    window.ethereum.on("chainChanged", (chainId) => {
-      validateChainId();
-    });
-  }
+  //   window.ethereum.on("chainChanged", (chainId) => {
+  //     validateChainId();
+  //   });
+  // }
 
-  useEffect(() => {
-    validateMetamask();
+  // useEffect(() => {
+  //   validateMetamask();
 
-    if (window.ethereum) {
-      validateChainId();
-      axios({
-        method: "POST",
-        url: "https://loud-backend.herokuapp.com/get_user_details",
-        data: {
-          user: localStorage.getItem("wallet"),
-        },
-      })
-        .then((res) => {
-          if (res.data.is_verified) {
-            console.log(res, "dsds");
-            setIsVerified(true);
-          } else {
-            console.log("not artist");
-          }
-        })
-        .catch((err) => {
-          console.log(err, "error");
-        });
-    }
-  }, []);
+  //   if (window.ethereum) {
+  //     validateChainId();
+  //     axios({
+  //       method: "POST",
+  //       url: "https://loud-backend.herokuapp.com/get_user_details",
+  //       data: {
+  //         user: localStorage.getItem("wallet"),
+  //       },
+  //     })
+  //       .then((res) => {
+  //         if (res.data.is_verified) {
+  //           console.log(res, "dsds");
+  //           setIsVerified(true);
+  //         } else {
+  //           console.log("not artist");
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err, "error");
+  //       });
+  //   }
+  // }, []);
 
   return (
     <header id="header">
@@ -205,9 +208,9 @@ const Header = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <a href="/contact" className="nav-link">
+              <Link to="/contact" className="nav-link">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
           {/* Navbar Icons */}
@@ -239,13 +242,13 @@ const Header = () => {
           {/* Navbar Action Button */}
           <ul className="navbar-nav action">
             <li className="nav-item ml-3">
-              {localStorage.getItem("wallet") ? (
+              {active ? (
                 <a
                   href={`/artist/${localStorage.getItem("wallet")}`}
                   className="btn ml-lg-auto btn-bordered-white"
                 >
                   <i className="icon-wallet mr-md-2" />
-                  {localStorage.getItem("wallet").slice(0, 6) + "..."}
+                  {account.slice(0, 6) + "..."}
                 </a>
               ) : (
                 <a

@@ -3,17 +3,17 @@ import sample from "../../bgvideo.mov";
 import axios from "axios";
 
 const initData = {
-  pre_heading: "Powered By $LOUD",
-  heading: "Discover, Collect and Sell Music NFTs",
-  content: "The World's First Music NFT Marketplace",
+  pre_heading: "Welcome to Flipkart",
+  heading: "Buy any Product and get Warranty attached NFTs",
+  content: "The World's First Product Warranty NFT Marketplace",
   btn_1: "Explore",
-  btn_2: "Create",
+  btn_2: "More"
 };
 
 class Hero extends Component {
   state = {
     data: {},
-    isVerified: false,
+    isVerified: false
   };
 
   componentDidMount() {
@@ -21,8 +21,8 @@ class Hero extends Component {
       method: "POST",
       url: "https://loud-backend.herokuapp.com/get_user_details",
       data: {
-        user: localStorage.getItem("wallet"),
-      },
+        user: localStorage.getItem("wallet")
+      }
     })
       .then((res) => {
         if (res.data.is_verified) {
@@ -36,7 +36,7 @@ class Hero extends Component {
       });
 
     this.setState({
-      data: initData,
+      data: initData
     });
   }
   render() {
@@ -61,16 +61,6 @@ class Hero extends Component {
                   </a>
                 )}
               </div>
-              <p>
-                You can buy $LOUD on{" "}
-                <a href="https://pancakeswap.finance/swap?outputCurrency=0x3d0e22387ddfe75d1aea9d7108a4392922740b96">
-                  Pancakeswap
-                </a>{" "}
-                and{" "}
-                <a href="https://www.hotbit.io/exchange?symbol=LOUD_USDT">
-                  Hotbit
-                </a>
-              </p>
             </div>
           </div>
         </div>

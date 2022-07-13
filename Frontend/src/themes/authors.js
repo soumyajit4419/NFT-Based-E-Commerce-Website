@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Header from "../components/Header/Header";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
 import Author from "../components/Authors/Authors";
-import TopSeller from "../components/TopSeller/TopSellerTwo";
+import TopSeller from "../components/Categories/TopSellerTwo";
 import Footer from "../components/Footer/Footer";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";

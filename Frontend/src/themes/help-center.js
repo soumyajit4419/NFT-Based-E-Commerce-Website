@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Header from '../components/Header/Header';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import Help from '../components/HelpCenter/HelpCenter';
 import Faq from '../components/Faq/Faq';
 import Footer from '../components/Footer/Footer';
@@ -14,7 +13,6 @@ class HelpCenter extends Component {
         return (
             <div className="main">
                 <Header />
-                <Breadcrumb title="Help Center" subpage="Community" page="Help Center" />
                 <Help />
                 <Faq />
                 <Footer />

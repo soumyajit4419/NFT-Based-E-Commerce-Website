@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import Header from "../components/Header/Header";
-// import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
 import AuthorProfile from "../components/Author/Author";
 import Footer from "../components/Footer/Footer";
 import ModalSearch from "../components/Modal/ModalSearch";

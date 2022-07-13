@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import logo from "../../logo.png";
 import { useHistory, Link } from "react-router-dom";
 
-
 const Header = () => {
-   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-   const history = useHistory();
+  const history = useHistory();
 
   const logout = async () => {
     if (window.ethereum) {
@@ -45,6 +44,12 @@ const Header = () => {
               <a className="nav-link" href="/allproducts">
                 Products
               </a>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/contact" className="nav-link">
+                My Orders
+              </Link>
             </li>
 
             <li className="nav-item">

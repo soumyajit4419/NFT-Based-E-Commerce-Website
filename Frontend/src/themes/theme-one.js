@@ -15,6 +15,7 @@ const ThemeOne = () => {
       <Hero />
       <Categories />
       <Work />
+      <br/><br/><br/>
       {/* <Collections /> */}
       <ModalSearch />
       <ModalMenu />

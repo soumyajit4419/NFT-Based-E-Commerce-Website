@@ -1756,6 +1756,10 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 
 .card .card-img-top {
   border-radius: 6px;
+  height: auto; 
+  width: auto; 
+  max-width: 200px; 
+  max-height: 300px;
 }
 
 .card .card-body {

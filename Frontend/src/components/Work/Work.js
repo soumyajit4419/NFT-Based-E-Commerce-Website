@@ -49,7 +49,7 @@ class Work extends Component {
   }
   render() {
     return (
-      <section className="work-area" style={{ paddingBottom: "0px" }}>
+      <section className="work-area">
         <div className="container">
           <div className="row">
             <div className="col-12">

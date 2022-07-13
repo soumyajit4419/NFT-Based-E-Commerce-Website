@@ -6,11 +6,7 @@ import ThemeOne from "../themes/theme-one";
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
 import ExploreFour from "../themes/explore-four";
-import Auctions from "../themes/auctions";
 import ItemDetails from "../themes/item-details";
-import Activity from "../themes/activity";
-import Blog from "../themes/blog";
-import BlogSingle from "../themes/blog-single";
 import Authors from "../themes/authors";
 import Author from "../themes/author";
 import WalletConnect from "../themes/wallet-connect";
@@ -46,22 +42,16 @@ class MyRoutes extends React.Component {
             <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/featured" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />
-            <Route exact path="/auctions" component={Auctions} />
             <Route
               exact
               path="/item-details/:token_id"
               component={ItemDetails}
             />
-            <Route exact path="/activity" component={Activity} />
-            <Route exact path="/blog" component={Blog} />
-            <Route exact path="/blog-single" component={BlogSingle} />
             <Route exact path="/help-center" component={HowItWorks} />
-            {/* <Route exact path="/how-it-works" component={HowItWorks} /> */}
             <Route exact path="/artists" component={Authors} />
             <Route exact path="/artist/:wallet_address" component={Author} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/create-single" component={Create} />
-            {/* <Route exact path="/login" component={Login} /> */}
 
             <Route exact path="/contact" component={Contact} />
             <Route

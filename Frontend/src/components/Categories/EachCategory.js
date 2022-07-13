@@ -4,8 +4,6 @@ import axios from "axios";
 const Category = (props) => {
   const category = props.category;
 
-  console.log(category);
-
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
 

@@ -3,7 +3,6 @@ dotenv.config();
 const bcrypt = require("bcryptjs");
 var config = require("../config");
 const jwt = require("jsonwebtoken");
-
 const user_model = require("../models/user");
 
 const saltRounds = 10;

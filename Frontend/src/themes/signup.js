@@ -2,21 +2,18 @@ import React, { Component } from "react";
 
 import Header from "../components/Header/Header";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import SignupSection from "../components/Signup/Signup";
 import Footer from "../components/Footer/Footer";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
 import Scrollup from "../components/Scrollup/Scrollup";
-import SignupNew from "../components/Signup/SignUpNew";
+import Signup from "../components/Signup/SignUp";
 
-class Signup extends Component {
+class SignupTheme extends Component {
   render() {
     return (
       <div className="main">
         <Header />
-        {/* <Breadcrumb title="Signup" subpage="Pages" page="Signup" /> */}
-        <SignupNew />
-        <Footer />
+        <Signup/>
         <ModalSearch />
         <ModalMenu />
         <Scrollup />
@@ -25,4 +22,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default SignupTheme;

@@ -8,6 +8,9 @@ const user = new Schema({
   email: {
     type: String
   },
+  password: {
+    type: String
+  },
   profile_image: {
     type: String
   },
@@ -17,10 +20,12 @@ const user = new Schema({
   blockchain: {
     type: String
   },
-  transactions: {
-    type: mongoose.Schema.Types.ObjectID,
-    ref: "transactions"
-  }
+  transactions: [
+    {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: "transactions"
+    }
+  ]
 });
 
 module.exports = mongoose.model("users", user);

@@ -1,256 +1,147 @@
 const dotenv = require("dotenv");
 dotenv.config();
+const bcrypt = require("bcryptjs");
+var config = require("../config");
+const jwt = require("jsonwebtoken");
 const user_model = require("../models/user");
 
-const _ = require("lodash");
+const saltRounds = 10;
 
-const Web3 = require("web3");
-
-const axios = require("axios");
-
-const web3 = new Web3(process.env.RPC_NODE);
-
-exports.newuser = async (req, res) => {
+exports.register = async (req, res) => {
   try {
-    // console.log(req.body.user);
-    const userexist = await user_model.find({
-      wallet_address: `${req.body.user.toLowerCase()}`
-    });
+    var { name, email, password, profile_image, wallet_address } = req.body;
 
-    if (userexist.length !== 0) {
-      res.json("User Already exists!");
-      return;
+    if (!name) {
+      return res.status(400).json({
+        message: "Please enter the Name"
+      });
+    } else if (!email) {
+      return res.status(400).json({
+        message: "Please enter the Email"
+      });
+    } else if (!password) {
+      return res.status(400).json({
+        message: "Please enter the Password"
+      });
+    } else if (!wallet_address) {
+      return res.status(400).json({
+        message: "Please enter the Wallet Address"
+      });
     }
 
-    // var account = await web3.eth.accounts.create();
+    profile_image = req.body.profile_image || "";
 
-    // const newWallet = {
-    //   address: account.address,
-    //   private_key: account.privateKey,
-    // };
+    const salt = await bcrypt.genSalt(saltRounds);
 
-    // const createdWallet = new Wallet(newWallet);
-    // const savedWallet = await savedWallet.save();
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    let newUser = {
-      name: req.body.name,
-      email: req.body.email,
-      image: req.body.profileImage,
-      wallet_address: req.body.user.toLowerCase(),
+    const usermodel = new user_model({
+      name: name,
+      email: email,
+      password: hashedPassword,
+      profile_image: profile_image,
+      wallet_address: wallet_address,
       blockchain: "ROPSTEN TESTNET"
-    };
-
-    const createdUser = new User(newUser);
-    const savedUser = await createdUser.save();
-
-    res.status(200).json({
-      message: "New User Saved Successfully",
-      user: savedUser.wallet_address,
-      blockchain: savedUser.blockchain,
-      profile_image: savedUser.profile_image
     });
+
+    var user = await user_model.findOne({ email });
+
+    if (user) {
+      if (user.email == email) {
+        return res.status(400).json({
+          message:
+            "Email Already Exists! Please register with a different email"
+        });
+      }
+    } else {
+      var token = jwt.sign(
+        {
+          _id: usermodel._id,
+          name: name,
+          email: email,
+          wallet_address: wallet_address,
+          blockchain: "ROPSTEN TESTNET"
+        },
+        `${config.jwt_secret}`,
+        { expiresIn: "30d" }
+      );
+
+      let decoded_values = jwt.decode(token, `${config.jwt_secret}`);
+
+      await usermodel.save();
+
+      return res.status(200).json({
+        message: "User Registration Successful",
+        token,
+        decoded_values
+      });
+    }
   } catch (error) {
     res.status(500).json({
-      message: "Some error occured",
+      message: `Some Error Occurred`,
       error: `${error.name}, ${error.message}, ${error.stack}`
     });
   }
 };
 
-exports.udpdateuserinfo = async (req, res, next) => {
+exports.login = async (req, res) => {
   try {
-    // console.log(req.body);
+    const email = req.body.email;
+    if (!email) {
+      return res.status(400).json({
+        message: `Please Enter the Email`
+      });
+    }
+    const password = req.body.password;
+    if (!password) {
+      return res.status(400).json({
+        message: `Please Enter the Password`
+      });
+    }
 
-    const olduser = await user_model.find({
-      wallet_address: `${req.body.user.toLowerCase()}`
-    });
+    var data = await user_model.find({ email: email });
 
-    const updateduser = await User.findOneAndUpdate(
-      {
-        wallet_address: `${req.body.user.toLowerCase()}`
-      },
-      {
-        image:
-          req.body.profileImage !== ""
-            ? req.body.profileImage
-            : olduser.image
-            ? olduser.image
-            : "",
-        name: req.body.name ? req.body.name : olduser.name ? olduser.name : "",
-        email: req.body.email
-          ? req.body.email
-          : olduser.email
-          ? olduser.email
-          : ""
-      },
-      { new: false, useFindAndModify: false }
-    );
-    res.status(200).json({
-      message: "User details updated Sucessfully",
-      user: updateduser
-    });
+    if (data.length == 0) {
+      return res.status(400).json({
+        message: `${email} not found, Please Register`
+      });
+    }
+    var correct_password = await bcrypt.compare(password, data[0].password);
+
+    if (correct_password) {
+      var token = jwt.sign(
+        {
+          _id: data[0]._id,
+          name: data[0].name,
+          email: data[0].email,
+          wallet_address: data[0].wallet_address,
+          blockchain: data[0].blockchain
+        },
+        `${config.jwt_secret}`,
+        { expiresIn: "30d" }
+      );
+
+      if (`${config.jwt_secret}` === "undefined") {
+        return res.status(500).json({
+          message: "Jwt Secret is undefined"
+        });
+      }
+      var decoded_values = jwt.decode(token, `${config.jwt_secret}`);
+
+      return res.status(200).json({
+        message: "Login Successful",
+        token,
+        decoded_values
+      });
+    } else {
+      return res.status(400).json({
+        message: `Invalid Password, Please try again`
+      });
+    }
   } catch (error) {
     res.status(500).json({
-      message: "Some error occured",
+      message: `Some Error Occured`,
       error: `${error.name}, ${error.message}, ${error.stack}`
     });
   }
 };
-
-// exports.checkUser = async (req, res, next) => {
-//   console.log(req.body);
-//   const userExist = await User.find({
-//     wallet_address: `${req.body.user.toLowerCase()}`
-//   });
-
-//   const isIp = await Iptracker.find({
-//     wallet_address: `${req.body.user.toLowerCase()}`
-//   });
-
-//   console.log(isIp, "this is ip");
-//   const newDate = new Date();
-
-//   if (isIp.length === 0) {
-//     console.log("iniside here");
-//     const newIp = {
-//       wallet_address: req.body.user.toLowerCase(),
-//       ip_lists: [
-//         {
-//           ip_address: req.body.ip_address,
-//           last_login: newDate.toString(),
-//           is_blocked: false
-//         }
-//       ]
-//     };
-
-//     const createdIPtracker = new Iptracker(newIp);
-//     const savedIptracker = await createdIPtracker.save();
-//   } else {
-//     const findIp = await Iptracker.find({
-//       wallet_address: `${req.body.user.toLowerCase()}`,
-//       "ip_lists.ip_address": `${req.body.ip_address}`
-//     });
-
-//     // console.log(findIp[0], "this is find Ip");
-
-//     if (findIp.length === 0) {
-//       const updateIpTracker = await Iptracker.findOneAndUpdate(
-//         {
-//           wallet_address: `${req.body.user.toLowerCase()}`
-//         },
-//         {
-//           $push: {
-//             ip_lists: {
-//               ip_address: req.body.ip_address,
-//               is_blocked: false,
-//               last_login: newDate.toString()
-//             }
-//           }
-//         },
-//         { new: true, useFindAndModify: false }
-//       );
-//     } else {
-//       const blockedIndex = await _.findIndex(findIp[0].ip_lists, {
-//         ip_address: req.body.ip_address
-//       });
-
-//       console.log(blockedIndex, "this is it");
-
-//       if (findIp[0].ip_lists[blockedIndex].is_blocked) {
-//         res.json({
-//           message: "blocked"
-//         });
-//         return;
-//       }
-//     }
-//   }
-
-//   if (userExist.length !== 0) {
-//     if (userExist[0].is_blocked) {
-//       res.json({
-//         message: "blocked"
-//       });
-//     } else {
-//       res.json({
-//         message: "user exist",
-//         address: userExist[0].wallet_address,
-//         profile_image: userExist[0].profile_image
-//       });
-//       return;
-//     }
-//   } else {
-//     res.json({
-//       message: "notfound"
-//     });
-//     return;
-//   }
-// };
-
-// exports.startAuciton = async (req, res, next) => {};
-
-// exports.updateProfileImage = async (req, res, next) => {
-//   const userExist = await User.findOneAndUpdate(
-//     {
-//       wallet_address: `${req.body.user.toLowerCase()}`
-//     },
-//     {
-//       profile_image: req.body.profileImage
-//     },
-//     { new: false, useFindAndModify: false }
-//   );
-
-//   res.json("success");
-// };
-
-// exports.getUserDetails = async (req, res, next) => {
-//   console.log(req.body);
-//   const userExist = await User.find({
-//     wallet_address: `${req.body.user.toLowerCase()}`
-//   });
-
-//   if (userExist.length === 0) {
-//     res.json("some Error occurred");
-//     return;
-//   }
-
-//   res.json(userExist[0]);
-// };
-
-// exports.getCollectibles = async (req, res, next) => {
-//   const topCollectibles = await Collectible.find()
-//     .sort({ $natural: -1 })
-//     .limit(8);
-
-//   res.json({
-//     collectible: topCollectibles
-//   });
-// };
-
-// exports.getCollectibles = async (req, res, next) => {
-//   const user = await User.find({
-//     wallet_address: `${req.body.wallet_address}`,
-//   });
-
-//   if (user.length !== 0) {
-//     res.status(201).json({
-//       collectibles: user[0].collectibles,
-//     });
-//   } else {
-//     res.status(201).json({
-//       message: "user not found!",
-//     });
-//   }
-// };
-
-// exports.getCollectibleInfo = async (req, res, next) => {
-//   console.log(req.body);
-//   const collectible = await Collectible.find({
-//     token_id: `${req.body.tokenId}`
-//   });
-
-//   console.log(collectible[0], "this is it");
-
-//   res.json({
-//     collectible: collectible[0]
-//   });
-// };

@@ -26,18 +26,19 @@ import collectibleDetails from "../themes/collectible-detail";
 import HowItWorks from "../themes/how-it-works";
 import Error from "../themes/error";
 import EditProfile from "../themes/EditProfile";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-class MyRouts extends React.Component {
+class MyRoutes extends React.Component {
   render() {
     return (
       <div>
-         <ToastContainer />
+        <ToastContainer />
         <Router>
           <Switch>
             <Route exact path="/" component={ThemeOne} />
-            <Route exact path="/explore-1" component={ExploreOne} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/featured" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />
@@ -57,7 +58,7 @@ class MyRouts extends React.Component {
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/create-single" component={Create} />
             {/* <Route exact path="/login" component={Login} /> */}
-            <Route exact path="/signup" component={Signup} />
+
             <Route exact path="/contact" component={Contact} />
             <Route
               exact
@@ -79,4 +80,4 @@ class MyRouts extends React.Component {
     );
   }
 }
-export default MyRouts;
+export default MyRoutes;

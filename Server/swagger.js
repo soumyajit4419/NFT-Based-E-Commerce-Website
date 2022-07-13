@@ -13,7 +13,15 @@ const doc = {
       description: "Development API"
     }
   ],
-  schemes: ["https"]
+  schemes: ["https"],
+  securityDefinitions: {
+    bearerAuth: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "JWT"
+    }
+  },
+  security: [{ bearerAuth: [] }]
 };
 
 const outputFile = "./swagger_output.json";

@@ -13,15 +13,13 @@ class Login extends Component {
         return (
             <div className="main">
                 <Header />
-                <Breadcrumb title="Login" subpage="Pages" page="Login" />
                 <LoginSection />
-                <Footer />
                 <ModalSearch />
                 <ModalMenu />
                 <Scrollup />
             </div>
         );
     }
-}
+};
 
 export default Login;

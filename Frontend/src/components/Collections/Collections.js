@@ -8,7 +8,7 @@ class Collections extends Component {
   state = {
     data: {},
     collectionData: [],
-    loading: true,
+    loading: true
   };
   componentDidMount() {
     axios
@@ -18,7 +18,7 @@ class Collections extends Component {
         this.setState({
           data: res.data.collectible,
           collectionData: res.data.collectible,
-          loading: false,
+          loading: false
         });
         // console.log(this.state.data)
       })
@@ -95,7 +95,7 @@ class Collections extends Component {
                             <h5 className="mb-2">{item.name}</h5>
                           </a>
                           <span>{"Quantity: " + item.quantity}</span>
-                          <div>Item Price: {item.item_price + " LOUD "}🔥</div>
+                          <div>Item Price: {item.item_price + " LOUD "}</div>
                         </div>
                       </div>
                     </div>

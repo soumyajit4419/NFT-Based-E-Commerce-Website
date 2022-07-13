@@ -1,21 +1,16 @@
 import React from "react";
 
 import Header from "../components/Header/Header";
-import Hero from "../components/Hero/Hero";
-import Categories from "../components/Categories/Categories";
-import Work from "../components/Work/Work";
+import AllProducts from "../components/Products/All_Products";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
 import Scrollup from "../components/Scrollup/Scrollup";
 
-const ThemeOne = () => {
+const AllProduct = (props) => {
   return (
     <div className="main">
       <Header />
-      <Hero />
-      <Categories />
-      <Work />
-      {/* <Collections /> */}
+      <AllProducts />
       <ModalSearch />
       <ModalMenu />
       <Scrollup />
@@ -23,4 +18,4 @@ const ThemeOne = () => {
   );
 };
 
-export default ThemeOne;
+export default AllProduct;

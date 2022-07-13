@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // importing all the themes
 import ThemeOne from "../themes/theme-one";
-import ExploreOne from "../themes/explore-one";
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
 import ExploreFour from "../themes/explore-four";
@@ -12,13 +11,14 @@ import ItemDetails from "../themes/item-details";
 import Activity from "../themes/activity";
 import Blog from "../themes/blog";
 import BlogSingle from "../themes/blog-single";
-import HelpCenter from "../themes/help-center";
 import Authors from "../themes/authors";
 import Author from "../themes/author";
 import WalletConnect from "../themes/wallet-connect";
 import Create from "../themes/create";
 import Login from "../themes/login";
 import Signup from "../themes/signup";
+import Category from "../themes/category";
+import Products from "../themes/all_products";
 import Contact from "../themes/contact";
 import collectible from "../themes/collectible";
 import createmultiple from "../themes/createmultiple";
@@ -39,6 +39,10 @@ class MyRoutes extends React.Component {
             <Route exact path="/" component={ThemeOne} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/category/:category" component={Category} />
+            <Route exact path="/allproducts" component={Products} />
+
+
             <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/featured" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />

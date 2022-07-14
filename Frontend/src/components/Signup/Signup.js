@@ -17,7 +17,7 @@ const customStyles = {
   }
 };
 
-const Signup= () => {
+const Signup = () => {
   const [loading, setLoading] = useState("");
 
   const history = useHistory();
@@ -139,12 +139,12 @@ const Signup= () => {
       localStorage.setItem("token", res.data.token);
       // localStorage.setItem("decoded_values", res.data.decoded_values);
       toast.success("User Registered Successfully!", {
-        position: toast.POSITION.TOP_CENTER
+        position: toast.POSITION.TOP_RIGHT
       });
       history.push("/");
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_CENTER
+        position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
       return;
@@ -280,7 +280,6 @@ const Signup= () => {
       <Modal isOpen={modalIsOpen} style={customStyles}>
         <div class="modal-dialog modal-dialog-centered" id="profilePic">
           <div class="modal-content">
-
             <div class="modal-body justify-content-center flex-column ">
               <AvatarEditor
                 ref={setEditorRef}

@@ -1,79 +1,143 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../logo.png";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
+import { toast } from "react-toastify";
+
+const jwt = require("jsonwebtoken");
+var config = require("../../sectoken");
 
 const Header = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
+  const [validuser, setvaliduser] = useState(false);
   const history = useHistory();
+  let token = localStorage.getItem("token");
 
-  const logout = async () => {
-    if (window.ethereum) {
-      localStorage.clear();
-      history.push("/");
+  useEffect(() => {
+    if (token) {
+      console.log(token);
+      let decoded_token = jwt.decode(token, config.jwt_secret);
+      console.log(decoded_token);
+      if (decoded_token) {
+        setvaliduser(true);
+      } else {
+        setvaliduser(false);
+      }
+    } else {
+      setvaliduser(false);
     }
-  };
+  }, [token]);
 
-  return (
-    <header id="header">
-      {/* Navbar */}
-      <nav
-        data-aos="zoom-out"
-        data-aos-delay={800}
-        className="navbar navbar-expand"
-      >
-        <div className="container header">
-          {/* Navbar Brand*/}
-          <a className="navbar-brand" href="/">
-            <img className="navbar-brand-sticky" src={logo} alt="img" />
-          </a>
-          <div className="ml-auto" />
-          {/* Navbar */}
-          <ul className="navbar-nav items mx-auto">
-            <li className="nav-item dropdown">
-              <a className="nav-link" href="/">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/featured">
-                Categories
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/allproducts">
-                Products
-              </a>
-            </li>
+  if (!validuser) {
+    return (
+      <header id="header">
+        {/* Navbar */}
+        <nav
+          data-aos="zoom-out"
+          data-aos-delay={800}
+          className="navbar navbar-expand"
+        >
+          <div className="container header">
+            {/* Navbar Brand*/}
+            <a className="navbar-brand" href="/">
+              <img className="navbar-brand-sticky" src={logo} alt="img" />
+            </a>
+            <div className="ml-auto" />
+            {/* Navbar */}
+            <ul className="navbar-nav items mx-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link" href="/">
+                  Home
+                </a>
+              </li>
 
-            <li className="nav-item">
-              <Link to="/contact" className="nav-link">
-                My Orders
-              </Link>
-            </li>
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              </li>
 
-            <li className="nav-item">
-              <Link to="/contact" className="nav-link">
-                Cart
-              </Link>
-            </li>
+              <li className="nav-item">
+                <Link to="/signup" className="nav-link">
+                  Signup
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+    );
+  } else {
+    return (
+      <header id="header">
+        {/* Navbar */}
+        <nav
+          data-aos="zoom-out"
+          data-aos-delay={800}
+          className="navbar navbar-expand"
+        >
+          <div className="container header">
+            {/* Navbar Brand*/}
+            <a className="navbar-brand" href="/">
+              <img className="navbar-brand-sticky" src={logo} alt="img" />
+            </a>
+            <div className="ml-auto" />
+            {/* Navbar */}
+            <ul className="navbar-nav items mx-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link" href="/">
+                  Home
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/dashboard">
+                  Dashboard
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/allproducts">
+                  Products
+                </a>
+              </li>
 
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Login
-              </Link>
-            </li>
+              <li className="nav-item">
+                <Link to="/contact" className="nav-link">
+                  My Orders
+                </Link>
+              </li>
 
-            <li className="nav-item">
-              <Link to="/signup" className="nav-link">
-                Signup
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-  );
+              <li className="nav-item">
+                <Link to="/contact" className="nav-link">
+                  Cart
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/profile" className="nav-link">
+                  My Profile
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  to="/"
+                  className="nav-link"
+                  onClick={() => {
+                    localStorage.clear();
+                    history.push("/");
+                    toast.success("You Logged Out Successfully", {
+                      position: toast.POSITION.TOP_RIGHT
+                    });
+                  }}
+                >
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+    );
+  }
 };
 
 export default Header;

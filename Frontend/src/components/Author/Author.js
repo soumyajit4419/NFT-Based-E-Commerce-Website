@@ -1,5 +1,5 @@
 import React, { lazy, Suspense} from 'react';
-import AuthorProfile from '../AuthorProfile/AuthorProfile';
+import AuthorProfile from '../UserProfile/UserProfile';
 import Explore from '../Explore/ExploreSix';
 
 // const AuthorProfile = lazy(() => import("../AuthorProfile/AuthorProfile"));

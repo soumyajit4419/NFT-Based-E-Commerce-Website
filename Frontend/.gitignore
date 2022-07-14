@@ -27,3 +27,5 @@ yarn-error.log*
 .idea/
 
 package-lock.json
+
+src/sectoken.js

@@ -1,23 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router";
 
 const Category = (props) => {
   const category = props.category;
 
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/api/category_products", {
-        params: { category: category }
+        params: { category: category },
+        headers: {
+          Authorization: "Bearer " + token
+        }
       })
       .then((res) => {
         setproducts(res.data.products);
         setloading(false);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        setloading(false);
+        toast.error(`${err.response.data.message}`, {
+          position: toast.POSITION.TOP_RIGHT
+        });
+        history.push("/");
       });
   }, [category]);
 

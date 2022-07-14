@@ -16,7 +16,7 @@ const Login = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_RIGHT
         }
       );
       setLoading(false);
@@ -35,13 +35,13 @@ const Login = () => {
 
       console.log(res);
       localStorage.setItem("token", res.data.token);
-      toast.success("User Logged In Successfully!", {
-        position: toast.POSITION.TOP_CENTER
+      toast.success("You Logged In Successfully!", {
+        position: toast.POSITION.TOP_RIGHT
       });
       history.push("/");
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_CENTER
+        position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
       return;

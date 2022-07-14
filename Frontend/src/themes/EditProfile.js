@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AuthorProfile from "../components/AuthorProfile/AuthorProfile";
+import AuthorProfile from "../components/UserProfile/UserProfile";
 import Web3 from "web3";
 import { contractAbi } from "../abi";
 import axios from "axios";

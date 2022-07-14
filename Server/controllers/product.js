@@ -83,7 +83,7 @@ exports.each_category_products = async (req, res) => {
 
 exports.each_product = async (req, res) => {
   try {
-    var productid = req.params.productid;
+    var productid = req.query.productid;
 
     var product = await product_model.findOne({ product_id: productid });
 

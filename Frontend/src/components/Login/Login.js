@@ -44,6 +44,7 @@ const Login = () => {
         position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
+      history.push("/");
       return;
     }
   };

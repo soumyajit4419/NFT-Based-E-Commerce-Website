@@ -44,18 +44,16 @@ const Header = () => {
             <div className="ml-auto" />
             {/* Navbar */}
             <ul className="navbar-nav items mx-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link" href="/">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">
                   Home
-                </a>
+                </Link>
               </li>
-
               <li className="nav-item">
                 <Link to="/login" className="nav-link">
                   Login
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link to="/signup" className="nav-link">
                   Signup
@@ -83,20 +81,20 @@ const Header = () => {
             <div className="ml-auto" />
             {/* Navbar */}
             <ul className="navbar-nav items mx-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link" href="/">
+              <li className="nav-item ">
+                <Link to="/" className="nav-link">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/dashboard">
+                <Link to="/dashboard" className="nav-link">
                   Dashboard
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/allproducts">
+                <Link to="/allproducts" className="nav-link">
                   Products
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">

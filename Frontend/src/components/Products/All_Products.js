@@ -59,11 +59,11 @@ const Products = () => {
                 <a
                   key={`cd_${idx}`}
                   className="col-12 col-sm-6 col-lg-3 item"
-                  href={`/collectibles/`}
+                  href={`/product/${item.product_id}`}
                 >
                   <div className="card hover text-center">
                     <div className="image-over">
-                      <a href={`/collectibles/`}>
+                      <a href={`/product/${item.product_id}`}>
                         <img
                           className="card-img-top"
                           src={item.product_image}
@@ -75,7 +75,7 @@ const Products = () => {
                     <div className="card-caption col-12 p-0">
                       {/* Card Body */}
                       <div className="card-body mt-4">
-                        <a href={`/collectibles/`}>
+                        <a href={`/product/${item.product_id}`}>
                           <h5 className="mb-2">{item.product_name}</h5>
                         </a>
                         <span>{"Quantity: " + item.product_quantity}</span>

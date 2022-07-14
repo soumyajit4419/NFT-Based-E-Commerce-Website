@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 var cors = require("cors");
 const mongoConnect = require("./util/database");
 const fs = require("fs");
-const userroutes = require("./routes/userroutes");
+const userroutes = require("./routes/userRoutes");
 
 const app = express();
 app.use(cors());

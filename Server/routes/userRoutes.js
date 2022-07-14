@@ -15,14 +15,12 @@ app.route("/user").get(user.get_user);
 // product routes
 app.route("/add_product").post(product.add_products);
 
-app.route("/all_products").get(verify.verify, product.get_all_products);
+app.route("/all_products").get(product.get_all_products);
 
-app.route("/all_category").get(verify.verify, product.get_all_categories);
+app.route("/all_category").get(product.get_all_categories);
 
-app
-  .route("/category_products")
-  .get(verify.verify, product.each_category_products);
+app.route("/category_products").get(product.each_category_products);
 
-app.route("/product").get(verify.verify, product.each_product);
+app.route("/product").get(product.each_product);
 
 module.exports = app;

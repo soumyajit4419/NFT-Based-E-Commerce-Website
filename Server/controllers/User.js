@@ -145,3 +145,33 @@ exports.login = async (req, res) => {
     });
   }
 };
+
+exports.get_user = async (req, res) => {
+  try {
+    const id = req.query.userid;
+
+    if (!id) {
+      return res.status(400).json({
+        message: `Please Enter the User ID`
+      });
+    }
+
+    var data = await user_model.findById(id);
+
+    if (data.length == 0) {
+      return res.status(400).json({
+        message: `User not registered not found, Please Register`
+      });
+    } else {
+      return res.status(200).json({
+        message: "User details fetched Successfully",
+        user: data
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: `Some Error Occured`,
+      error: `${error.name}, ${error.message}, ${error.stack}`
+    });
+  }
+};

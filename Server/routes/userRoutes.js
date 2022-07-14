@@ -23,6 +23,6 @@ app
   .route("/category_products")
   .get(verify.verify, product.each_category_products);
 
-app.route("/product/:productid").get(verify.verify, product.each_product);
+app.route("/product").get(verify.verify, product.each_product);
 
 module.exports = app;

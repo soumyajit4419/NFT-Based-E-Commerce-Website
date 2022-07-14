@@ -13,11 +13,12 @@ import Signup from "../themes/signup";
 import Userprofile from "../themes/user_profile";
 import Category from "../themes/category";
 import Products from "../themes/all_products";
+import ProductDetails from "../themes/productdetails";
 
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
 import ExploreFour from "../themes/explore-four";
-import ItemDetails from "../themes/item-details";
+
 import Authors from "../themes/authors";
 import Author from "../themes/author";
 import WalletConnect from "../themes/wallet-connect";
@@ -120,35 +121,38 @@ const MyRoutes = () => {
               component={Products}
               isAuthenticated={validuser}
             />
+            <PrivateRoute
+              exact
+              path="/product/:productid"
+              component={ProductDetails}
+              isAuthenticated={validuser}
+            />
 
-            {/* <Route exact path="/explore-2" component={ExploreTwo} />
-              <Route exact path="/featured" component={ExploreThree} />
-              <Route exact path="/explore-4" component={ExploreFour} />
-              <Route
-                exact
-                path="/item-details/:token_id"
-                component={ItemDetails}
-              />
-              <Route exact path="/help-center" component={HowItWorks} />
-              <Route exact path="/artists" component={Authors} />
-              <Route exact path="/artist/:wallet_address" component={Author} />
-              <Route exact path="/wallet-connect" component={WalletConnect} />
-              <Route exact path="/create-single" component={Create} />
-  
-              <Route exact path="/contact" component={Contact} />
-              <Route
-                exact
-                path="/artist/:wallet_address/edit-profile"
-                component={EditProfile}
-              />
-  
-              <Route exact path="/create-multiple" component={createmultiple} />
-              <Route exact path="/create" component={collectible} />
-              <Route
-                exact
-                path="/collectibles/:token_id"
-                component={collectibleDetails}
-              /> */}
+
+            <Route exact path="/explore-2" component={ExploreTwo} />
+            <Route exact path="/featured" component={ExploreThree} />
+            <Route exact path="/explore-4" component={ExploreFour} />
+
+            <Route exact path="/help-center" component={HowItWorks} />
+            <Route exact path="/artists" component={Authors} />
+            <Route exact path="/artist/:wallet_address" component={Author} />
+            <Route exact path="/wallet-connect" component={WalletConnect} />
+            <Route exact path="/create-single" component={Create} />
+
+            <Route exact path="/contact" component={Contact} />
+            <Route
+              exact
+              path="/artist/:wallet_address/edit-profile"
+              component={EditProfile}
+            />
+
+            <Route exact path="/create-multiple" component={createmultiple} />
+            <Route exact path="/create" component={collectible} />
+            <Route
+              exact
+              path="/collectibles/:token_id"
+              component={collectibleDetails}
+            />
             <Route exact path="*" component={Error} />
           </Switch>
         </Router>

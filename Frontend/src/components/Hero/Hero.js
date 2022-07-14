@@ -50,10 +50,7 @@ class Hero extends Component {
               <p>{this.state.data.content}</p>
               {/* Buttons */}
               <div className="button-group">
-                <a className="btn btn-bordered-white" href="/featured">
-                  <i className="icon-rocket mr-2" />
-                  {this.state.data.btn_1}
-                </a>
+ 
                 {localStorage.getItem("wallet") && this.state.isVerified && (
                   <a className="btn btn-bordered-white" href="/create">
                     <i className="icon-note mr-2" />

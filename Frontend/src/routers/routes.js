@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 // importing all the themes
 import Home from "../themes/home";
@@ -35,7 +35,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const jwt = require("jsonwebtoken");
-var config = require("../sectoken");
 
 const PrivateRoute = (privateRouteProps) => {
   const { isAuthenticated, component: Component, path } = privateRouteProps;
@@ -51,8 +50,8 @@ const PrivateRoute = (privateRouteProps) => {
             to={{
               pathname: "/login",
               state: {
-                from: props.location
-              }
+                from: props.location,
+              },
             }}
           />
         );
@@ -65,11 +64,11 @@ const MyRoutes = () => {
   const [validuser, setvaliduser] = useState(false);
   const [loading, setloading] = useState(true);
 
-  let token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (token) {
-      let decoded_token = jwt.decode(token, config.jwt_secret);
+      let decoded_token = jwt.decode(token, process.env.REACT_APP_JWT_SECRET);
       if (decoded_token) {
         setvaliduser(true);
         setloading(false);
@@ -101,33 +100,19 @@ const MyRoutes = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <PrivateRoute
-              path="/dashboard"
-              component={Dashboard}
-              isAuthenticated={validuser}
-            />
+            <Route path="/dashboard" component={Dashboard} />
             <PrivateRoute
               path="/profile"
               component={Userprofile}
               isAuthenticated={validuser}
             />
-            <PrivateRoute
-              path="/category/:category"
-              component={Category}
-              isAuthenticated={validuser}
-            />
-            <PrivateRoute
-              path="/allproducts"
-              component={Products}
-              isAuthenticated={validuser}
-            />
-            <PrivateRoute
+            <Route path="/category/:category" component={Category} />
+            <Route path="/allproducts" component={Products} />
+            <Route
               exact
               path="/product/:productid"
               component={ProductDetails}
-              isAuthenticated={validuser}
             />
-
 
             <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/featured" component={ExploreThree} />

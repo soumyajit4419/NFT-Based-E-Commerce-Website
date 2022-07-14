@@ -68,7 +68,8 @@
   --h6-weight: 600;
   --p-size: 1rem;
   --p-weight: 400;
-  --header-bg-color: #121117;
+  /* --header-bg-color: #121117; */
+  --header-bg-color: #283544;
   --nav-brand-height: 55px;
   --top-nav-item-color: #f5f5f5;
   --nav-item-color: #121117;
@@ -88,12 +89,12 @@
   --valid-color: #007a4d;
   --invalid-color: #e34f4f;
   --primary-bg-color: #09080d;
-  --primary-bg-color-2: #eeeeee;
+  --primary-bg-color-2: #f6f6f6;
   --primary-bg-color-3: #e5e5e5;
   --secondary-bg-color: #040402;
   --secondary-bg-color-2: #111111;
   --secondary-bg-color-3: #191919;
-  --card-bg-color: #16151a;
+  --card-bg-color: #ffffff;
   --footer-bg-color: #121117;
 }
 
@@ -212,7 +213,7 @@ html {
 body {
   font-family: var(--secondary-font);
   color: var(--primary-p-color);
-  background-color: var(--primary-bg-color);
+  background-color: var(--primary-bg-color-2);
 }
 
 body.odd {
@@ -644,7 +645,7 @@ td {
 /* #region Section */
 section {
   width: 100%;
-  padding: 130px 0;
+  padding: 60px 0;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -1300,6 +1301,7 @@ aside {
 header {
   position: relative;
   z-index: 999;
+  background-color: var(--header-bg-color);
 }
 
 header .navbar-sticky {
@@ -1326,8 +1328,9 @@ header .navbar-expand {
   top: 0;
   z-index: 2;
   width: 100%;
-  padding: 20px 25px;
+  padding: 10px 20px;
   pointer-events: initial;
+  background-color: var(--header-bg-color);
 }
 
 header .navbar-expand.relative {
@@ -1701,7 +1704,8 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 }
 
 .items .item {
-  margin-top: 30px;
+  margin-top: 6px;
+  padding: 4px;
 }
 
 .clip-text,
@@ -1735,17 +1739,21 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   column-gap: 30px;
 }
 
+.product-all-items {
+  padding: 40px;
+}
 .card-columns .card {
   margin-bottom: 30px;
 }
 
 .card {
-  padding: 1.5rem;
-  border: none;
-  border-radius: 8px;
+  padding: 0.5rem;
+  border: 1px solid #d1d1d199;
+  border-radius: 12px;
+  height: 100%;
   background-color: var(--card-bg-color);
-  -webkit-box-shadow: 0 3px 20px 0px var(--primary-l-color);
-  box-shadow: 0 3px 20px 0px var(--primary-l-color);
+  /* -webkit-box-shadow: 0 3px 20px 0px var(--primary-l-color); */
+  /* box-shadow: 0 3px 20px 0px var(--primary-l-color); */
   -webkit-transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
   transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
   -webkit-transition-duration: 0.3s;
@@ -1760,8 +1768,9 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   border-radius: 6px;
   height: auto;
   width: auto;
-  max-width: 200px;
-  max-height: 300px;
+  /* max-width: 200px; */
+  max-height: 200px;
+  padding: 12px;
 }
 
 .card .card-body {
@@ -1769,7 +1778,8 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 35px 0 0;
+  padding: 20px 0 0;
+  color: #191f23 !important;
 }
 
 .card .card-body h3,
@@ -1777,6 +1787,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .card .card-body h5,
 .card .card-body h6 {
   margin-top: 0;
+  color: #191f23 !important;
 }
 
 .card .card-body .card-bottom span {
@@ -2953,7 +2964,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 }
 
 .modal-content {
-  background-color: var(--primary-bg-color);
+  background-color: var(--header-bg-color);
   border: none;
   border-radius: 0;
   overflow-x: hidden;
@@ -3111,7 +3122,15 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 13. All Media Queries
 ----------------------------------------------*/
 /* #region All Media Queries */
+
 @media (max-width: 1199px) {
+
+  .product-all-items {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 767px) {
   /* #region Section */
   body .container {
     padding: 0 10px;
@@ -3133,6 +3152,9 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   /* #region Feature */
   body .card-footer {
     margin: 0;
+  }
+  .product-all-items {
+    padding: 20px;
   }
   /* #endregion Feature */
 }
@@ -3159,6 +3181,9 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   /* #region Feature */
   body .res-margin {
     margin-bottom: 30px;
+  }
+  .product-all-items {
+    padding: 10px;
   }
   /* #endregion Feature */
 }
@@ -3231,6 +3256,9 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   }
   body .footer-area .items .item {
     margin-bottom: 30px;
+  }
+  .product-all-items {
+    padding: 0px;
   }
   /* #endregion Footer */
 }

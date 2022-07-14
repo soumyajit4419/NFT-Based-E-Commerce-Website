@@ -25,7 +25,6 @@ yarn-error.log*
 .vercel
 
 .idea/
-
+.env
 package-lock.json
 
-src/sectoken.js

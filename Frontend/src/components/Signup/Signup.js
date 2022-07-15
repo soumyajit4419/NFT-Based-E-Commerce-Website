@@ -163,17 +163,17 @@ const Signup = () => {
         </div>
       ) : (
         <>
-          <div className="container" style = {{ marginTop: "35px" }}>
+          <div className="container" style={{ marginTop: "55px" }}>
             <div className="row justify-content-center">
               <div className="col-12 col-md-7">
                 <div className="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
                   <div className="intro text-center">
-                    <h3 className="mt-3 mb-0">Register Yourselves</h3>
+                    <h3 className="mt-3 mb-0">Register</h3>
                   </div>
                 </div>
 
                 <form
-                  className="item-form card no-hover"
+                  className="item-form card-1 no-hover"
                   style={{ marginTop: "-35px" }}
                 >
                   <div className="row">

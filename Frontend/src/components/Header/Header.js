@@ -23,7 +23,6 @@ const Header = () => {
       })
       .catch((err) => {
         setvaliduser(false);
-        localStorage.clear();
       });
   }, [token]);
 

@@ -1746,13 +1746,31 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   margin-bottom: 30px;
 }
 
-.card {
+.card-1 {
   padding: 0.5rem;
   border: 1px solid #d1d1d199;
   border-radius: 12px;
   background-color: var(--card-bg-color);
   /* -webkit-box-shadow: 0 3px 20px 0px var(--primary-l-color); */
   /* box-shadow: 0 3px 20px 0px var(--primary-l-color); */
+  -webkit-transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+}
+
+.card {
+  padding: 0.5rem;
+  border: 1px solid #d1d1d199;
+  border-radius: 12px;
+  height:100%;
+  background-color: var(--card-bg-color);
+  -webkit-box-shadow: 0 3px 20px 0px var(--primary-l-color);
+  box-shadow: 0 3px 20px 0px var(--primary-l-color);
   -webkit-transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
   transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
   -webkit-transition-duration: 0.3s;
@@ -1823,6 +1841,13 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   -webkit-box-shadow: none;
   box-shadow: none;
   border:3px solid rgba(25, 31, 35, .6);
+}
+
+.card-1.no-hover {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border:3px solid rgba(25, 31, 35, .6);  
 }
 
 .card.no-hover:hover {

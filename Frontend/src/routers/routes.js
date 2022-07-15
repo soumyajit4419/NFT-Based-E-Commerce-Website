@@ -6,6 +6,7 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
+import { useHistory } from "react-router";
 // importing all the themes
 import Home from "../themes/home";
 import Dashboard from "../themes/dashboard";
@@ -63,7 +64,7 @@ const PrivateRoute = (privateRouteProps) => {
 
 const MyRoutes = () => {
   const [validuser, setvaliduser] = useState(false);
-  const [loading, setloading] = useState("");
+  const [loading, setloading] = useState(true);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -80,22 +81,21 @@ const MyRoutes = () => {
       })
       .catch((err) => {
         console.log(err);
-        setvaliduser(false);
         setloading(false);
-        localStorage.clear();
+        setvaliduser(false);
       });
   }, [token]);
 
-  console.log(validuser)
-
   if (loading) {
-    <div style={{ height: "60vh" }}>
-      <center>
-        <div class="fa-3x mt-5 pt-5">
-          <i class="fas fa-spinner fa-spin"></i>
-        </div>
-      </center>
-    </div>;
+    return (
+      <div style={{ height: "60vh" }}>
+        <center>
+          <div class="fa-3x mt-5 pt-5">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+        </center>
+      </div>
+    );
   } else {
     return (
       <div>

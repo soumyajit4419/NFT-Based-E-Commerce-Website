@@ -13,8 +13,8 @@ const Products = () => {
     axios
       .get("http://localhost:5000/api/all_products", {
         headers: {
-          Authorization: "Bearer " + token,
-        },
+          Authorization: "Bearer " + token
+        }
       })
       .then((res) => {
         setproducts(res.data.products);
@@ -23,7 +23,7 @@ const Products = () => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         });
         history.push("/");
       });
@@ -68,7 +68,7 @@ const Products = () => {
                         height: "200px",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
+                        justifyContent: "center"
                       }}
                     >
                       <img
@@ -88,7 +88,7 @@ const Products = () => {
                               opacity: 0.6,
                               fontWeight: 400,
                               textAlign: "left",
-                              padding: "0 6px",
+                              padding: "0 6px"
                             }}
                           >
                             {item.product_name.substr(0, 45) ===
@@ -104,7 +104,7 @@ const Products = () => {
                               fontWeight: 600,
                               textAlign: "left",
                               padding: "4px 6px",
-                              margin: "8px 0",
+                              margin: "8px 0"
                             }}
                           >
                             {" "}

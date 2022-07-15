@@ -32,13 +32,15 @@ const Login = () => {
           password: password
         }
       });
-
       // console.log(res);
       localStorage.setItem("token", res.data.token);
+
       toast.success("You Logged In Successfully!", {
         position: toast.POSITION.TOP_RIGHT
       });
-      window.location = "/";
+      setTimeout(() => {
+        window.location = "/";
+      }, 1000);
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT
@@ -60,7 +62,7 @@ const Login = () => {
         </div>
       ) : (
         <>
-          <div className="container" style = {{ marginTop: "70px" }}>
+          <div className="container" style={{ marginTop: "100px" }}>
             <div className="row justify-content-center">
               <div className="col-12 col-md-8 col-lg-7">
                 {/* Intro */}
@@ -68,7 +70,7 @@ const Login = () => {
                   <h3 className="mt-3 mb-0">Login to your Account</h3>
                 </div>
                 {/* Item Form */}
-                <form className="item-form card no-hover">
+                <form className="item-form card-1 no-hover">
                   <div className="row">
                     <div className="col-12">
                       <div className="form-group mt-3">

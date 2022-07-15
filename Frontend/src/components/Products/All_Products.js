@@ -78,7 +78,7 @@ const Products = () => {
                       />
                     </div>
                     {/* Card Caption */}
-                    <div className="card-caption col-12 p-0">
+                    <div className="card-caption p-0">
                       {/* Card Body */}
                       <div className="card-body">
                         <div>

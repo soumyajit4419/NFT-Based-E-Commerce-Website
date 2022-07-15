@@ -3,8 +3,7 @@ import logo from "../../logo.png";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
-
-const jwt = require("jsonwebtoken");
+import axios from "axios";
 
 const Header = () => {
   const [validuser, setvaliduser] = useState(false);
@@ -12,18 +11,20 @@ const Header = () => {
   let token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (token) {
-      console.log(token);
-      const decoded_token = jwt.decode(token, process.env.REACT_APP_JWT_SECRET);
-      console.log(decoded_token);
-      if (decoded_token) {
+    axios
+      .get("http://localhost:5000/api/valid_user", {
+        params: {
+          token: token
+        }
+      })
+      .then((res) => {
+        // console.log(res);
         setvaliduser(true);
-      } else {
+      })
+      .catch((err) => {
         setvaliduser(false);
-      }
-    } else {
-      setvaliduser(false);
-    }
+        localStorage.clear();
+      });
   }, [token]);
 
   return (
@@ -77,7 +78,7 @@ const Header = () => {
                         localStorage.clear();
                         history.push("/");
                         toast.success("You Logged Out Successfully", {
-                          position: toast.POSITION.TOP_RIGHT,
+                          position: toast.POSITION.TOP_RIGHT
                         });
                       }}
                     >

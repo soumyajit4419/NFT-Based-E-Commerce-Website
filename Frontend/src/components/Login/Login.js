@@ -33,18 +33,17 @@ const Login = () => {
         }
       });
 
-      console.log(res);
+      // console.log(res);
       localStorage.setItem("token", res.data.token);
       toast.success("You Logged In Successfully!", {
         position: toast.POSITION.TOP_RIGHT
       });
-      history.push("/");
+      window.location = "/";
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
-      history.push("/");
       return;
     }
   };
@@ -61,12 +60,11 @@ const Login = () => {
         </div>
       ) : (
         <>
-          <div className="container">
+          <div className="container" style = {{ marginTop: "70px" }}>
             <div className="row justify-content-center">
               <div className="col-12 col-md-8 col-lg-7">
                 {/* Intro */}
                 <div className="intro text-center">
-                  <span>Login</span>
                   <h3 className="mt-3 mb-0">Login to your Account</h3>
                 </div>
                 {/* Item Form */}

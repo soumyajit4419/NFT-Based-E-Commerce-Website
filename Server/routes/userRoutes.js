@@ -12,6 +12,8 @@ app.route("/login").post(user.login);
 
 app.route("/user").get(user.get_user);
 
+app.route("/valid_user").get(verify.valid_user);
+
 // product routes
 app.route("/add_product").post(product.add_products);
 

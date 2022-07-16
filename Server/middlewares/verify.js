@@ -31,3 +31,25 @@ exports.verify = async (req, res, next) => {
       .json({ error: `${error.name}, ${error.message}, ${error.stack}` });
   }
 };
+
+exports.valid_user = async (req, res, next) => {
+  try {
+    const token = req.query.token;
+
+    jwt.verify(token, config.jwt_secret, (err, user) => {
+      if (err) {
+        return res.status(400).json({
+          message: "Invalid token or token expired"
+        });
+      } else {
+        return res.status(200).json({
+          message: "Valid Token"
+        });
+      }
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: `${error.name}, ${error.message}, ${error.stack}` });
+  }
+};

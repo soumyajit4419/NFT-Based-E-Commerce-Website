@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  Redirect
 } from "react-router-dom";
+import { useHistory } from "react-router";
 // importing all the themes
 import Home from "../themes/home";
 import Dashboard from "../themes/dashboard";
@@ -50,8 +52,8 @@ const PrivateRoute = (privateRouteProps) => {
             to={{
               pathname: "/login",
               state: {
-                from: props.location,
-              },
+                from: props.location
+              }
             }}
           />
         );
@@ -63,27 +65,30 @@ const PrivateRoute = (privateRouteProps) => {
 const MyRoutes = () => {
   const [validuser, setvaliduser] = useState(false);
   const [loading, setloading] = useState(true);
-
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (token) {
-      let decoded_token = jwt.decode(token, process.env.REACT_APP_JWT_SECRET);
-      if (decoded_token) {
+    axios
+      .get("http://localhost:5000/api/valid_user", {
+        params: {
+          token: token
+        }
+      })
+      .then((res) => {
+        console.log(res);
         setvaliduser(true);
         setloading(false);
-      } else {
-        setvaliduser(false);
+      })
+      .catch((err) => {
+        console.log(err);
         setloading(false);
-      }
-    } else {
-      setloading(false);
-    }
+        setvaliduser(false);
+      });
   }, [token]);
 
   if (loading) {
     return (
-      <div style={{ height: "80vh" }}>
+      <div style={{ height: "60vh" }}>
         <center>
           <div class="fa-3x mt-5 pt-5">
             <i class="fas fa-spinner fa-spin"></i>
@@ -114,30 +119,30 @@ const MyRoutes = () => {
               component={ProductDetails}
             />
 
-            <Route exact path="/explore-2" component={ExploreTwo} />
-            <Route exact path="/featured" component={ExploreThree} />
-            <Route exact path="/explore-4" component={ExploreFour} />
-
-            <Route exact path="/help-center" component={HowItWorks} />
-            <Route exact path="/artists" component={Authors} />
-            <Route exact path="/artist/:wallet_address" component={Author} />
-            <Route exact path="/wallet-connect" component={WalletConnect} />
-            <Route exact path="/create-single" component={Create} />
-
-            <Route exact path="/contact" component={Contact} />
-            <Route
-              exact
-              path="/artist/:wallet_address/edit-profile"
-              component={EditProfile}
-            />
-
-            <Route exact path="/create-multiple" component={createmultiple} />
-            <Route exact path="/create" component={collectible} />
-            <Route
-              exact
-              path="/collectibles/:token_id"
-              component={collectibleDetails}
-            />
+            {/* <Route exact path="/explore-2" component={ExploreTwo} />
+              <Route exact path="/featured" component={ExploreThree} />
+              <Route exact path="/explore-4" component={ExploreFour} />
+  
+              <Route exact path="/help-center" component={HowItWorks} />
+              <Route exact path="/artists" component={Authors} />
+              <Route exact path="/artist/:wallet_address" component={Author} />
+              <Route exact path="/wallet-connect" component={WalletConnect} />
+              <Route exact path="/create-single" component={Create} />
+  
+              <Route exact path="/contact" component={Contact} />
+              <Route
+                exact
+                path="/artist/:wallet_address/edit-profile"
+                component={EditProfile}
+              />
+  
+              <Route exact path="/create-multiple" component={createmultiple} />
+              <Route exact path="/create" component={collectible} />
+              <Route
+                exact
+                path="/collectibles/:token_id"
+                component={collectibleDetails}
+              /> */}
             <Route exact path="*" component={Error} />
           </Switch>
         </Router>

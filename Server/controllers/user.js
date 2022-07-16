@@ -9,7 +9,8 @@ const saltRounds = 10;
 
 exports.register = async (req, res) => {
   try {
-    var { name, email, password, profile_image, wallet_address } = req.body;
+    var { name, email, password, profile_image, wallet_address, phone } =
+      req.body;
 
     if (!name) {
       return res.status(400).json({
@@ -27,6 +28,10 @@ exports.register = async (req, res) => {
       return res.status(400).json({
         message: "Please enter the Wallet Address"
       });
+    } else if (!phone) {
+      return res.status(400).json({
+        message: "Please enter a Phone Number"
+      });
     }
 
     profile_image = req.body.profile_image || "";
@@ -38,6 +43,7 @@ exports.register = async (req, res) => {
     const usermodel = new user_model({
       name: name,
       email: email,
+      phone_number: phone,
       password: hashedPassword,
       profile_image: profile_image,
       wallet_address: wallet_address,

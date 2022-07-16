@@ -29,6 +29,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [wallet_address, setWallet_address] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [scale, setScale] = useState(1);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -122,15 +123,23 @@ const Signup = () => {
       );
       setLoading(false);
       return;
+    } else if (!phone.match("[0-9]{10}")) {
+      toast.error("Please provide a valid Phone Number!", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      setLoading(false);
+      return;
     }
 
     try {
+      console.log(phone);
       var res = await axios({
         method: "POST",
         url: "http://localhost:5000/api/register",
         data: {
           name: profileName,
           email: email,
+          phone: phone,
           profile_image: profileImage,
           password: password,
           wallet_address: wallet_address
@@ -147,7 +156,6 @@ const Signup = () => {
         position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
-      return;
     }
   };
 
@@ -233,6 +241,18 @@ const Signup = () => {
                           placeholder="Email"
                           required
                           onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="price"
+                          placeholder="Phone Number"
+                          required
+                          onChange={(e) => setPhone(e.target.value)}
                         />
                       </div>
                     </div>

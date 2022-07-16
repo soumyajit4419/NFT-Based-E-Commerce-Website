@@ -57,6 +57,11 @@ const Header = () => {
                 Products
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/faq" className="nav-link">
+                FAQ
+              </Link>
+            </li>
 
             {validuser && (
               <li className="nav-item dropdown">

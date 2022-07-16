@@ -11,6 +11,9 @@ const user = new Schema({
   password: {
     type: String
   },
+  phone_number: {
+    type: String
+  },
   profile_image: {
     type: String
   },

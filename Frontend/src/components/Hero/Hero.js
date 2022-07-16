@@ -40,9 +40,9 @@ class Hero extends Component {
     });
   }
   render() {
-    return (
+    return ( 
       <section className="hero-section">
-        <div className="container">
+        <div className="container" style={{ marginTop: "100px" }}>
           <div className="row">
             <div className="col-12 col-md-6 col-lg-7">
               <span>{this.state.data.pre_heading}</span>

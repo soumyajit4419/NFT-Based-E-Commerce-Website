@@ -25,3 +25,5 @@ yarn-error.log*
 swagger_output.json
 
 config.js
+
+.env

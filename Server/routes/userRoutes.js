@@ -11,7 +11,7 @@ app.route("/register").post(user.register);
 
 app.route("/login").post(user.login);
 
-app.route("/user").get(user.get_user);
+app.route("/user").get(verify.verify, user.get_user);
 
 app.route("/valid_user").get(verify.valid_user);
 

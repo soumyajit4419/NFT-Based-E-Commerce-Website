@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 
 const ProductDetail = (props) => {
   const productid = props.productid;
-  console.log(productid);
+  // console.log(productid);
   const [loading, setloading] = useState(false);
   const [product, setproduct] = useState({});
   const history = useHistory();
@@ -13,13 +13,9 @@ const ProductDetail = (props) => {
   const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/api/product", {
-        params: { productid: productid },
-        headers: {
-          Authorization: "Bearer " + token
-        }
+        params: { productid: productid }
       })
       .then((res) => {
         setproduct(res.data.product);
@@ -79,7 +75,6 @@ const ProductDetail = (props) => {
                       <h6 className="ml-2">Owned By</h6> */}
                   {/* </a> */}
                 </div>
-
                 <div className="item-info-list mt-4">
                   <ul className="list-unstyled">
                     <li className="price d-flex justify-content-between">
@@ -88,12 +83,12 @@ const ProductDetail = (props) => {
                     <span>Quantity: {product.product_quantity}</span>
                   </ul>
                 </div>
-                <br/>  <br/>
+                <br /> <br />
                 <div className="row items">
                   <div className="col-12  item px-lg-4">
                     <div className=" align-items-center">
                       <div className="d-block btn btn-bordered-white ml-5">
-                        <a href={`/artist/`}>BUY NOW</a>
+                        <a href={`/payment/${productid}`}>BUY NOW</a>
                       </div>
                     </div>
                   </div>

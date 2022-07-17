@@ -55,7 +55,8 @@ function Reference() {
           );
         }
       }
-    );
+    )
+    // .on("receipt", receipt => console.log("receipt", receipt));
   }
 
   useEffect(() => {

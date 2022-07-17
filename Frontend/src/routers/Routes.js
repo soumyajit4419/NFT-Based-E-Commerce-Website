@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  Redirect
 } from "react-router-dom";
 import { useHistory } from "react-router";
 // importing all the themes
@@ -52,8 +52,8 @@ const PrivateRoute = (privateRouteProps) => {
             to={{
               pathname: "/login",
               state: {
-                from: props.location,
-              },
+                from: props.location
+              }
             }}
           />
         );
@@ -71,16 +71,16 @@ const Routes = () => {
     axios
       .get("http://localhost:5000/api/valid_user", {
         params: {
-          token: token,
-        },
+          token: token
+        }
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setvaliduser(true);
         setloading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setloading(false);
         setvaliduser(false);
       });
@@ -106,7 +106,11 @@ const Routes = () => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/payment" component={Payment} />
+            <PrivateRoute
+              path="/payment/:productid"
+              component={Payment}
+              isAuthenticated={validuser}
+            />
             <PrivateRoute
               path="/profile"
               component={Userprofile}
@@ -121,7 +125,7 @@ const Routes = () => {
             />
             <Route exact path="/faq" component={Faq} />
 
-            <Route exact path="/explore-2" component={ExploreTwo} />
+            {/* <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/featured" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />
 
@@ -143,7 +147,7 @@ const Routes = () => {
               exact
               path="/collectibles/:token_id"
               component={collectibleDetails}
-            />
+            /> */}
             <Route exact path="*" component={Error} />
           </Switch>
         </Router>

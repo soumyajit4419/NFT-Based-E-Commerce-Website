@@ -10,11 +10,11 @@ const customStyles = {
   content: {
     border: "none",
     background: "rgb(255 255 255 / 0%)",
-    overflow: "hidden",
+    overflow: "hidden"
   },
   overlay: {
-    backgroundColor: "#2a2a2ac9",
-  },
+    backgroundColor: "#2a2a2ac9"
+  }
 };
 
 const Signup = () => {
@@ -31,7 +31,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [scale, setScale] = useState(1);
-  const [isLoginPage, setLoginPage] = useState(false);
+  const [isLoginPage, setLoginPage] = useState(true);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -119,14 +119,14 @@ const Signup = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         }
       );
       setLoading(false);
       return;
     } else if (!phone.match("[0-9]{10}")) {
       toast.error("Please provide a valid Phone Number!", {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
       return;
@@ -143,17 +143,18 @@ const Signup = () => {
           phone: phone,
           profile_image: profileImage,
           password: password,
-          wallet_address: wallet_address,
-        },
+          wallet_address: wallet_address
+        }
       });
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("User Registered Successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_RIGHT
       });
       history.push("/");
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
     }
@@ -166,7 +167,7 @@ const Signup = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         }
       );
       setLoading(false);
@@ -179,21 +180,21 @@ const Signup = () => {
         url: "http://localhost:5000/api/login",
         data: {
           email: email,
-          password: password,
-        },
+          password: password
+        }
       });
       // console.log(res);
       localStorage.setItem("token", res.data.token);
-
+      localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("You Logged In Successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_RIGHT
       });
       setTimeout(() => {
         window.location = "/";
       }, 1000);
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_RIGHT
       });
       setLoading(false);
       return;
@@ -322,7 +323,7 @@ const Signup = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            margin: "auto",
+                            margin: "auto"
                           }}
                         >
                           <i className="fas fa-spinner fa-spin"></i>

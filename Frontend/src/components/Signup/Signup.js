@@ -147,7 +147,7 @@ const Signup = () => {
         }
       });
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user_id", res.data.decoded_values._id);
+      // localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("User Registered Successfully!", {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -185,7 +185,7 @@ const Signup = () => {
       });
       // console.log(res);
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user_id", res.data.decoded_values._id);
+      // localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("You Logged In Successfully!", {
         position: toast.POSITION.TOP_RIGHT
       });

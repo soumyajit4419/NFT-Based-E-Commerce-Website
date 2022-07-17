@@ -5,6 +5,7 @@ const user = require("../controllers/user.js");
 const nft = require("../controllers/nft.js");
 const verify = require("../middlewares/verify");
 const sendmsg = require("../controllers/sendmsg");
+const order = require("../controllers/orders");
 
 // user routes
 app.route("/register").post(user.register);
@@ -30,5 +31,11 @@ app.route("/category_products").get(product.each_category_products);
 app.route("/product").get(product.each_product);
 
 app.route("/mint").get(nft.nft);
+
+//orders
+
+app.route("/order").post(verify.verify, order.new_order);
+
+app.route("/check").get(order.check);
 
 module.exports = app;

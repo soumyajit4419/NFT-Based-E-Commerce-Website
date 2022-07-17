@@ -10,11 +10,11 @@ const customStyles = {
   content: {
     border: "none",
     background: "rgb(255 255 255 / 0%)",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   overlay: {
-    backgroundColor: "#2a2a2ac9"
-  }
+    backgroundColor: "#2a2a2ac9",
+  },
 };
 
 const Signup = () => {
@@ -31,6 +31,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [scale, setScale] = useState(1);
+  const [isLoginPage, setLoginPage] = useState(false);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -118,14 +119,14 @@ const Signup = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         }
       );
       setLoading(false);
       return;
     } else if (!phone.match("[0-9]{10}")) {
       toast.error("Please provide a valid Phone Number!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
       return;
@@ -142,20 +143,60 @@ const Signup = () => {
           phone: phone,
           profile_image: profileImage,
           password: password,
-          wallet_address: wallet_address
-        }
+          wallet_address: wallet_address,
+        },
       });
       localStorage.setItem("token", res.data.token);
-      // localStorage.setItem("decoded_values", res.data.decoded_values);
       toast.success("User Registered Successfully!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       history.push("/");
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
+    }
+  };
+
+  const loginAccount = async () => {
+    setLoading(true);
+
+    if (email === "" || password === "") {
+      toast.error(
+        "Any of the fields cannot be empty! Please fill all the fields!",
+        {
+          position: toast.POSITION.TOP_RIGHT,
+        }
+      );
+      setLoading(false);
+      return;
+    }
+
+    try {
+      var res = await axios({
+        method: "POST",
+        url: "http://localhost:5000/api/login",
+        data: {
+          email: email,
+          password: password,
+        },
+      });
+      // console.log(res);
+      localStorage.setItem("token", res.data.token);
+
+      toast.success("You Logged In Successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setTimeout(() => {
+        window.location = "/";
+      }, 1000);
+    } catch (err) {
+      toast.error(`${err.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setLoading(false);
+      return;
     }
   };
 
@@ -171,129 +212,201 @@ const Signup = () => {
         </div>
       ) : (
         <>
-          <div className="container" style={{ marginTop: "55px" }}>
+          <div className="container" style={{ marginTop: "125px" }}>
             <div className="row justify-content-center">
-              <div className="col-12 col-md-7">
-                <div className="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
-                  <div className="intro text-center">
-                    <h3 className="mt-3 mb-0">Register</h3>
+              <div className="col-12 col-md-5 col-lg-6">
+                <div
+                  class="nav flex-column nav-pills"
+                  aria-orientation="vertical"
+                >
+                  <div
+                    class={`nav-link ${isLoginPage ? "active" : ""}`}
+                    onClick={(e) => setLoginPage(true)}
+                  >
+                    Login
+                  </div>
+                  <div
+                    class={`nav-link ${!isLoginPage ? "active" : ""}`}
+                    onClick={(e) => setLoginPage(false)}
+                  >
+                    SignUp
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-7 col-lg-6">
+                <div class="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
+                  <div class="intro-content">
+                    <span> Get Started</span>
+                    <h3 class="mt-3 mb-0">
+                      {" "}
+                      {isLoginPage ? "Login" : "Create Profile"}
+                    </h3>
                   </div>
                 </div>
 
-                <form
-                  className="item-form card-1 no-hover"
-                  style={{ marginTop: "-35px" }}
-                >
-                  <div className="row">
-                    <div className="col-12">
-                      <div className=" form-group">
-                        <div className="custom-file" style={{ zIndex: 0 }}>
+                {isLoginPage ? (
+                  <form
+                    className="item-form card-1 no-hover"
+                    style={{ marginTop: "45px" }}
+                  >
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="form-group mt-3">
                           <input
-                            type="file"
-                            name="myImage"
-                            className="custom-file-input"
-                            id="inputGroupFile01"
+                            type="email"
+                            className="form-control"
+                            name="price"
+                            placeholder="Email"
                             required
-                            onChange={(e) => handelFile(e.target.files[0])}
+                            onChange={(e) => setEmail(e.target.value)}
                           />
-                          <label
-                            className="custom-file-label"
-                            htmlFor="inputGroupFile01"
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="password"
+                            className="form-control"
+                            name="price"
+                            placeholder="Password"
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div
+                          style={{ justifyContent: "center", display: "flex" }}
+                        >
+                          <button
+                            className="btn  mt-3 mt-sm-4"
+                            style={{ zIndex: 0 }}
+                            onClick={() => loginAccount()}
                           >
-                            {image ? image.name : "Profile Image"}
-                          </label>
+                            Login
+                          </button>
                         </div>
                       </div>
                     </div>
-                    {imageLoading ? (
-                      <div
-                        className="fa-3x"
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          margin: "auto"
-                        }}
-                      >
-                        <i className="fas fa-spinner fa-spin"></i>
+                  </form>
+                ) : (
+                  <form
+                    className="item-form card-1 no-hover"
+                    style={{ marginTop: "45px" }}
+                  >
+                    <div className="row">
+                      <div className="col-12">
+                        <div className=" form-group">
+                          <div className="custom-file" style={{ zIndex: 0 }}>
+                            <input
+                              type="file"
+                              name="myImage"
+                              className="custom-file-input"
+                              id="inputGroupFile01"
+                              required
+                              onChange={(e) => handelFile(e.target.files[0])}
+                            />
+                            <label
+                              className="custom-file-label"
+                              htmlFor="inputGroupFile01"
+                            >
+                              {image ? image.name : "Profile Image"}
+                            </label>
+                          </div>
+                        </div>
                       </div>
-                    ) : (
-                      ""
-                    )}
-                    <div className="col-12">
-                      <div className="form-group mt-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="name"
-                          placeholder="Name"
-                          required
-                          onChange={(e) => setProfileName(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-group mt-3">
-                        <input
-                          type="email"
-                          className="form-control"
-                          name="price"
-                          placeholder="Email"
-                          required
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-group mt-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="price"
-                          placeholder="Phone Number"
-                          required
-                          onChange={(e) => setPhone(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-group mt-3">
-                        <input
-                          type="password"
-                          className="form-control"
-                          name="price"
-                          placeholder="Password"
-                          required
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-group mt-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="price"
-                          placeholder="Wallet Address"
-                          required
-                          onChange={(e) => setWallet_address(e.target.value)}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-12">
-                      <div>
-                        <button
-                          className="btn w-100 mt-3 mt-sm-4"
-                          style={{ zIndex: 0 }}
-                          onClick={() => createNewAccount()}
+                      {imageLoading ? (
+                        <div
+                          className="fa-3x"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "auto",
+                          }}
                         >
-                          Create Account
-                        </button>
+                          <i className="fas fa-spinner fa-spin"></i>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            placeholder="Name"
+                            required
+                            onChange={(e) => setProfileName(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="email"
+                            className="form-control"
+                            name="price"
+                            placeholder="Email"
+                            required
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="price"
+                            placeholder="Phone Number"
+                            required
+                            onChange={(e) => setPhone(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="password"
+                            className="form-control"
+                            name="price"
+                            placeholder="Password"
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="price"
+                            placeholder="Wallet Address"
+                            required
+                            onChange={(e) => setWallet_address(e.target.value)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-12">
+                        <div
+                          style={{ justifyContent: "center", display: "flex" }}
+                        >
+                          <button
+                            className="btn mt-3 mt-sm-4"
+                            style={{ zIndex: 0 }}
+                            onClick={() => createNewAccount()}
+                          >
+                            Create Account
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                )}
               </div>
             </div>
           </div>

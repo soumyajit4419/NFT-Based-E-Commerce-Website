@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-const jwt = require("jsonwebtoken");
 
 const UserProfile = () => {
   const [user, setuser] = useState({});
@@ -9,26 +8,22 @@ const UserProfile = () => {
 
   const token = localStorage.getItem("token");
 
-  const decoded_token = jwt.decode(token, process.env.REACT_APP_JWT_SECRET);
-
-  const id = decoded_token._id;
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/user", {
-        params: { userid: id },
-      })
-      .then((res) => {
-        setloading(false);
-        setuser(res.data.user);
-      })
-      .catch((err) => {
-        setloading(false);
-        toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      });
-  }, [id]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/api/user", {
+  //       params: { token: token },
+  //     })
+  //     .then((res) => {
+  //       setloading(false);
+  //       setuser(res.data.user);
+  //     })
+  //     .catch((err) => {
+  //       setloading(false);
+  //       toast.error(`${err.response.data.message}`, {
+  //         position: toast.POSITION.TOP_RIGHT,
+  //       });
+  //     });
+  // }, [token]);
 
   if (loading) {
     return (

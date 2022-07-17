@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AuthorProfile from "../UserProfile/UserProfile";
 import Web3 from "web3";
-import { contractAbi } from "../../abi";
+// import { contractAbi } from "../../abi";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { storage, db } from "../../firebase";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+// import WalletConnectProvider from "@walletconnect/web3-provider";
 import Modal from "react-modal";
 import AvatarEditor from "react-avatar-editor";
 import { toast } from "react-toastify";
@@ -86,10 +86,10 @@ export default function Create() {
 
       const accounts = await window.web3.eth.getAccounts();
 
-      window.contract = await new window.web3.eth.Contract(
-        contractAbi,
-        "0xE33DD0476E01975D184738eE5a8911e35b44631B"
-      );
+      // window.contract = await new window.web3.eth.Contract(
+      //   contractAbi,
+      //   "0xE33DD0476E01975D184738eE5a8911e35b44631B"
+      // );
 
       let result;
 
@@ -112,48 +112,48 @@ export default function Create() {
 
       return result;
     } else {
-      const provider = new WalletConnectProvider({
-        // infuraId: "22b3a9c2b68f42abb593b0582461ed6d",
-        rpc: {
-          97: "https://speedy-nodes-nyc.moralis.io/58179be7c4a9b63cf4bac6a5/bsc/testnet",
-          56: "https://bsc-dataseed1.ninicoin.io/",
-        },
-      });
-      const web3 = new Web3(provider);
+      // const provider = new WalletConnectProvider({
+      //   // infuraId: "22b3a9c2b68f42abb593b0582461ed6d",
+      //   rpc: {
+      //     97: "https://speedy-nodes-nyc.moralis.io/58179be7c4a9b63cf4bac6a5/bsc/testnet",
+      //     56: "https://bsc-dataseed1.ninicoin.io/",
+      //   },
+      // });
+      // const web3 = new Web3(provider);
 
-      await provider.enable();
+      // await provider.enable();
 
-      const accounts = await web3.eth.getAccounts();
-      const contract = new web3.eth.Contract(
-        contractAbi,
-        "0xE33DD0476E01975D184738eE5a8911e35b44631B"
-      );
+      // const accounts = await web3.eth.getAccounts();
+      // const contract = new web3.eth.Contract(
+      //   contractAbi,
+      //   "0xE33DD0476E01975D184738eE5a8911e35b44631B"
+      // );
 
-      let result;
-      var balance = await web3.eth.getBalance(accounts[0]);
+      // let result;
+      // var balance = await web3.eth.getBalance(accounts[0]);
 
-      console.log("this is bal", balance);
+      // console.log("this is bal", balance);
 
-      console.log(contract.methods, "this is windpw contract");
+      // console.log(contract.methods, "this is windpw contract");
 
-      console.log(metaDataURI, "this is metaDatauri");
+      // console.log(metaDataURI, "this is metaDatauri");
 
-      console.log(royalty, "this is royalty");
+      // console.log(royalty, "this is royalty");
 
-      const mynewNumber = await contract.methods
-        .createCollectible(metaDataURI, royalty)
-        .send({ from: accounts[0] })
-        .on("transactionHash", function (hash) {
-          console.log(hash, "this is awardItem hash");
-        })
-        .on("receipt", function (receipt) {
-          result = receipt;
-          console.log(receipt, "this is award Item receipt");
-        });
+      // const mynewNumber = await contract.methods
+      //   .createCollectible(metaDataURI, royalty)
+      //   .send({ from: accounts[0] })
+      //   .on("transactionHash", function (hash) {
+      //     console.log(hash, "this is awardItem hash");
+      //   })
+      //   .on("receipt", function (receipt) {
+      //     result = receipt;
+      //     console.log(receipt, "this is award Item receipt");
+      //   });
 
-      console.log(mynewNumber, "this is my new number");
+      // console.log(mynewNumber, "this is my new number");
 
-      return result;
+      // return result;
     }
   };
 
@@ -278,10 +278,10 @@ export default function Create() {
                       // });
                       const accounts = await window.web3.eth.getAccounts();
 
-                      window.contract = await new window.web3.eth.Contract(
-                        contractAbi,
-                        "0xE33DD0476E01975D184738eE5a8911e35b44631B"
-                      );
+                      // window.contract = await new window.web3.eth.Contract(
+                      //   contractAbi,
+                      //   "0xE33DD0476E01975D184738eE5a8911e35b44631B"
+                      // );
                       console.log(token_created_id, "this is token Id");
 
                       // axios({

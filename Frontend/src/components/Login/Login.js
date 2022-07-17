@@ -16,7 +16,7 @@ const Login = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         }
       );
       setLoading(false);
@@ -29,21 +29,21 @@ const Login = () => {
         url: "http://localhost:5000/api/login",
         data: {
           email: email,
-          password: password
-        }
+          password: password,
+        },
       });
       // console.log(res);
       localStorage.setItem("token", res.data.token);
 
       toast.success("You Logged In Successfully!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setTimeout(() => {
         window.location = "/";
       }, 1000);
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
       return;
@@ -62,15 +62,21 @@ const Login = () => {
         </div>
       ) : (
         <>
-          <div className="container" style={{ marginTop: "100px" }}>
+          <div className="container" style={{ marginTop: "120px" }}>
             <div className="row justify-content-center">
-              <div className="col-12 col-md-8 col-lg-7">
-                {/* Intro */}
-                <div className="intro text-center">
-                  <h3 className="mt-3 mb-0">Login to your Account</h3>
+              <div className="col-12 col-md-7 col-lg-6">
+                <div class="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
+                  <div class="intro-content">
+                    <span>Get Started</span>
+                    <h3 class="mt-3 mb-0">Create Profile</h3>
+                  </div>
                 </div>
+
                 {/* Item Form */}
-                <form className="item-form card-1 no-hover">
+                <form
+                  className="item-form card-1 no-hover"
+                  style={{ marginTop: "45px" }}
+                >
                   <div className="row">
                     <div className="col-12">
                       <div className="form-group mt-3">

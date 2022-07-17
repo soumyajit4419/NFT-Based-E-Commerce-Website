@@ -9,9 +9,9 @@ import Signup from "../components/Signup/Signup";
 class SignupTheme extends Component {
   render() {
     return (
-      <div className="main">
+      <div className="main main-bg">
         <Header />
-        <Signup/>
+        <Signup />
         <ModalSearch />
         <ModalMenu />
         <Scrollup />

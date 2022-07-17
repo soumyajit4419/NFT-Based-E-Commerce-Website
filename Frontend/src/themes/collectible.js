@@ -4,7 +4,7 @@ import Footer from "../components/Footer/Footer";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
 import Scrollup from "../components/Scrollup/Scrollup";
-import Nft from "../nft.png";
+// import Nft from "../nft.png";
 import single from "../single.jpg";
 import multiple from "../multiple.jpg";
 import { useHistory } from "react-router";

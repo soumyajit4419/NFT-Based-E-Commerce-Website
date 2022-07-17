@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import sample from "../../bgvideo.mov";
+// import sample from "../../bgvideo.mov";
 import axios from "axios";
 
 const initData = {

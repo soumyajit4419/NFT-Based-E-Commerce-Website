@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "react-credit-cards";
+import Cards from 'elt-react-credit-cards';
 import Typography from "@material-ui/core/Typography";
 import {
   formatCreditCardNumber,
@@ -8,7 +8,7 @@ import {
   formatFormData
 } from "./utils";
 import styles from "./styles.css";
-import "react-credit-cards/es/styles-compiled.css";
+import "elt-react-credit-cards/es/styles-compiled.css";
 
 export default class App extends React.Component {
   state = {
@@ -184,7 +184,7 @@ export default class App extends React.Component {
               </Typography>
               <br />
               <br />
-              <Card
+              <Cards
                 number={number}
                 name={name}
                 expiry={expiry}

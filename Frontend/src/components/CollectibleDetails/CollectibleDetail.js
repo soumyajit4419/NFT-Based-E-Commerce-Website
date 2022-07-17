@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import Web3 from "web3";
 import { multipleAbi } from "../../multipleAbi";
 import axios from "axios";
-import ReactAudioPlayer from "react-audio-player";
+// import ReactAudioPlayer from "react-audio-player";
 import Countdown from "react-countdown";
 import { auctionAbi } from "../../core/constant";
 import Modal from "react-modal";
@@ -783,12 +783,12 @@ export default function CollectibleDetail() {
                     />
                   </div>
                   <div className="card no-hover countdown-times my-4">
-                    <ReactAudioPlayer
+                    {/* <ReactAudioPlayer
                       src={nftData.music}
                       // autoPlay
                       controls
                       style={{ width: "100%" }}
-                    />
+                    /> */}
                   </div>
                   {/* Netstorm Tab */}
                   <ul className="netstorm-tab nav nav-tabs" id="nav-tab">

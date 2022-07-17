@@ -1,5 +1,5 @@
 const Web3 = require("web3");
-const Contract = require("./../contractabi");
+const Contract = require("./../contractAbi");
 
 const web3 = new Web3();
 

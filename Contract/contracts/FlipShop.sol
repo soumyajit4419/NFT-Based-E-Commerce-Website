@@ -10,7 +10,6 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
     mapping(address => bool) public whitelistedAddresses;
     mapping(uint256 => Warranty) TokenWarranty;
     mapping(uint256 => Product) TokenProduct;
-    mapping(address => uint256[]) TokenUser;
 
     struct Product {
         string ProductId;
@@ -90,8 +89,6 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
 
         TokenWarranty[tokenId] = ProductWarranty;
 
-        TokenUser[_ownerAddress].push(tokenId);
-
         _safeMint(_ownerAddress, tokenId);
     }
 
@@ -121,27 +118,35 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
         return block.timestamp <= w.ProductExpiryDate;
     }
 
-    function getNftTokenIdOfUser(address _address)
+    function getAllNftTokenIdsOfUser(address _address)
         public
         view
         returns (uint256[] memory)
     {
-        return TokenUser[_address];
+        uint256 balanceOfUser = balanceOf(_address);
+        uint256[] memory _allTokensOfUser = new uint256[](balanceOfUser);
+        for (uint8 i = 0; i < balanceOfUser; i++) {
+            uint256 _tokenId = tokenOfOwnerByIndex(_address, i);
+            _allTokensOfUser[i] = _tokenId;
+        }
+
+        return _allTokensOfUser;
     }
 
-    function getNftOfUser(address _address)
+    function getAllNftsOfUser(address _address)
         public
         view
         returns (NFTDetails[] memory)
     {
-        uint256[] memory allTokens = TokenUser[_address];
+        uint256 balanceOfUser = balanceOf(_address);
         NFTDetails[] memory _allNFTDetailsOfUser = new NFTDetails[](
-            allTokens.length
+            balanceOfUser
         );
-        for (uint8 i = 0; i < allTokens.length; i++) {
-            Warranty memory w = getWarrentyInfo(allTokens[i]);
+        for (uint8 i = 0; i < balanceOfUser; i++) {
+            uint256 _tokenId = tokenOfOwnerByIndex(_address, i);
+            Warranty memory w = getWarrentyInfo(_tokenId);
             _allNFTDetailsOfUser[i] = NFTDetails({
-                tokenId: allTokens[i],
+                tokenId: _tokenId,
                 warrentyDetails: w
             });
         }

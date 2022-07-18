@@ -28,7 +28,7 @@ function LargeBanners() {
   return (
     <div className="container-fluid">
       <div className="row" style={{ justifyContent: "center" }}>
-        <div className="col-12 col-md-11 col-lg-10">
+        <div className="col-12 col-md-11 col-lg-11">
           <Carousel
             itemsToShow={1}
             pagination={false}
@@ -42,7 +42,7 @@ function LargeBanners() {
             {itemsUrls.map((item) => (
               <StyledImageContainer>
                 <img
-                  class=""
+                  className=""
                   src={item}
                   alt="card-img"
                   style={{

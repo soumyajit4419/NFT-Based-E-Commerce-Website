@@ -4,6 +4,16 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 import axios from "axios";
+import styled from "styled-components";
+import { TbHome } from "react-icons/tb";
+import { HiOutlineShoppingBag } from "react-icons/hi";
+import {
+  FiLogIn,
+  FiShoppingCart,
+  FiInfo,
+  FiLogOut,
+  FiUser,
+} from "react-icons/fi";
 
 const Header = () => {
   const [validuser, setvaliduser] = useState(false);
@@ -14,8 +24,8 @@ const Header = () => {
     axios
       .get("http://localhost:5000/api/valid_user", {
         params: {
-          token: token
-        }
+          token: token,
+        },
       })
       .then((res) => {
         // console.log(res);
@@ -43,79 +53,70 @@ const Header = () => {
           {/* Navbar */}
           <ul className="navbar-nav items ml-auto ">
             <li className="nav-item ">
-              <Link to="/" className="nav-link">
+              <StyledLink to="/" className="nav-link">
+                <TbHome className="menu-icon" />
                 Home
-              </Link>
+              </StyledLink>
             </li>
             <li className="nav-item">
-              <Link to="/dashboard" className="nav-link">
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/allproducts" className="nav-link">
-                Products
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/faq" className="nav-link">
-                FAQ
-              </Link>
+              <StyledLink to="/allproducts" className="nav-link">
+                <HiOutlineShoppingBag className="menu-icon" />
+                Shop
+              </StyledLink>
             </li>
 
             {validuser && (
-              <li className="nav-item dropdown">
-                <Link to="/profile" className="nav-link">
-                  Profile <i className="fas fa-angle-down ml-1" />
-                </Link>
-                <ul className="dropdown-menu">
-                  <li className="nav-item">
-                    <Link to="/contact" className="nav-link">
-                      My Orders
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      to="/"
-                      className="nav-link"
-                      onClick={() => {
-                        localStorage.clear();
-                        history.push("/");
-                        toast.success("You Logged Out Successfully", {
-                          position: toast.POSITION.TOP_RIGHT
-                        });
-                      }}
-                    >
-                      Logout
-                    </Link>
-                  </li>
-                </ul>
+              <li className="nav-item">
+                <StyledLink to="/profile" className="nav-link">
+                  <FiUser className="menu-icon" />
+                  My Profile
+                </StyledLink>
               </li>
             )}
 
             {validuser && (
               <li className="nav-item">
-                <Link to="/contact" className="nav-link">
+                <StyledLink to="/contact" className="nav-link">
+                  <FiShoppingCart className="menu-icon" />
                   Cart
-                </Link>
+                </StyledLink>
               </li>
             )}
 
             {!validuser && (
               <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-            )}
-
-            {!validuser && (
-              <li className="nav-item">
-                <Link to="/signup" className="nav-link">
+                <StyledLink to="/signup" className="nav-link">
+                  <FiLogIn className="menu-icon" />
                   Signup
-                </Link>
+                </StyledLink>
               </li>
             )}
+
+            {validuser && (
+              <li className="nav-item">
+                <StyledLink
+                  to="/"
+                  className="nav-link"
+                  onClick={() => {
+                    localStorage.clear();
+                    history.push("/");
+                    toast.success("You Logged Out Successfully", {
+                      position: toast.POSITION.TOP_RIGHT,
+                    });
+                  }}
+                >
+                  <FiLogOut className="menu-icon" />
+                  Logout
+                </StyledLink>
+              </li>
+            )}
+
+            <li className="nav-item ">
+              <StyledLink to="/home" className="nav-link">
+                <FiInfo className="menu-icon" />
+                About
+              </StyledLink>
+            </li>
           </ul>
 
           {/* Navbar Toggler */}
@@ -138,3 +139,12 @@ const Header = () => {
 };
 
 export default Header;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  .menu-icon {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+  }
+`;

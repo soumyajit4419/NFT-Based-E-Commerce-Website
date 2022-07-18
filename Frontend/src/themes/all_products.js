@@ -1,5 +1,4 @@
 import React from "react";
-
 import Header from "../components/Header/Header";
 import AllProducts from "../components/Products/All_Products";
 import ModalSearch from "../components/Modal/ModalSearch";

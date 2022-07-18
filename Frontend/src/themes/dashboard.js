@@ -12,13 +12,14 @@ const Dashboard = () => {
   return (
     <div className="main">
       <Header />
-      <Categories />
       <LargeBanners />
-      <CategorySlider />
+      <CategorySlider category={"Watches"} />
+      <Categories />
+      <CategorySlider category={"Electronics"} />
       <Reference />
-      <br />
-      <br />
-      <br />
+      <CategorySlider category={"Fitness"} />
+      <CategorySlider category={"Mobiles"} />
+
       <ModalSearch />
       <ModalMenu />
       <Scrollup />

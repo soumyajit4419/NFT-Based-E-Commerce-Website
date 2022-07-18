@@ -4,7 +4,7 @@ import { multipleAbi } from "../../multipleAbi";
 import axios from "axios";
 // import ReactAudioPlayer from "react-audio-player";
 import Countdown from "react-countdown";
-import { auctionAbi } from "../../core/constant";
+// import { auctionAbi } from "../../core/constant";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 import transferAbi from "../../abi.json";
@@ -216,10 +216,10 @@ export default function CollectibleDetail() {
       // });
       const accounts = await window.web3.eth.getAccounts();
 
-      window.contract = await new window.web3.eth.Contract(
-        auctionAbi,
-        nftData.auction_address
-      );
+      // window.contract = await new window.web3.eth.Contract(
+      //   auctionAbi,
+      //   nftData.auction_address
+      // );
       const returns = await window.contract.methods
         .pendingReturns(accounts[0])
         .call();
@@ -246,10 +246,10 @@ export default function CollectibleDetail() {
       // });
       const accounts = await window.web3.eth.getAccounts();
 
-      window.contract = await new window.web3.eth.Contract(
-        auctionAbi,
-        nftData.auction_address
-      );
+      // window.contract = await new window.web3.eth.Contract(
+      //   auctionAbi,
+      //   nftData.auction_address
+      // );
       const returns = await window.contract.methods
         .withdraw()
         .send({

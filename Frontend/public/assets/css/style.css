@@ -1,15 +1,5 @@
 /*----------------------------------------------
 *
-* [Main Stylesheet]
-*
-* Theme    : Netstorm
-* Version  : 1.0
-* Author   : Themeland
-* Support  : hridoy1272@gmail.com
-* 
-----------------------------------------------*/
-/*----------------------------------------------
-*
 * [Font Import]
 *
 * Jost    : https://fonts.google.com
@@ -218,6 +208,7 @@ body {
 
 .main-bg {
   background: #fff url("../../img/inner-page-top-bg.svg") no-repeat center 80px;
+  background-attachment: fixed;
 }
 
 body.odd {
@@ -1370,7 +1361,7 @@ header .navbar-expand .navbar-nav.toggle i {
 }
 
 header .navbar-expand .navbar-nav .nav-item {
-  margin: 0;
+  margin: 0 12px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -2598,14 +2589,18 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+.wallet-connect-area {
+  padding: 45px 0;
+}
 .wallet-connect-area .single-wallet {
-  padding: 45px;
+  padding: 35px;
   cursor: pointer;
 }
 
 .wallet-connect-area .single-wallet h4 {
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  color: #7971ea;
 }
 
 .wallet-connect-area .single-wallet p {
@@ -2613,7 +2608,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 }
 
 .wallet-connect-area .single-wallet:hover h4 {
-  color: var(--primary-color);
+  color: #7971ea;
 }
 
 .help-center-area .card {
@@ -3166,7 +3161,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 
 @media (max-width: 1199px) {
   .product-all-items {
-    padding: 20px;
+    padding: 30px;
   }
 }
 
@@ -3325,6 +3320,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .rec.rec-arrow {
   border-radius: 50%;
   box-shadow: none !important;
+  border: 1px solid black;
 }
 
 .rec.rec-arrow:hover:enabled {
@@ -3344,4 +3340,8 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   left: -8px;
   background-color: var(--primary-bg-color-2) !important;
   z-index: 10;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
 }

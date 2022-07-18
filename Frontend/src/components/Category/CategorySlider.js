@@ -4,8 +4,22 @@ import styled from "styled-components";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
+import ProductCard from "../ProductCard/ProductCard";
+import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
-function CategorySlider() {
+const myArrow = ({ type, onClick, isEdge }) => {
+  return (
+    <StyledArrowButton
+      onClick={onClick}
+      disabled={isEdge}
+      className={type === "PREV" ? "prev-arrow" : "next-arrow"}
+    >
+      {type === "PREV" ? <BiLeftArrowAlt /> : <BiRightArrowAlt />}
+    </StyledArrowButton>
+  );
+};
+
+function CategorySlider({ category }) {
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
   const history = useHistory();
@@ -13,7 +27,7 @@ function CategorySlider() {
     const token = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/api/category_products", {
-        params: { category: "Electronics" },
+        params: { category: category },
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -33,46 +47,47 @@ function CategorySlider() {
 
   const carouselRef = useRef();
 
-  const onNextStart = (currentItem, nextItem) => {
-    if (currentItem.index === nextItem.index) {
-      // we hit the last item, go to first item
-      carouselRef.current.goTo(0);
-    }
-  };
-
-  const onPrevStart = (currentItem, nextItem) => {
-    if (currentItem.index === nextItem.index) {
-      // we hit the first item, go to last item
-      carouselRef.current.goTo(products.length);
-    }
-  };
-
   return (
-    <div className="container-fluid">
+    <div
+      className="container-fluid"
+      style={{ paddingTop: "40px", paddingBottom: "40px" }}
+    >
       <div className="row" style={{ justifyContent: "center" }}>
-        <div className="col-12 col-md-11 col-lg-10">
+        <div className="col-12 col-md-12 col-lg-11">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <Heading3>{category}</Heading3>
+            </div>
+            <div>
+              <StyledBtn href={`/category/${category}`}>View all</StyledBtn>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row" style={{ justifyContent: "center" }}>
+        <div className="col-12 col-md-12 col-lg-11">
           <Carousel
-            itemsToShow={5}
+            renderArrow={myArrow}
+            itemsToShow={6}
             pagination={false}
-            onNextStart={onNextStart}
-            onPrevStart={onPrevStart}
             ref={carouselRef}
-            autoPlaySpeed={4000}
-            enableAutoPlay={true}
-            disableArrowsOnEnd={false}
+            disableArrowsOnEnd={true}
+            breakPoints={[
+              { width: 576, itemsToShow: 2 },
+              { width: 767, itemsToShow: 4 },
+              { width: 991, itemsToShow: 5 },
+              { width: 1199, itemsToShow: 6 },
+            ]}
           >
             {products.map((item) => (
               <StyledImageContainer>
-                <img
-                  src={item.product_image}
-                  alt="card-img"
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                    borderRadius: "12px",
-                  }}
-                />
+                <ProductCard item={item} key={item.product_id} />
               </StyledImageContainer>
             ))}
           </Carousel>
@@ -85,6 +100,69 @@ function CategorySlider() {
 export default CategorySlider;
 
 const StyledImageContainer = styled.div`
-  height: 350px;
-  ${'' /* width: 100%; */}
+  height: 100%;
+  width: 100%;
+  padding: 0 6px;
+`;
+
+const StyledArrowButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 1.5em;
+  background-color: white;
+  color: #7971ea;
+  box-shadow: 0 0 2px 0px #333;
+  border-radius: 50%;
+  border: 1px solid #7971ea !important;
+  padding: 0;
+  width: 35px;
+  height: 34px;
+  min-width: 35px;
+  line-height: 50px;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  cursor: pointer;
+  outline: none;
+
+  &.prev-arrow {
+    position: absolute;
+    left: 10px;
+    z-index: 10;
+  }
+
+  &.next-arrow {
+    position: absolute;
+    right: 10px;
+    z-index: 10;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Heading3 = styled.h3`
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-left: 20px;
+`;
+
+const StyledBtn = styled.a`
+  margin-right: 20px;
+  text-align: center;
+  font-weight: 500;
+  background: #7971ea;
+  border: 1px solid #7971ea !important;
+  border-radius: 6px;
+  padding: 10px 20px;
+  color: white !important;
+  line-height: 1;
+  &:focus {
+    outline: none;
+  }
 `;

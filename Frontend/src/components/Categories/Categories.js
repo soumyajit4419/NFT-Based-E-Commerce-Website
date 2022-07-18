@@ -14,8 +14,8 @@ const Categories = () => {
     axios
       .get("http://localhost:5000/api/all_category", {
         headers: {
-          Authorization: "Bearer " + token
-        }
+          Authorization: "Bearer " + token,
+        },
       })
       .then((res) => {
         // console.log(res);
@@ -24,7 +24,7 @@ const Categories = () => {
       })
       .catch((err) => {
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
         setloading(false);
         history.push("/");
@@ -35,15 +35,13 @@ const Categories = () => {
     return (
       <div style={{ height: "80vh" }}>
         <center>
-          <div class="fa-3x mt-5 pt-5">
-            <i class="fas fa-spinner fa-spin"></i>
+          <div className="fa-3x mt-5 pt-5">
+            <i className="fas fa-spinner fa-spin"></i>
           </div>
         </center>
       </div>
     );
-  } 
-
-  else{
+  } else {
     return (
       <section className="top-seller-area p-5" style={{ marginTop: "100px" }}>
         <div className="container">
@@ -72,7 +70,6 @@ const Categories = () => {
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
                         alt=""
                       />
-  
                       <div className="seller-info ml-3">
                         <div className="d-flex">
                           <div>{item}</div>
@@ -87,10 +84,7 @@ const Categories = () => {
         </div>
       </section>
     );
-
   }
-
- 
 };
 
 export default Categories;

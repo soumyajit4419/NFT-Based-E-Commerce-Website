@@ -6,6 +6,7 @@ import Work from "../components/Work/Work";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
 import Scrollup from "../components/Scrollup/Scrollup";
+import Faq from "../components/Faq/Faq";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Header />
       <Hero />
       <Work />
+      <Faq />
       <ModalSearch />
       <ModalMenu />
       <Scrollup />

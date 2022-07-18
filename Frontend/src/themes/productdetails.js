@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Header from "../components/Header/Header";
 import ProductDetail from "../components/ProductDetails/Productdetails";
 import ModalSearch from "../components/Modal/ModalSearch";

@@ -4,20 +4,18 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import { useHistory } from "react-router";
 // importing all the themes
 import Home from "../themes/home";
 import Dashboard from "../themes/dashboard";
-import Login from "../themes/login";
 import Signup from "../themes/signup";
 import Userprofile from "../themes/user_profile";
 import Category from "../themes/category";
 import Products from "../themes/all_products";
 import ProductDetails from "../themes/productdetails";
 import Payment from "../themes/payment";
-import Faq from "../themes/faq";
 
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
@@ -52,8 +50,8 @@ const PrivateRoute = (privateRouteProps) => {
             to={{
               pathname: "/login",
               state: {
-                from: props.location
-              }
+                from: props.location,
+              },
             }}
           />
         );
@@ -71,8 +69,8 @@ const Routes = () => {
     axios
       .get("http://localhost:5000/api/valid_user", {
         params: {
-          token: token
-        }
+          token: token,
+        },
       })
       .then((res) => {
         // console.log(res);
@@ -88,10 +86,10 @@ const Routes = () => {
 
   if (loading) {
     return (
-      <div style={{ height: "60vh" }}>
+      <div style={{ height: "80vh" }}>
         <center>
-          <div class="fa-3x mt-5 pt-5">
-            <i class="fas fa-spinner fa-spin"></i>
+          <div className="fa-3x mt-5 pt-5">
+            <i className="fas fa-spinner fa-spin"></i>
           </div>
         </center>
       </div>
@@ -102,15 +100,15 @@ const Routes = () => {
         <ToastContainer />
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Dashboard} />
             <Route exact path="/signup" component={Signup} />
-            <Route path="/dashboard" component={Dashboard} />
             <PrivateRoute
               path="/payment/:productid"
               component={Payment}
               isAuthenticated={validuser}
             />
+            <Route path="/home" component={Home} />
+            {/* <Route path="/payment" component={Payment} /> */}
             <PrivateRoute
               path="/profile"
               component={Userprofile}
@@ -123,7 +121,7 @@ const Routes = () => {
               path="/product/:productid"
               component={ProductDetails}
             />
-            <Route exact path="/faq" component={Faq} />
+            {/* <Route exact path="/faq" component={Faq} /> */}
 
             {/* <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/featured" component={ExploreThree} />

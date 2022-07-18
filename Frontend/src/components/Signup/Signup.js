@@ -5,6 +5,9 @@ import { storage } from "../../firebase";
 import Modal from "react-modal";
 import AvatarEditor from "react-avatar-editor";
 import { toast } from "react-toastify";
+import styled from "styled-components";
+import { FiLogIn } from "react-icons/fi";
+import { IoCreateOutline } from "react-icons/io5";
 
 const customStyles = {
   content: {
@@ -206,8 +209,8 @@ const Signup = () => {
       {loading ? (
         <div style={{ height: "60vh" }}>
           <center>
-            <div class="fa-3x mt-5 pt-5">
-              <i class="fas fa-spinner fa-spin"></i>
+            <div className="fa-3x mt-5 pt-5">
+              <i className="fas fa-spinner fa-spin"></i>
             </div>
           </center>
         </div>
@@ -215,30 +218,39 @@ const Signup = () => {
         <>
           <div className="container" style={{ marginTop: "125px" }}>
             <div className="row justify-content-center">
-              <div className="col-12 col-md-5 col-lg-6">
-                <div
-                  class="nav flex-column nav-pills"
+              <div className="col-12 col-md-3 col-lg-4">
+                <TabsContainer
+                  className="nav flex-column nav-pills"
                   aria-orientation="vertical"
                 >
-                  <div
-                    class={`nav-link ${isLoginPage ? "active" : ""}`}
+                  <TabsBtn
+                    className={`nav-link ${
+                      isLoginPage ? "active" : ""
+                    } loginBtn`}
                     onClick={(e) => setLoginPage(true)}
                   >
+                    <FiLogIn
+                      style={{ fontSize: "1.5rem", marginRight: "15px" }}
+                    />
                     Login
-                  </div>
-                  <div
-                    class={`nav-link ${!isLoginPage ? "active" : ""}`}
+                  </TabsBtn>
+                  <TabsBtn
+                    className={`nav-link ${!isLoginPage ? "active" : ""}`}
                     onClick={(e) => setLoginPage(false)}
                   >
+                    <IoCreateOutline
+                      style={{ fontSize: "1.5rem", marginRight: "15px" }}
+                    />
                     SignUp
-                  </div>
-                </div>
+                  </TabsBtn>
+                </TabsContainer>
               </div>
+              <div className="col-12 col-md-1 col-lg-1"></div>
               <div className="col-12 col-md-7 col-lg-6">
-                <div class="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
-                  <div class="intro-content">
+                <div className="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
+                  <div className="intro-content">
                     <span> Get Started</span>
-                    <h3 class="mt-3 mb-0">
+                    <h3 className="mt-3 mb-0">
                       {" "}
                       {isLoginPage ? "Login" : "Create Profile"}
                     </h3>
@@ -414,9 +426,9 @@ const Signup = () => {
         </>
       )}
       <Modal isOpen={modalIsOpen} style={customStyles}>
-        <div class="modal-dialog modal-dialog-centered" id="profilePic">
-          <div class="modal-content">
-            <div class="modal-body justify-content-center flex-column ">
+        <div className="modal-dialog modal-dialog-centered" id="profilePic">
+          <div className="modal-content">
+            <div className="modal-body justify-content-center flex-column ">
               <AvatarEditor
                 ref={setEditorRef}
                 image={image}
@@ -437,17 +449,17 @@ const Signup = () => {
                 style={{ maxWidth: "250px" }}
               />
             </div>
-            <div class="modal-footer justify-content-center ">
+            <div className="modal-footer justify-content-center ">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 onClick={closeModal}
               >
                 Close
               </button>
               <button
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 onClick={(e) => handelImage(image)}
               >
                 Save changes
@@ -461,3 +473,30 @@ const Signup = () => {
 };
 
 export default Signup;
+
+const TabsContainer = styled.div`
+  align-items: center;
+  cursor: pointer;
+  position: fixed;
+  width: 25%;
+  .active {
+    background-color: #7971ea !important;
+  }
+  .loginBtn {
+    margin-bottom: 20px;
+  }
+  padding-top: 120px;
+  @media (max-width: 767px) {
+    position: relative;
+    width: 100%;
+    padding-top: 0px;
+  }
+`;
+
+const TabsBtn = styled.div`
+  width: 200px;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid #7971ea;
+  color: #7971ea;
+`;

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import contractABI from "../abi.json";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { ContractAddress } from "../core/constant";
 
 function Reference() {
   const web3 = createAlchemyWeb3(
     "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
   );
 
-  const ContractAddress = "0x09a1b2395B6a8550e786dfD06f06BedF6591F60C";
   const Contract = new web3.eth.Contract(
     JSON.parse(contractABI.result),
     ContractAddress
@@ -55,7 +55,7 @@ function Reference() {
           );
         }
       }
-    )
+    );
     // .on("receipt", receipt => console.log("receipt", receipt));
   }
 
@@ -67,7 +67,7 @@ function Reference() {
       console.log(balance, "bal");
 
       const nft = await Contract.methods
-        .getNftOfUser("0xA776F1523Eb7aEd1ad202Bb924b03A8275B4D4fc")
+        .getAllNftsOfUser("0xA776F1523Eb7aEd1ad202Bb924b03A8275B4D4fc")
         .call();
       console.log(nft, "nft");
     };

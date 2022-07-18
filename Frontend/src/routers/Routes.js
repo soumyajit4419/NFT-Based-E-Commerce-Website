@@ -16,6 +16,7 @@ import Category from "../themes/category";
 import Products from "../themes/all_products";
 import ProductDetails from "../themes/productdetails";
 import Payment from "../themes/payment";
+import Order from "../themes/order_details";
 
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
@@ -121,6 +122,7 @@ const Routes = () => {
               path="/product/:productid"
               component={ProductDetails}
             />
+            <Route exact path="/orders" component={Order} />
             {/* <Route exact path="/faq" component={Faq} /> */}
 
             {/* <Route exact path="/explore-2" component={ExploreTwo} />

@@ -154,13 +154,7 @@ exports.login = async (req, res) => {
 
 exports.get_user = async (req, res) => {
   try {
-    const id = req.query.userid;
-
-    if (!id) {
-      return res.status(400).json({
-        message: `Please Enter the User ID`
-      });
-    }
+    const id = req.user._id;
 
     var data = await user_model.findById(id);
 

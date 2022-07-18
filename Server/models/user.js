@@ -23,10 +23,16 @@ const user = new Schema({
   blockchain: {
     type: String
   },
-  transactions: [
+  orders: [
     {
       type: mongoose.Schema.Types.ObjectID,
-      ref: "transactions"
+      ref: "orders"
+    }
+  ],
+  transfers: [
+    {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: "orders"
     }
   ]
 });

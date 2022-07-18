@@ -11,11 +11,7 @@ const Products = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/all_products", {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      })
+      .get("http://localhost:5000/api/all_products")
       .then((res) => {
         setproducts(res.data.products);
         setloading(false);

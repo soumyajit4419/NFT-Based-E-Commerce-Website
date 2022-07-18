@@ -8,22 +8,24 @@ const UserProfile = () => {
 
   const token = localStorage.getItem("token");
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000/api/user", {
-  //       params: { token: token },
-  //     })
-  //     .then((res) => {
-  //       setloading(false);
-  //       setuser(res.data.user);
-  //     })
-  //     .catch((err) => {
-  //       setloading(false);
-  //       toast.error(`${err.response.data.message}`, {
-  //         position: toast.POSITION.TOP_RIGHT,
-  //       });
-  //     });
-  // }, [token]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/user", {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+      .then((res) => {
+        setloading(false);
+        setuser(res.data.user);
+      })
+      .catch((err) => {
+        setloading(false);
+        toast.error(`${err.response.data.message}`, {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      });
+  }, [token]);
 
   if (loading) {
     return (
@@ -49,7 +51,7 @@ const UserProfile = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <h5 className="mb-3">{user.name}</h5>

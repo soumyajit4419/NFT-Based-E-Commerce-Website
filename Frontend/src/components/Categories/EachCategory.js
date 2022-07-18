@@ -24,6 +24,7 @@ const Category = (props) => {
         setloading(false);
       })
       .catch((err) => {
+        console.log(err)
         setloading(false);
         toast.error(`${err.response.data.message}`, {
           position: toast.POSITION.TOP_RIGHT

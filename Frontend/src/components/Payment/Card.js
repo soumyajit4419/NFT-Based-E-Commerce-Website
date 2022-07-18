@@ -13,8 +13,9 @@ import styles from "./styles.css";
 import "elt-react-credit-cards/es/styles-compiled.css";
 import contractABI from "../../abi.json";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { withRouter } from "react-router-dom";
 
-export default class App extends React.Component {
+class Card extends React.Component {
   state = {
     number: "",
     name: "",
@@ -33,6 +34,7 @@ export default class App extends React.Component {
     pincode: "",
     product: "",
     submitDisabled: true,
+    walletdisabled: true,
     formData: null,
     loading: true
   };
@@ -149,9 +151,6 @@ export default class App extends React.Component {
                 position: toast.POSITION.TOP_RIGHT
               }
             );
-            setTimeout(() => {
-              window.location = "/";
-            }, 1000);
           } else {
             toast.error(
               `❗Something went wrong while submitting your transaction:${error}`,
@@ -161,12 +160,12 @@ export default class App extends React.Component {
             );
           }
         }
-      )
+      );
     };
 
     mint();
 
-    this.form.reset();
+    this.props.history.push("/");
   };
 
   render() {
@@ -218,15 +217,27 @@ export default class App extends React.Component {
                       onChange={this.handleChange}
                     />
                   </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      name="wallet_address"
-                      className="form-control"
-                      placeholder="Wallet Address*"
-                      required
-                      onChange={this.handleChange}
-                    />
+                  <div className="row">
+                    <div className="col-7">
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          name="wallet_address"
+                          className="form-control"
+                          placeholder="Wallet Address*"
+                          required
+                          onChange={this.handleChange}
+                          disabled={this.state.walletdisabled}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-5">
+                    <div className="form-group">
+                      <button className="btn btn-primary btn-block" style={{"font-size":"15px"}}>
+                        Connect Wallet
+                      </button>
+                      </div>
+                    </div>
                   </div>
                   <div className="form-group">
                     <input
@@ -386,3 +397,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default withRouter(Card);

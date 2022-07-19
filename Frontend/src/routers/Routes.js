@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import { useHistory } from "react-router";
 // importing all the themes
@@ -49,10 +49,10 @@ const PrivateRoute = (privateRouteProps) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/signup",
               state: {
-                from: props.location
-              }
+                from: props.location,
+              },
             }}
           />
         );
@@ -70,8 +70,8 @@ const Routes = () => {
     axios
       .get("http://localhost:5000/api/valid_user", {
         params: {
-          token: token
-        }
+          token: token,
+        },
       })
       .then((res) => {
         // console.log(res);
@@ -122,7 +122,12 @@ const Routes = () => {
               path="/product/:productid"
               component={ProductDetails}
             />
-            <Route exact path="/orders" component={Orderdetails} />
+            <PrivateRoute
+              exact
+              path="/orders"
+              component={Orderdetails}
+              isAuthenticated={validuser}
+            />
             {/* <Route exact path="/faq" component={Faq} /> */}
 
             {/* <Route exact path="/explore-2" component={ExploreTwo} />

@@ -14,8 +14,8 @@ const Orders = () => {
     axios
       .get("http://localhost:5000/api/user_orders", {
         headers: {
-          Authorization: "Bearer " + token
-        }
+          Authorization: "Bearer " + token,
+        },
       })
       .then((res) => {
         console.log(res.data.orders);
@@ -25,7 +25,7 @@ const Orders = () => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
         history.push("/");
       });
@@ -35,8 +35,8 @@ const Orders = () => {
     return (
       <div style={{ height: "80vh" }}>
         <center>
-          <div class="fa-3x mt-5 pt-5">
-            <i class="fas fa-spinner fa-spin"></i>
+          <div className="fa-3x mt-5 pt-5">
+            <i className="fas fa-spinner fa-spin"></i>
           </div>
         </center>
       </div>
@@ -52,7 +52,7 @@ const Orders = () => {
               fontWeight: 400,
               textAlign: "center",
               color: "black",
-              fontSize: "2em"
+              fontSize: "2em",
             }}
           >
             MY ORDERS

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { storage } from "../../firebase";
@@ -8,16 +8,32 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { FiLogIn } from "react-icons/fi";
 import { IoCreateOutline } from "react-icons/io5";
+import Wallet from "../Wallet/Wallet";
+import { useWeb3React } from "@web3-react/core";
 
 const customStyles = {
   content: {
     border: "none",
     background: "rgb(255 255 255 / 0%)",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   overlay: {
-    backgroundColor: "#2a2a2ac9"
-  }
+    backgroundColor: "#2a2a2ac9",
+  },
+};
+
+const connectCustomStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-40%",
+    transform: "translate(-50%, -50%)",
+  },
+  overlay: {
+    zIndex: 10,
+  },
 };
 
 const Signup = () => {
@@ -30,13 +46,23 @@ const Signup = () => {
   const [imageLoading, setImageLoading] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [password, setPassword] = useState("");
-  const [wallet_address, setWallet_address] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [scale, setScale] = useState(1);
   const [isLoginPage, setLoginPage] = useState(true);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  const [connectModalOpen, setIsConnectModalOpen] = React.useState(false);
+
+  const openConnectModal = (e) => {
+    e.preventDefault();
+    setIsConnectModalOpen(true);
+  };
+
+  const closeConnectModal = () => {
+    setIsConnectModalOpen(false);
+  };
 
   function openModal() {
     setIsOpen(true);
@@ -117,19 +143,20 @@ const Signup = () => {
       profileName === "" ||
       email === "" ||
       password === "" ||
-      wallet_address === ""
+      !active ||
+      !account
     ) {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         }
       );
       setLoading(false);
       return;
     } else if (!phone.match("[0-9]{10}")) {
       toast.error("Please provide a valid Phone Number!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
       return;
@@ -146,18 +173,18 @@ const Signup = () => {
           phone: phone,
           profile_image: profileImage,
           password: password,
-          wallet_address: wallet_address
-        }
+          wallet_address: account,
+        },
       });
       localStorage.setItem("token", res.data.token);
       // localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("User Registered Successfully!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       history.push("/");
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
     }
@@ -170,7 +197,7 @@ const Signup = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         }
       );
       setLoading(false);
@@ -183,26 +210,34 @@ const Signup = () => {
         url: "http://localhost:5000/api/login",
         data: {
           email: email,
-          password: password
-        }
+          password: password,
+        },
       });
       // console.log(res);
       localStorage.setItem("token", res.data.token);
       // localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("You Logged In Successfully!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setTimeout(() => {
-        window.location = "/";
+        history.push("/");
       }, 1000);
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
       return;
     }
   };
+
+  const { active, account } = useWeb3React();
+
+  useEffect(() => {
+    if (active && account && connectModalOpen) {
+      setIsConnectModalOpen(false);
+    }
+  }, [active]);
 
   return (
     <section className="author-area">
@@ -335,7 +370,7 @@ const Signup = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            margin: "auto"
+                            margin: "auto",
                           }}
                         >
                           <i className="fas fa-spinner fa-spin"></i>
@@ -372,7 +407,7 @@ const Signup = () => {
                           <input
                             type="text"
                             className="form-control"
-                            name="price"
+                            name="phoneNo"
                             placeholder="Phone Number"
                             required
                             onChange={(e) => setPhone(e.target.value)}
@@ -384,7 +419,7 @@ const Signup = () => {
                           <input
                             type="password"
                             className="form-control"
-                            name="price"
+                            name="password"
                             placeholder="Password"
                             required
                             onChange={(e) => setPassword(e.target.value)}
@@ -394,13 +429,30 @@ const Signup = () => {
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <input
-                            type="text"
-                            className="form-control"
-                            name="price"
                             placeholder="Wallet Address"
+                            disabled
                             required
-                            onChange={(e) => setWallet_address(e.target.value)}
+                            value={account}
+                            style={{
+                              background: "#b3b3b333",
+                              cursor: "not-allowed",
+                            }}
                           />
+                          <div
+                            style={{
+                              justifyContent: "center",
+                              display: "flex",
+                            }}
+                          >
+                            <button
+                              className="btn mt-3 mt-sm-4"
+                              style={{ fontSize: "15px" }}
+                              onClick={(e) => openConnectModal(e)}
+                              disabled={active ? true : false}
+                            >
+                              {active ? "Connected" : "Connect Wallet"}
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -467,6 +519,14 @@ const Signup = () => {
             </div>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        isOpen={connectModalOpen}
+        onRequestClose={closeConnectModal}
+        style={connectCustomStyles}
+      >
+        <Wallet />
       </Modal>
     </section>
   );

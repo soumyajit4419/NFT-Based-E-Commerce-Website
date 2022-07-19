@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
 import Carousel from "react-elastic-carousel";
 import styled from "styled-components";
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
 
 function LargeBanners() {
   const itemsUrls = [
@@ -11,36 +15,40 @@ function LargeBanners() {
 
   const carouselRef = useRef();
 
-  const onNextStart = (currentItem, nextItem) => {
-    if (currentItem.index === nextItem.index) {
-      // we hit the last item, go to first item
-      carouselRef.current.goTo(0);
-    }
-  };
-
-  const onPrevStart = (currentItem, nextItem) => {
-    if (currentItem.index === nextItem.index) {
-      // we hit the first item, go to last item
-      carouselRef.current.goTo(itemsUrls.length);
-    }
+  const myArrow = ({ type, onClick, isEdge }) => {
+    return (
+      <StyledArrowButton
+        onClick={onClick}
+        disabled={isEdge}
+        className={type === "PREV" ? "prev-arrow" : "next-arrow"}
+      >
+        {type === "PREV" ? (
+          <MdOutlineKeyboardArrowLeft />
+        ) : (
+          <MdOutlineKeyboardArrowRight />
+        )}
+      </StyledArrowButton>
+    );
   };
 
   return (
-    <div className="container-fluid">
+    <div
+      className="container-fluid"
+      style={{ paddingTop: "150px", paddingBottom: "40px" }}
+    >
       <div className="row" style={{ justifyContent: "center" }}>
         <div className="col-12 col-md-11 col-lg-11">
           <Carousel
+            renderArrow={myArrow}
             itemsToShow={1}
             pagination={false}
-            onNextStart={onNextStart}
-            onPrevStart={onPrevStart}
             ref={carouselRef}
             autoPlaySpeed={4000}
             enableAutoPlay={true}
             disableArrowsOnEnd={false}
           >
-            {itemsUrls.map((item) => (
-              <StyledImageContainer>
+            {itemsUrls.map((item, index) => (
+              <StyledImageContainer key={index}>
                 <img
                   className=""
                   src={item}
@@ -66,4 +74,46 @@ export default LargeBanners;
 const StyledImageContainer = styled.div`
   height: 350px;
   width: 100%;
+`;
+
+const StyledArrowButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 1.8em;
+  background-color: white;
+  color: #7971ea;
+  box-shadow: 0 0 2px 0px #333;
+  border-radius: 50%;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  width: 45px;
+  height: 45px;
+  min-width: 45px;
+  line-height: 50px;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  cursor: pointer;
+  outline: none;
+
+  &.prev-arrow {
+    position: absolute;
+    left: 2px;
+    z-index: 10;
+  }
+
+  &.next-arrow {
+    position: absolute;
+    right: 2px;
+    z-index: 10;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;

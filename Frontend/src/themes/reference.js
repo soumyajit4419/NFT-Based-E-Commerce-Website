@@ -62,12 +62,12 @@ function Reference() {
   useEffect(() => {
     const fetchData = async () => {
       const balance = await Contract.methods
-        .balanceOf("0xA776F1523Eb7aEd1ad202Bb924b03A8275B4D4fc")
+        .balanceOf("0xcB39f2b7b0a1f10A6C7A285f6c14C2137F52cd21")
         .call();
       console.log(balance, "bal");
 
       const nft = await Contract.methods
-        .getAllNftsOfUser("0xA776F1523Eb7aEd1ad202Bb924b03A8275B4D4fc")
+        .getAllNftsOfUser("0xcB39f2b7b0a1f10A6C7A285f6c14C2137F52cd21")
         .call();
       console.log(nft, "nft");
     };

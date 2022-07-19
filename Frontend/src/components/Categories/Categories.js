@@ -2,6 +2,42 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { FaHeadphonesAlt } from "react-icons/fa";
+import { BiMobileAlt } from "react-icons/bi";
+import { BsSmartwatch, BsLaptop } from "react-icons/bs";
+import { IoIosFitness } from "react-icons/io";
+import { RiFridgeLine } from "react-icons/ri";
+import styled from "styled-components";
+
+const Icons = ({ item }) => {
+  switch (item) {
+    case "Electronics":
+      return <BsLaptop style={{ fontSize: "2.5rem", marginBottom: "12px" }} />;
+    case "Headphones":
+      return (
+        <FaHeadphonesAlt style={{ fontSize: "2.5rem", marginBottom: "12px" }} />
+      );
+    case "Mobiles":
+      return (
+        <BiMobileAlt style={{ fontSize: "2.5rem", marginBottom: "12px" }} />
+      );
+    case "Watches":
+      return (
+        <BsSmartwatch style={{ fontSize: "2.5rem", marginBottom: "12px" }} />
+      );
+    case "Fitness":
+      return (
+        <IoIosFitness style={{ fontSize: "2.5rem", marginBottom: "12px" }} />
+      );
+    case "Large Appliances":
+      return (
+        <RiFridgeLine style={{ fontSize: "2.5rem", marginBottom: "12px" }} />
+      );
+    default:
+      return null;
+  }
+};
 
 const Categories = () => {
   const [categories, setcategories] = useState([]);
@@ -43,43 +79,36 @@ const Categories = () => {
     );
   } else {
     return (
-      <section className="top-seller-area p-5" style={{ marginTop: "100px" }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              {/* Intro */}
-              <div className="intro m-0  text-center">
-                <div className="intro-content">
-                  <h3 className="mt-3 mb-0">ALL CATEGORIES</h3>
-                </div>
+      <section style={{ marginTop: "30px", marginBottom: "30px" }}>
+        <div className="container-fluid">
+          <div className="row" style={{ justifyContent: "center" }}>
+            <div className="col-12 col-md-12 col-lg-11">
+              <div className="row items">
+                {categories.map((item, idx) => {
+                  return (
+                    <Link
+                      className="col-6 col-sm-4  col-md-3  col-lg-2 item"
+                      to={`/category/${item}`}
+                      style={{ height: "190px" }}
+                    >
+                      <StyleCard className="card hover">
+                        <div
+                          className="single-seller d-flex align-items-center"
+                          style={{ flexDirection: "column" }}
+                        >
+                          <Icons item={item} />
+                          <div className="seller-info">
+                            <div className="d-flex" style={{ fontWeight: 500 }}>
+                              <div>{item}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </StyleCard>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
-          </div>
-          <br />
-          <div className="row items">
-            {categories.map((item, idx) => {
-              return (
-                <a
-                  className="col-12 col-sm-6 col-lg-4 item"
-                  href={`/category/${item}`}
-                >
-                  <div className="card hover">
-                    <div className="single-seller d-flex align-items-center">
-                      <img
-                        className="avatar-md rounded-circle"
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-                        alt=""
-                      />
-                      <div className="seller-info ml-3">
-                        <div className="d-flex">
-                          <div>{item}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              );
-            })}
           </div>
         </div>
       </section>
@@ -88,3 +117,10 @@ const Categories = () => {
 };
 
 export default Categories;
+
+const StyleCard = styled.div`
+  color: #7971ea;
+  padding: 0.8rem;
+  justify-content: center;
+  text-align: center;
+`;

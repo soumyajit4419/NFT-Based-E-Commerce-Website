@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router";
 import ProductCard from "../ProductCard/ProductCard";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const myArrow = ({ type, onClick, isEdge }) => {
   return (
@@ -19,7 +20,7 @@ const myArrow = ({ type, onClick, isEdge }) => {
   );
 };
 
-function CategorySlider({ category }) {
+function CategorySlider({ category, title = null }) {
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
   const history = useHistory();
@@ -62,10 +63,10 @@ function CategorySlider({ category }) {
             }}
           >
             <div>
-              <Heading3>{category}</Heading3>
+              <Heading4>{title ? title : category}</Heading4>
             </div>
             <div>
-              <StyledBtn href={`/category/${category}`}>View all</StyledBtn>
+              <StyledBtn to={`/category/${category}`}>View all</StyledBtn>
             </div>
           </div>
         </div>
@@ -146,20 +147,21 @@ const StyledArrowButton = styled.button`
   }
 `;
 
-const Heading3 = styled.h3`
+const Heading4 = styled.h4`
   margin-block-start: 0;
   margin-block-end: 0;
   margin-left: 20px;
+  color: #7971ea;
 `;
 
-const StyledBtn = styled.a`
+const StyledBtn = styled(Link)`
   margin-right: 20px;
   text-align: center;
   font-weight: 500;
   background: #7971ea;
   border: 1px solid #7971ea !important;
   border-radius: 6px;
-  padding: 10px 20px;
+  padding: 8px 18px;
   color: white !important;
   line-height: 1;
   &:focus {

@@ -2,20 +2,26 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import CategorySlider from "../Category/CategorySlider";
+import { RiShoppingBag3Line } from "react-icons/ri";
+import ProductDeliveryImage from "../../Images/product_delivery.png";
+import ProductFeatureImage from "../../Images/product_features.png";
 
 const ProductDetail = (props) => {
   const productid = props.productid;
-  // console.log(productid);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [product, setproduct] = useState({});
   const history = useHistory();
   const [nftData, setNftData] = useState();
   const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
+    setloading(true);
     axios
       .get("http://localhost:5000/api/product", {
-        params: { productid: productid }
+        params: { productid: productid },
       })
       .then((res) => {
         setproduct(res.data.product);
@@ -24,7 +30,7 @@ const ProductDetail = (props) => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
         history.push("/");
       });
@@ -35,17 +41,20 @@ const ProductDetail = (props) => {
       {loading ? (
         <div style={{ height: "80vh" }}>
           <center>
-            <div class="fa-3x mt-5 pt-5">
-              <i class="fas fa-spinner fa-spin"></i>
+            <div className="fa-3x mt-5 pt-5">
+              <i className="fas fa-spinner fa-spin"></i>
             </div>
           </center>
         </div>
       ) : (
-        <section className="item-details-area" style={{ marginTop: "50px" }}>
-          <div className="container">
+        <section
+          className="item-details-area"
+          style={{ marginTop: "100px", marginBottom: "100px" }}
+        >
+          <div className="container" style={{ paddingBottom: "80px" }}>
             <div className="row justify-content-between">
               <div className="col-12 col-lg-5">
-                <div className="item-info">
+                <StyledCard className="item-info card-1">
                   <div className="item-thumb text-center">
                     <img
                       src={product.product_image}
@@ -53,49 +62,72 @@ const ProductDetail = (props) => {
                       onLoad={() => setImageLoading(false)}
                     />
                   </div>
-                </div>
-              </div>
-              <div className="col-12 col-lg-6">
-                {/* Content */}
-                <div className="content mt-5 mt-lg-0">
-                  <h3 className="m-0">{product.product_name}</h3>
-                  {/* <p>Description</p> */}
-                  {/* Owner */}
-                  {/* <div className="owner d-flex align-items-center">
-                    <span>Owned By</span>
-                    <a
-                      className="owner-meta d-flex align-items-center ml-3"
-                      href={`/artist/`}
-                    >
-                      <img
-                        className="avatar-sm rounded-circle"
-                        src="https://firebasestorage.googleapis.com/v0/b/flipkartgridnft.appspot.com/o/user_images%2FRahul%20Kumar%20Patro.jpg?alt=media&token=023056dd-5de5-44bc-9994-49cf863c8e98"
-                        alt=""
-                      />
-                      <h6 className="ml-2">Owned By</h6> */}
-                  {/* </a> */}
-                </div>
-                <div className="item-info-list mt-4">
-                  <ul className="list-unstyled">
-                    <li className="price d-flex justify-content-between">
-                      <span>Current Price: {product.product_price}</span>
-                    </li>
-                    <span>Quantity: {product.product_quantity}</span>
-                  </ul>
-                </div>
-                <br /> <br />
-                <div className="row items">
-                  <div className="col-12  item px-lg-4">
-                    <div className=" align-items-center">
-                      <div className="d-block btn btn-bordered-white ml-5">
-                        <a href={`/payment/${productid}`}>BUY NOW</a>
+                </StyledCard>
+                <div className="row items mt-4">
+                  <div className="col-12 item" style={{ paddingLeft: 0 }}>
+                    <div className=" align-items-center justify-content-center d-flex">
+                      <div className="d-block btn" style={{ width: "220px" }}>
+                        <RiShoppingBag3Line style={{ fontSize: "1.4rem" }} />
+                        <Link
+                          to={`/payment/${productid}`}
+                          style={{
+                            color: "white",
+                            fontWeight: 500,
+                            marginLeft: "10px",
+                          }}
+                        >
+                          BUY NOW
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div className="col-12 col-lg-6 ">
+                {/* Content */}
+                <div className="content mt-5 mt-lg-0">
+                  <h6
+                    className="m-0"
+                    style={{ fontWeight: 500, color: "#191f23", opacity: 0.5 }}
+                  >
+                    {product.product_brand}
+                  </h6>
+                  <h4
+                    className="mt-4"
+                    style={{ fontWeight: 400, color: "#191f23" }}
+                  >
+                    {product.product_name}
+                  </h4>
+                </div>
+
+                <div className="item-info-list mt-4">
+                  <span
+                    style={{
+                      fontSize: "24px",
+                      fontWeight: 600,
+                      color: "#191f23",
+                    }}
+                  >
+                    ₹ {product.product_price}
+                  </span>
+                </div>
+
+                <div className="content mt-4">
+                  <img src={ProductDeliveryImage} alt="sd" />
+                </div>
+                <div className="content mt-5">
+                  <img src={ProductFeatureImage} alt="sd" />
+                </div>
+              </div>
             </div>
           </div>
+
+          {!loading && (
+            <CategorySlider
+              category={product.category}
+              title={"Similar Products"}
+            />
+          )}
         </section>
       )}
     </div>
@@ -103,3 +135,12 @@ const ProductDetail = (props) => {
 };
 
 export default ProductDetail;
+
+const StyledCard = styled.div`
+  background: transparent;
+  box-shadow: none;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

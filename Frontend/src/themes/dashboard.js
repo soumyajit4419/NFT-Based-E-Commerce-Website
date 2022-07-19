@@ -13,10 +13,10 @@ const Dashboard = () => {
     <div className="main">
       <Header />
       <LargeBanners />
-      <CategorySlider category={"Watches"} />
-      <Categories />
       <CategorySlider category={"Electronics"} />
-      <Reference />
+      <Categories />
+      <CategorySlider category={"Watches"} />
+      {/* <Reference /> */}
       <CategorySlider category={"Fitness"} />
       <CategorySlider category={"Mobiles"} />
 

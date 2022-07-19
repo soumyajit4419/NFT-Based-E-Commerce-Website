@@ -3,38 +3,38 @@ const Schema = mongoose.Schema;
 
 const user = new Schema({
   name: {
-    type: String
+    type: String,
   },
   email: {
-    type: String
+    type: String,
   },
   password: {
-    type: String
+    type: String,
   },
   phone_number: {
-    type: String
+    type: String,
   },
   profile_image: {
-    type: String
+    type: String,
   },
   wallet_address: {
-    type: String
+    type: String,
   },
   blockchain: {
-    type: String
+    type: String,
   },
   orders: [
     {
       type: mongoose.Schema.Types.ObjectID,
-      ref: "orders"
-    }
+      ref: "orders",
+    },
   ],
   transfers: [
     {
       type: mongoose.Schema.Types.ObjectID,
-      ref: "orders"
-    }
-  ]
+      ref: "orders",
+    },
+  ],
 });
 
 module.exports = mongoose.model("users", user);

@@ -18,27 +18,27 @@ exports.new_order = async (req, res) => {
 
     if (!user_id) {
       return res.status(400).json({
-        message: "User Id is required"
+        message: "User Id is required",
       });
     } else if (!address_line1) {
       return res.status(400).json({
-        message: "Address is required"
+        message: "Address is required",
       });
     } else if (!state) {
       return res.status(400).json({
-        message: "State is required"
+        message: "State is required",
       });
     } else if (!city) {
       return res.status(400).json({
-        message: "City is required"
+        message: "City is required",
       });
     } else if (!pincode) {
       return res.status(400).json({
-        message: "Pincode is required"
+        message: "Pincode is required",
       });
     } else if (!wallet_address) {
       return res.status(400).json({
-        message: "Wallet Address is required"
+        message: "Wallet Address is required",
       });
     }
 
@@ -52,10 +52,10 @@ exports.new_order = async (req, res) => {
         line1: address_line1,
         state: state,
         city: city,
-        pincode: pincode
+        pincode: pincode,
       },
       transferred: false,
-      created_at: new Date()
+      created_at: new Date(),
     });
 
     await order.save();
@@ -65,12 +65,12 @@ exports.new_order = async (req, res) => {
     await user_data.save();
 
     res.status(200).json({
-      message: "Order Placed Successfully"
+      message: "Order Placed Successfully",
     });
   } catch (error) {
     res.status(500).json({
       message: "Some error occured",
-      error: `${error.name}, ${error.message}, ${error.stack}`
+      error: `${error.name}, ${error.message}, ${error.stack}`,
     });
   }
 };
@@ -128,22 +128,24 @@ exports.user_my_orders = async (req, res) => {
 
       let curr_order = await order_model.findById(user_orders[i]);
 
-      // console.log(curr_order);
+      console.log(curr_order, i);
 
-      if (curr_order.token_id) {
-        continue;
-      } else {
-        await order_model.updateOne(
-          { _id: curr_order._id },
-          {
-            $set: {
-              token_id: obj.token_id,
-              product_purchase_date: obj.product_purchase_date,
-              warranty_expiry_date: obj.product_expiry_date,
-              product_serial_number: obj.product_serial_number
+      if (curr_order) {
+        if (curr_order.token_id) {
+          continue;
+        } else {
+          await order_model.updateOne(
+            { _id: curr_order._id },
+            {
+              $set: {
+                token_id: obj.token_id,
+                product_purchase_date: obj.product_purchase_date,
+                warranty_expiry_date: obj.product_expiry_date,
+                product_serial_number: obj.product_serial_number,
+              },
             }
-          }
-        );
+          );
+        }
       }
     }
 
@@ -163,16 +165,16 @@ exports.user_my_orders = async (req, res) => {
       final_orders.push(temp);
     }
 
-   final_orders.reverse();
+    final_orders.reverse();
 
     res.status(200).json({
       message: "User's my orders details fetched successfully",
-      orders: final_orders
+      orders: final_orders,
     });
   } catch (error) {
     res.status(500).json({
       message: "Some error occured",
-      error: `${error.name}, ${error.message}, ${error.stack}`
+      error: `${error.name}, ${error.message}, ${error.stack}`,
     });
   }
 };

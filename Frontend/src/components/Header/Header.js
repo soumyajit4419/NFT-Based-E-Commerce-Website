@@ -7,13 +7,10 @@ import axios from "axios";
 import styled from "styled-components";
 import { TbHome } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import {
-  FiLogIn,
-  FiShoppingCart,
-  FiInfo,
-  FiLogOut,
-  FiUser,
-} from "react-icons/fi";
+import { FiLogIn, FiInfo, FiLogOut, FiUser } from "react-icons/fi";
+
+import { IoBagCheckOutline } from "react-icons/io5";
+import { TbDiscount2 } from "react-icons/tb";
 
 const Header = () => {
   const [validuser, setvaliduser] = useState(false);
@@ -24,8 +21,8 @@ const Header = () => {
     axios
       .get("http://localhost:5000/api/valid_user", {
         params: {
-          token: token,
-        },
+          token: token
+        }
       })
       .then((res) => {
         // console.log(res);
@@ -76,9 +73,9 @@ const Header = () => {
 
             {validuser && (
               <li className="nav-item">
-                <StyledLink to="/contact" className="nav-link">
-                  <FiShoppingCart className="menu-icon" />
-                  Cart
+                <StyledLink to="/orders" className="nav-link">
+                  <IoBagCheckOutline className="menu-icon" />
+                  My Orders
                 </StyledLink>
               </li>
             )}
@@ -101,7 +98,7 @@ const Header = () => {
                     localStorage.clear();
                     history.push("/");
                     toast.success("You Logged Out Successfully", {
-                      position: toast.POSITION.TOP_RIGHT,
+                      position: toast.POSITION.TOP_RIGHT
                     });
                   }}
                 >

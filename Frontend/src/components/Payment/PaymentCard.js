@@ -5,7 +5,7 @@ import {
   formatCreditCardNumber,
   formatCVC,
   formatExpirationDate,
-  formatFormData,
+  formatFormData
 } from "./utils";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -40,14 +40,14 @@ class PaymentCard extends React.Component {
     walletdisabled: true,
     formData: null,
     loading: true,
-    isModalOpen: false,
+    isModalOpen: false
   };
 
   componentDidMount() {
     this.setState({ productid: this.props.productid }, () => {
       axios
         .get("http://localhost:5000/api/product", {
-          params: { productid: this.state.productid },
+          params: { productid: this.state.productid }
         })
         .then((res) => {
           this.setState({ product: res.data.product });
@@ -57,7 +57,7 @@ class PaymentCard extends React.Component {
           console.log(err);
           this.setState({ loading: false });
           toast.error(`${err.response.data.message}`, {
-            position: toast.POSITION.TOP_RIGHT,
+            position: toast.POSITION.TOP_RIGHT
           });
           setTimeout(() => {
             window.location = "/";
@@ -74,7 +74,7 @@ class PaymentCard extends React.Component {
 
   handleInputFocus = ({ target }) => {
     this.setState({
-      focused: target.name,
+      focused: target.name
     });
   };
 
@@ -109,7 +109,7 @@ class PaymentCard extends React.Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
     this.setState({ loading: true });
@@ -138,7 +138,7 @@ class PaymentCard extends React.Component {
             this.props.account,
             this.state.product.product_serial_number
           )
-          .encodeABI(),
+          .encodeABI()
       };
 
       const signedTx = await web3.eth.accounts.signTransaction(
@@ -150,20 +150,48 @@ class PaymentCard extends React.Component {
         if (!error) {
           const interval = setInterval(() => {
             web3.eth.getTransactionReceipt(hash).then((receipt) => {
-              this.setState({ loading: false });
               if (receipt.status) {
-                toast.success(`Transaction Successful🎉.`, {
-                  position: toast.POSITION.TOP_RIGHT,
-                });
-                clearInterval(interval);
-                setTimeout(() => {
-                  this.props.history.push("/");
-                }, 1000);
+                let token = localStorage.getItem("token");
+
+                axios
+                  .post("http://localhost:5000/api/order", {
+                    headers: {
+                      Authorization: "Bearer " + token
+                    },
+                    data: {
+                      address: this.state.address1,
+                      state: this.state.state1,
+                      city: this.state.city,
+                      pincode: this.state.pincode,
+                      wallet_address: this.props.account,
+                      product_id: this.state.productid
+                    }
+                  })
+                  .then((res) => {
+                    toast.success(`Transaction Successful🎉.`, {
+                      position: toast.POSITION.TOP_RIGHT
+                    });
+                    this.setState({ loading: false });
+                    clearInterval(interval);
+                    setTimeout(() => {
+                      this.props.history.push("/");
+                    }, 1000);
+                  })
+                  .catch((err) => {
+                    this.setState({ loading: false });
+                    toast.error(`${err.response.data.message}`, {
+                      position: toast.POSITION.TOP_RIGHT
+                    });
+                    clearInterval(interval);
+                    setTimeout(() => {
+                      this.props.history.push("/");
+                    }, 1000);
+                  });
               } else {
                 toast.error(
                   `❗Something went wrong while submitting your transaction`,
                   {
-                    position: toast.POSITION.TOP_RIGHT,
+                    position: toast.POSITION.TOP_RIGHT
                   }
                 );
                 this.setState({ loading: false });
@@ -174,7 +202,7 @@ class PaymentCard extends React.Component {
           toast.error(
             `❗Something went wrong while submitting your transaction`,
             {
-              position: toast.POSITION.TOP_RIGHT,
+              position: toast.POSITION.TOP_RIGHT
             }
           );
           this.setState({ loading: false });
@@ -203,11 +231,11 @@ class PaymentCard extends React.Component {
         right: "auto",
         bottom: "auto",
         marginRight: "-40%",
-        transform: "translate(-50%, -50%)",
+        transform: "translate(-50%, -50%)"
       },
       overlay: {
-        zIndex: 10,
-      },
+        zIndex: 10
+      }
     };
 
     return (
@@ -233,7 +261,7 @@ class PaymentCard extends React.Component {
                   gutterBottom
                   style={{
                     textAlign: "center",
-                    color: "#7971ea",
+                    color: "#7971ea"
                   }}
                 >
                   Enter Your Address Details
@@ -244,7 +272,7 @@ class PaymentCard extends React.Component {
                   style={{
                     color: "#ff5499",
                     fontSize: "15px",
-                    textAlign: "center",
+                    textAlign: "center"
                   }}
                 >
                   Fill all the required(*) fields to Pay
@@ -483,7 +511,7 @@ class PaymentCard extends React.Component {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "center",
+                          justifyContent: "center"
                         }}
                       >
                         <button

@@ -6,11 +6,11 @@ const order = new Schema({
     type: mongoose.Schema.Types.ObjectID,
     ref: "users"
   },
-  product: {
+  product_id: {
     type: String
   },
-  index: {
-    type: Number
+  product_serial_number: {
+    type: String
   },
   token_id: {
     type: String
@@ -21,7 +21,7 @@ const order = new Schema({
   product_purchase_date: {
     type: Date
   },
-  product_expiry_date: {
+  warranty_expiry_date: {
     type: Date
   },
   address: {
@@ -37,6 +37,12 @@ const order = new Schema({
     pincode: {
       type: Number
     }
+  },
+  transferred: {
+    type: Boolean
+  },
+  created_at:{
+    type:Date
   }
 });
 

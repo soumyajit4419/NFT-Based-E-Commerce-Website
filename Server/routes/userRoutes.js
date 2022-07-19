@@ -36,6 +36,6 @@ app.route("/mint").get(nft.nft);
 
 app.route("/order").post(verify.verify, order.new_order);
 
-app.route("/check").get(order.check);
+app.route("/user_orders").get(verify.verify, order.user_my_orders);
 
 module.exports = app;

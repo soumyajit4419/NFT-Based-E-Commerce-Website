@@ -4,21 +4,22 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router";
 import OrderCard from "./OrderCard";
 
-const Products = () => {
-  const [products, setproducts] = useState([]);
+const Orders = () => {
+  const [orders, setorders] = useState([]);
   const [loading, setloading] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/all_products", {
+      .get("http://localhost:5000/api/user_orders", {
         headers: {
           Authorization: "Bearer " + token
         }
       })
       .then((res) => {
-        setproducts(res.data.products);
+        console.log(res.data.orders);
+        setorders(res.data.orders);
         setloading(false);
       })
       .catch((err) => {
@@ -43,22 +44,22 @@ const Products = () => {
   } else {
     return (
       <section className="popular-collections-area">
-        <div className="container"  style={{ marginTop: "80px" }}>
+        <div className="container" style={{ marginTop: "80px" }}>
           <h4
             className="mb-2"
             style={{
               opacity: 0.6,
               fontWeight: 400,
-              textAlign:"center",
-              color:"black",
-              fontSize:"2em"
+              textAlign: "center",
+              color: "black",
+              fontSize: "2em"
             }}
           >
             MY ORDERS
           </h4>
           <div className="row items product-all-items">
-            {products.map((item, idx) => {
-              return <OrderCard item={item} key={item.product_id} />;
+            {orders.map((item, idx) => {
+              return <OrderCard item={item} key={item.order_details._id} />;
             })}
           </div>
         </div>
@@ -67,4 +68,4 @@ const Products = () => {
   }
 };
 
-export default Products;
+export default Orders;

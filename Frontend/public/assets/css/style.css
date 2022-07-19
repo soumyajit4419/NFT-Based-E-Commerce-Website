@@ -3373,3 +3373,13 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 ::-webkit-scrollbar {
   width: 0px;
 }
+
+.order-button {
+  padding: 50px;
+}
+
+@media (max-width: 575px) {
+  .order-button {
+    padding: 0px;
+  }
+}

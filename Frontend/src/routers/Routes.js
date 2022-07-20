@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  Redirect
 } from "react-router-dom";
 import { useHistory } from "react-router";
 // importing all the themes
@@ -17,6 +17,7 @@ import Products from "../themes/all_products";
 import ProductDetails from "../themes/productdetails";
 import Payment from "../themes/payment";
 import Orderdetails from "../themes/order_details";
+import SaleProducts from "../themes/sale_products.js";
 
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
@@ -51,8 +52,8 @@ const PrivateRoute = (privateRouteProps) => {
             to={{
               pathname: "/signup",
               state: {
-                from: props.location,
-              },
+                from: props.location
+              }
             }}
           />
         );
@@ -70,8 +71,8 @@ const Routes = () => {
     axios
       .get("http://localhost:5000/api/valid_user", {
         params: {
-          token: token,
-        },
+          token: token
+        }
       })
       .then((res) => {
         // console.log(res);
@@ -128,6 +129,8 @@ const Routes = () => {
               component={Orderdetails}
               isAuthenticated={validuser}
             />
+            <Route exact path="/sale" component={SaleProducts} />
+
             {/* <Route exact path="/faq" component={Faq} /> */}
 
             {/* <Route exact path="/explore-2" component={ExploreTwo} />

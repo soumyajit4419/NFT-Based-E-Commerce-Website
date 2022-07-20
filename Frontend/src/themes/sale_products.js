@@ -1,18 +1,15 @@
 import React from "react";
 import Header from "../components/Header/Header";
-import ProductDetail from "../components/ProductDetails/Productdetails";
+import SaleProducts from "../components/Sale_Products/Sale_Products";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
 import Scrollup from "../components/Scrollup/Scrollup";
 
-const ProductDetails = (props) => {
+const SaleProduct = (props) => {
   return (
     <div className="main">
       <Header />
-      <ProductDetail
-        productid={props.match.params.productid}
-        sale={props.location.state}
-      />
+      <SaleProducts />
       <ModalSearch />
       <ModalMenu />
       <Scrollup />
@@ -20,4 +17,4 @@ const ProductDetails = (props) => {
   );
 };
 
-export default ProductDetails;
+export default SaleProduct;

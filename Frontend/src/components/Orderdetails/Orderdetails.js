@@ -2,12 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
-import OrderCard from "./OrderCard";
+import OrderCardHeader from "./OrderCardHeader";
+import Faq from "react-faq-component";
+import OrderCardBody from "./OrderCardBody";
+import contractABI from "../../abi.json";
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { ContractAddress } from "../../core/constant";
+import "./styles.css";
 
 const Orders = () => {
-  const [orders, setorders] = useState([]);
   const [loading, setloading] = useState(true);
+  const [renderData, setRenderData] = useState({});
   const history = useHistory();
+
+  const web3 = createAlchemyWeb3(
+    "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
+  );
+
+  const Contract = new web3.eth.Contract(
+    JSON.parse(contractABI.result),
+    ContractAddress
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -17,9 +32,50 @@ const Orders = () => {
           Authorization: "Bearer " + token,
         },
       })
-      .then((res) => {
-        console.log(res.data.orders);
-        setorders(res.data.orders);
+      .then(async (res) => {
+        console.log(res.data);
+        // setorders(res.data.orders);
+        const productData = res.data.orders;
+        const nftData = await Contract.methods
+          .getAllNftsOfUser(res.data.wallet_address)
+          .call();
+
+        const userOrders = [];
+        for (let i = 0; i < nftData.length; i++) {
+          const serialNo = nftData[i].warrentyDetails.ProductSerialNumber;
+          const filtredProductData = productData.filter((pd) => {
+            return pd.orders_details.product_serial_number === serialNo;
+          });
+
+          const newOrdersObj = {
+            nft_details: nftData[i],
+          };
+
+          if (filtredProductData.length > 0) {
+            newOrdersObj["order_details"] =
+              filtredProductData[0].orders_details;
+            newOrdersObj["product_details"] =
+              filtredProductData[0].product_details;
+          }
+
+          userOrders.push(newOrdersObj);
+        }
+
+        const dataToShow = userOrders.map((item) => {
+          const obj = {
+            title: (
+              <OrderCardHeader
+                item={item}
+                walletAddress={res.data.wallet_address}
+              />
+            ),
+            content: <OrderCardBody item={item} />,
+          };
+          return obj;
+        });
+
+        console.log(dataToShow, userOrders, "sd");
+        setRenderData({ rows: dataToShow });
         setloading(false);
       })
       .catch((err) => {
@@ -57,10 +113,10 @@ const Orders = () => {
           >
             MY ORDERS
           </h4>
-          <div className="row items product-all-items">
-            {orders.map((item, idx) => {
-              return <OrderCard item={item} key={item.order_details._id} />;
-            })}
+          <div className="row">
+            <div className="col-12  faq-style-wrapper">
+              <Faq data={renderData} />
+            </div>
           </div>
         </div>
       </section>

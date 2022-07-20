@@ -15,8 +15,8 @@ import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { withRouter } from "react-router-dom";
 import Modal from "react-modal";
 import Wallet from "../Wallet/Wallet";
-import styles from "./styles.css";
 import { ContractAddress } from "../../core/constant";
+import "./styles.css";
 
 class PaymentCard extends React.Component {
   state = {
@@ -64,6 +64,23 @@ class PaymentCard extends React.Component {
           }, 1000);
         });
     });
+
+    const token = localStorage.getItem("token");
+    axios
+      .get("http://localhost:5000/api/user", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        this.setState({ wallet_address: res.data.user.wallet_address });
+      })
+      .catch((err) => {
+        this.setState({ loading: false });
+        toast.error(`${err.response.data.message}`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
   }
 
   handleCallback = ({ issuer }, isValid) => {
@@ -99,8 +116,7 @@ class PaymentCard extends React.Component {
         !!this.state.state1 &&
         !!this.state.city &&
         !!this.state.pincode &&
-        !!this.props.active &&
-        !!this.props.account
+        !!this.state.wallet_address
       ) {
         this.setState({ submitDisabled: false });
       } else {
@@ -112,7 +128,12 @@ class PaymentCard extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
+    const productSerialNumber =
+      this.state.product.product_brand.substring(0, 2).toUpperCase() +
+      Math.random().toString(10).slice(2);
+
     this.setState({ loading: true });
+
     const mint = async () => {
       const web3 = createAlchemyWeb3(
         "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
@@ -136,7 +157,7 @@ class PaymentCard extends React.Component {
             this.state.product.warranty_duration,
             50,
             this.props.account,
-            this.state.product.product_serial_number
+            productSerialNumber
           )
           .encodeABI(),
       };
@@ -188,8 +209,8 @@ class PaymentCard extends React.Component {
           state: this.state.state1,
           city: this.state.city,
           pincode: this.state.pincode,
-          wallet_address: this.props.account,
           product_id: this.state.productid,
+          product_serial_number: productSerialNumber,
         },
         {
           headers: {
@@ -387,29 +408,17 @@ class PaymentCard extends React.Component {
                 </form>
 
                 <div className="row">
-                  <div className="col-7">
+                  <div className="col-12">
                     <div className="form-group">
                       <input
                         type="text"
                         name="wallet_address"
                         className="form-control"
                         placeholder="Wallet Address*"
-                        required
-                        onChange={this.handleChange}
-                        disabled={this.state.walletdisabled}
-                        value={this.props.active ? this.props.account : ""}
+                        value={this.state.wallet_address}
+                        disabled={true}
                       />
                     </div>
-                  </div>
-                  <div className="col-5">
-                    <button
-                      className="btn btn-primary btn-block"
-                      style={{ fontSize: "15px" }}
-                      onClick={this.openModal}
-                      disabled={this.props.active ? true : false}
-                    >
-                      {this.props.active ? "Connected" : "Connect Wallet"}
-                    </button>
                   </div>
                 </div>
               </div>
@@ -523,14 +532,6 @@ class PaymentCard extends React.Component {
             </div>
           </>
         )}
-
-        <Modal
-          isOpen={this.state.isModalOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-        >
-          <Wallet />
-        </Modal>
       </div>
     );
   }

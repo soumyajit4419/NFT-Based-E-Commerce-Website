@@ -146,37 +146,37 @@ class PaymentCard extends React.Component {
         process.env.REACT_APP_PRIVATE_KEY
       );
 
-      // web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
-      //   if (!error) {
-      //     const interval = setInterval(() => {
-      //       web3.eth.getTransactionReceipt(hash).then((receipt) => {
-      //         if (receipt.status) {
-      //           this.setState({ loading: false });
-      //           clearInterval(interval);
-      //           setTimeout(() => {
-      //             this.props.history.push("/");
-      //           }, 1000);
-      //         } else {
-      //           toast.error(
-      //             `❗Something went wrong while submitting your transaction`,
-      //             {
-      //               position: toast.POSITION.TOP_RIGHT,
-      //             }
-      //           );
-      //           this.setState({ loading: false });
-      //         }
-      //       });
-      //     }, 4000);
-      //   } else {
-      //     toast.error(
-      //       `❗Something went wrong while submitting your transaction`,
-      //       {
-      //         position: toast.POSITION.TOP_RIGHT,
-      //       }
-      //     );
-      //     this.setState({ loading: false });
-      //   }
-      // });
+      web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
+        if (!error) {
+          const interval = setInterval(() => {
+            web3.eth.getTransactionReceipt(hash).then((receipt) => {
+              if (receipt.status) {
+                this.setState({ loading: false });
+                clearInterval(interval);
+                setTimeout(() => {
+                  this.props.history.push("/");
+                }, 1000);
+              } else {
+                toast.error(
+                  `❗Something went wrong while submitting your transaction`,
+                  {
+                    position: toast.POSITION.TOP_RIGHT,
+                  }
+                );
+                this.setState({ loading: false });
+              }
+            });
+          }, 4000);
+        } else {
+          toast.error(
+            `❗Something went wrong while submitting your transaction`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          this.setState({ loading: false });
+        }
+      });
     };
 
     let token = localStorage.getItem("token");

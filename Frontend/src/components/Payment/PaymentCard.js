@@ -5,7 +5,7 @@ import {
   formatCreditCardNumber,
   formatCVC,
   formatExpirationDate,
-  formatFormData,
+  formatFormData
 } from "./utils";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -37,14 +37,14 @@ class PaymentCard extends React.Component {
     submitDisabled: true,
     walletdisabled: true,
     formData: null,
-    loading: true,
+    loading: true
   };
 
   componentDidMount() {
     this.setState({ productid: this.props.productid }, () => {
       axios
         .get("http://localhost:5000/api/product", {
-          params: { productid: this.state.productid },
+          params: { productid: this.state.productid }
         })
         .then((res) => {
           this.setState({ product: res.data.product });
@@ -54,7 +54,7 @@ class PaymentCard extends React.Component {
           console.log(err);
           this.setState({ loading: false });
           toast.error(`${err.response.data.message}`, {
-            position: toast.POSITION.TOP_RIGHT,
+            position: toast.POSITION.TOP_RIGHT
           });
           setTimeout(() => {
             window.location = "/";
@@ -66,8 +66,8 @@ class PaymentCard extends React.Component {
     axios
       .get("http://localhost:5000/api/user", {
         headers: {
-          Authorization: "Bearer " + token,
-        },
+          Authorization: "Bearer " + token
+        }
       })
       .then((res) => {
         this.setState({ wallet_address: res.data.user.wallet_address });
@@ -75,7 +75,7 @@ class PaymentCard extends React.Component {
       .catch((err) => {
         this.setState({ loading: false });
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         });
       });
   }
@@ -88,7 +88,7 @@ class PaymentCard extends React.Component {
 
   handleInputFocus = ({ target }) => {
     this.setState({
-      focused: target.name,
+      focused: target.name
     });
   };
 
@@ -153,17 +153,17 @@ class PaymentCard extends React.Component {
             this.state.product.category,
             this.state.product.warranty_duration,
             50,
-            this.props.account,
+            this.state.wallet_address,
             productSerialNumber
           )
-          .encodeABI(),
+          .encodeABI()
       };
 
       const signedTx = await web3.eth.accounts.signTransaction(
         tx,
         process.env.REACT_APP_PRIVATE_KEY
       );
-
+      console.log("jsaoj2");
       web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
         if (!error) {
           const interval = setInterval(() => {
@@ -173,12 +173,15 @@ class PaymentCard extends React.Component {
                 clearInterval(interval);
                 setTimeout(() => {
                   this.props.history.push("/");
-                }, 1000);
+                }, 500);
+                toast.success(`Transaction Successful 🔥`, {
+                  position: toast.POSITION.TOP_RIGHT
+                });
               } else {
                 toast.error(
                   `❗Something went wrong while submitting your transaction`,
                   {
-                    position: toast.POSITION.TOP_RIGHT,
+                    position: toast.POSITION.TOP_RIGHT
                   }
                 );
                 this.setState({ loading: false });
@@ -189,7 +192,7 @@ class PaymentCard extends React.Component {
           toast.error(
             `❗Something went wrong while submitting your transaction`,
             {
-              position: toast.POSITION.TOP_RIGHT,
+              position: toast.POSITION.TOP_RIGHT
             }
           );
           this.setState({ loading: false });
@@ -207,12 +210,12 @@ class PaymentCard extends React.Component {
           city: this.state.city,
           pincode: this.state.pincode,
           product_id: this.state.productid,
-          product_serial_number: productSerialNumber,
+          product_serial_number: productSerialNumber
         },
         {
           headers: {
-            Authorization: "Bearer " + token,
-          },
+            Authorization: "Bearer " + token
+          }
         }
       )
       .then((res) => {
@@ -251,7 +254,7 @@ class PaymentCard extends React.Component {
                   gutterBottom
                   style={{
                     textAlign: "center",
-                    color: "#7971ea",
+                    color: "#7971ea"
                   }}
                 >
                   Enter Your Address Details
@@ -262,7 +265,7 @@ class PaymentCard extends React.Component {
                   style={{
                     color: "#ff5499",
                     fontSize: "15px",
-                    textAlign: "center",
+                    textAlign: "center"
                   }}
                 >
                   Fill all the required(*) fields to Pay
@@ -489,7 +492,7 @@ class PaymentCard extends React.Component {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "center",
+                          justifyContent: "center"
                         }}
                       >
                         <button

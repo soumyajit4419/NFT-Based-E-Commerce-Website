@@ -12,18 +12,6 @@ const order = new Schema({
   product_serial_number: {
     type: String
   },
-  token_id: {
-    type: String
-  },
-  owner_wallet_address: {
-    type: String
-  },
-  product_purchase_date: {
-    type: Date
-  },
-  warranty_expiry_date: {
-    type: Date
-  },
   address: {
     line1: {
       type: String

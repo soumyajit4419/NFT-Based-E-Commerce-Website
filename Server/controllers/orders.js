@@ -83,6 +83,8 @@ exports.user_my_orders = async (req, res) => {
   try {
     let user_id = req.user._id;
 
+    let wallet_address = req.user.wallet_address;
+
     if (!user_id) {
       return res.status(400).json({
         message: "User Id is required"
@@ -140,7 +142,8 @@ exports.user_my_orders = async (req, res) => {
     res.status(200).json({
       message: "User's my orders details fetched successfully",
       orders: all_orders,
-      total_orders:all_orders.length
+      total_orders: all_orders.length,
+      wallet_address:wallet_address
     });
   } catch (error) {
     res.status(500).json({
@@ -149,3 +152,168 @@ exports.user_my_orders = async (req, res) => {
     });
   }
 };
+
+// exports.transfer_nft = async (req, res) => {
+//   try {
+//     let product_serial_number = req.body.product_serial_number;
+
+//     const product_data = await order_model.findOne({
+//       product_serial_number: product_serial_number
+//     });
+
+//     product_data.transferred = true;
+
+//     product_data.save();
+
+//     res.status(200).json({
+//       message: "Order Put On Sale Successfully"
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Some error occured",
+//       error: `${error.name}, ${error.message}, ${error.stack}`
+//     });
+//   }
+// };
+
+// exports.all_transfer_orders = async (req, res) => {
+//   try {
+//     let user_id = req.user._id;
+
+//     if (!user_id) {
+//       return res.status(400).json({
+//         message: "User Id is required"
+//       });
+//     }
+
+//     let all_transfer_orders = await user_model.aggregate([
+//       {
+//         $match: {
+//           _id: mongoose.Types.ObjectId(user_id)
+//         }
+//       },
+//       {
+//         $unset: [
+//           "email",
+//           "password",
+//           "wallet_address",
+//           "profile_image",
+//           "blockchain",
+//           "__v",
+//           "orders"
+//         ]
+//       },
+//       {
+//         $lookup: {
+//           from: "orders",
+//           localField: "transfers",
+//           foreignField: "_id",
+//           as: "transfer_details"
+//         }
+//       },
+//       {
+//         $unwind: {
+//           path: "$transfer_details"
+//         }
+//       },
+//       {
+//         $lookup: {
+//           from: "products",
+//           localField: "transfer_details.product_id",
+//           foreignField: "product_id",
+//           as: "product_details"
+//         }
+//       },
+//       {
+//         $unwind: {
+//           path: "$product_details"
+//         }
+//       },
+//       {
+//         $unset: "transfers"
+//       }
+//     ]);
+
+//     res.status(200).json({
+//       message: "User's taansfer order details fetched successfully",
+//       orders: all_transfer_orders,
+//       total_orders: all_transfer_orders.length
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Some error occured",
+//       error: `${error.name}, ${error.message}, ${error.stack}`
+//     });
+//   }
+// };
+
+// exports.all_sale_orders = async (req, res) => {
+//   try {
+//     let user_id = req.user._id;
+
+//     if (!user_id) {
+//       return res.status(400).json({
+//         message: "User Id is required"
+//       });
+//     }
+
+//     let all_orders = await user_model.aggregate([
+//       {
+//         $match: {
+//           _id: mongoose.Types.ObjectId(user_id)
+//         }
+//       },
+//       {
+//         $unset: [
+//           "email",
+//           "password",
+//           "wallet_address",
+//           "profile_image",
+//           "blockchain",
+//           "__v",
+//           "transfers"
+//         ]
+//       },
+//       {
+//         $lookup: {
+//           from: "orders",
+//           localField: "orders",
+//           foreignField: "_id",
+//           as: "orders_details"
+//         }
+//       },
+//       {
+//         $unwind: {
+//           path: "$orders_details"
+//         }
+//       },
+//       {
+//         $lookup: {
+//           from: "products",
+//           localField: "orders_details.product_id",
+//           foreignField: "product_id",
+//           as: "product_details"
+//         }
+//       },
+//       {
+//         $unwind: {
+//           path: "$product_details"
+//         }
+//       },
+//       {
+//         $unset: "orders"
+//       }
+//     ]);
+
+//     res.status(200).json({
+//       message: "User's my orders details fetched successfully",
+//       orders: all_orders,
+//       total_orders: all_orders.length
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Some error occured",
+//       error: `${error.name}, ${error.message}, ${error.stack}`
+//     });
+//   }
+// };

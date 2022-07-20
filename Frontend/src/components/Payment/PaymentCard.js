@@ -13,8 +13,6 @@ import "elt-react-credit-cards/es/styles-compiled.css";
 import contractABI from "../../abi.json";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { withRouter } from "react-router-dom";
-import Modal from "react-modal";
-import Wallet from "../Wallet/Wallet";
 import { ContractAddress } from "../../core/constant";
 import "./styles.css";
 
@@ -40,7 +38,6 @@ class PaymentCard extends React.Component {
     walletdisabled: true,
     formData: null,
     loading: true,
-    isModalOpen: false,
   };
 
   componentDidMount() {
@@ -228,30 +225,8 @@ class PaymentCard extends React.Component {
     mint();
   };
 
-  openModal = () => {
-    this.setState({ isModalOpen: true });
-  };
-
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
-  };
-
   render() {
     const { name, number, expiry, cvc, focused, issuer } = this.state;
-
-    const customStyles = {
-      content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-40%",
-        transform: "translate(-50%, -50%)",
-      },
-      overlay: {
-        zIndex: 10,
-      },
-    };
 
     return (
       <div

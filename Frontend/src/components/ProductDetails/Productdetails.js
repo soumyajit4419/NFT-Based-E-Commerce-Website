@@ -11,6 +11,9 @@ import ProductFeatureImage from "../../Images/product_features.png";
 
 const ProductDetail = (props) => {
   const productid = props.productid;
+  let sale = props.sale ? true : false;
+
+  // console.log(sale);
   const [loading, setloading] = useState(true);
   const [product, setproduct] = useState({});
   const history = useHistory();
@@ -21,7 +24,7 @@ const ProductDetail = (props) => {
     setloading(true);
     axios
       .get("http://localhost:5000/api/product", {
-        params: { productid: productid },
+        params: { productid: productid }
       })
       .then((res) => {
         setproduct(res.data.product);
@@ -30,7 +33,7 @@ const ProductDetail = (props) => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         });
         history.push("/");
       });
@@ -69,11 +72,14 @@ const ProductDetail = (props) => {
                       <div className="d-block btn" style={{ width: "220px" }}>
                         <RiShoppingBag3Line style={{ fontSize: "1.4rem" }} />
                         <Link
-                          to={`/payment/${productid}`}
+                          to={{
+                            pathname: `/payment/${productid}`,
+                            state: { sale: sale }
+                          }}
                           style={{
                             color: "white",
                             fontWeight: 500,
-                            marginLeft: "10px",
+                            marginLeft: "10px"
                           }}
                         >
                           BUY NOW
@@ -105,7 +111,7 @@ const ProductDetail = (props) => {
                     style={{
                       fontSize: "24px",
                       fontWeight: 600,
-                      color: "#191f23",
+                      color: "#191f23"
                     }}
                   >
                     ₹ {product.product_price}

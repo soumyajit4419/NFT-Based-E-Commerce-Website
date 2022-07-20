@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { ContractAddress } from "../../core/constant";
 import { ethers } from "ethers";
 import contractABI from "../../abi.json";
+import axios from "axios";
 
 const customStyles = {
   content: {
@@ -13,11 +14,11 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    transform: "translate(-50%, -50%)"
   },
   overlay: {
-    zIndex: 3000,
-  },
+    zIndex: 3000
+  }
 };
 
 function OrderCardHeader({ item, walletAddress }) {
@@ -45,7 +46,7 @@ function OrderCardHeader({ item, walletAddress }) {
       if (active) {
         if (active && account && account !== walletAddress) {
           toast.error("Not connected to valid address", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.TOP_CENTER
           });
           return;
         }
@@ -64,8 +65,30 @@ function OrderCardHeader({ item, walletAddress }) {
             item.nft_details.tokenId
           );
 
+          let token = localStorage.getItem("token");
+
+          axios
+            .post(
+              "http://localhost:5000/api/sale",
+              {
+                product_serial_number:
+                  item?.order_details?.product_serial_number
+              },
+              {
+                headers: {
+                  Authorization: "Bearer " + token
+                }
+              }
+            )
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
           toast.success("Item Put on sale", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.TOP_CENTER
           });
         } catch (er) {
           console.log("approve error", er);
@@ -102,7 +125,7 @@ function OrderCardHeader({ item, walletAddress }) {
                   textAlign: "center",
                   display: "-webkit-box",
                   minHeight: "2.5rem",
-                  fontSize: "1em",
+                  fontSize: "1em"
                 }}
               >
                 {item?.product_details?.product_name}
@@ -110,26 +133,50 @@ function OrderCardHeader({ item, walletAddress }) {
             </div>
           </div>
         </div>
-        <div className="col-md-3">
-          {active && account ? (
-            <button
-              className="btn btn-primary btn-block"
-              onClick={(e) => handleSale(e)}
+        {item?.order_details?.transferred ? (
+          <>
+            {" "}
+            <div className="col-md-3">
+            <h6
+              className="mb-2"
+              style={{
+                opacity: 0.6,
+                fontWeight: 600,
+                color: "black",
+                textAlign: "center",
+                display: "-webkit-box",
+                minHeight: "2.5rem",
+                fontSize: "0.9em"
+              }}
             >
-              Put on sale
-            </button>
-          ) : (
-            <>
-              <button
-                className="btn btn-primary btn-block"
-                onClick={(e) => openModal(e)}
-              >
-                Connect Wallet
-              </button>
-              <p>Connect wallet to put the product on sale</p>
-            </>
-          )}
-        </div>
+              Item Already Put On Sale
+            </h6>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="col-md-3">
+              {active && account ? (
+                <button
+                  className="btn btn-primary btn-block"
+                  onClick={(e) => handleSale(e)}
+                >
+                  Put on sale
+                </button>
+              ) : (
+                <>
+                  <button
+                    className="btn btn-primary btn-block"
+                    onClick={(e) => openModal(e)}
+                  >
+                    Connect Wallet
+                  </button>
+                  <p>Connect wallet to put the product on sale</p>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       <Modal

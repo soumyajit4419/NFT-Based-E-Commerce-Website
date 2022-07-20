@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { TbHome } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FiLogIn, FiInfo, FiLogOut, FiUser } from "react-icons/fi";
-
+import { BiData } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { TbDiscount2 } from "react-icons/tb";
 
@@ -59,6 +59,12 @@ const Header = () => {
               <StyledLink to="/allproducts" className="nav-link">
                 <HiOutlineShoppingBag className="menu-icon" />
                 Shop
+              </StyledLink>
+            </li>
+            <li className="nav-item">
+              <StyledLink to="/sale" className="nav-link">
+                <BiData className="menu-icon" />
+                Sale
               </StyledLink>
             </li>
 

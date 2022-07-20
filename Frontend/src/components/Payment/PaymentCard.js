@@ -37,10 +37,12 @@ class PaymentCard extends React.Component {
     submitDisabled: true,
     walletdisabled: true,
     formData: null,
-    loading: true
+    loading: true,
+    fromsale: this.props.location.state.sale
   };
 
   componentDidMount() {
+    console.log(this.state.fromsale);
     this.setState({ productid: this.props.productid }, () => {
       axios
         .get("http://localhost:5000/api/product", {

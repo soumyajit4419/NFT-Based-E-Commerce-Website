@@ -16,6 +16,7 @@ const ProductDetail = (props) => {
   const nftOwnerAddress = props?.state?.sale
     ? props.state.nftOwnerAddress
     : null;
+  const serialNo = props?.state?.sale ? props.state.serialNo : null;
 
   console.log(sale, tokenId, "from sale page");
   const [loading, setloading] = useState(true);
@@ -81,6 +82,7 @@ const ProductDetail = (props) => {
                             state: {
                               sale: sale,
                               tokenId: tokenId,
+                              serialNo:serialNo,
                               nftOwnerAddress: nftOwnerAddress,
                             },
                           }}

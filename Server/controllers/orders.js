@@ -359,7 +359,7 @@ exports.buy_sale_product = async (req, res) => {
 
     order_data.owner_id = req.user._id;
 
-    order_data.addess.line1 = address_line1;
+    order_data.address.line1 = address_line1;
 
     order_data.address.state = state;
 
@@ -371,7 +371,7 @@ exports.buy_sale_product = async (req, res) => {
 
     await order_data.save();
 
-    if (!new_user.orders.includes(order_data._id)) {
+    if (!new_user_data.orders.includes(order_data._id)) {
       new_user_data.orders.push(order_data._id);
       prev_owner_user.orders.remove(order_data._id);
       prev_owner_user.transfers.push(order_data._id);

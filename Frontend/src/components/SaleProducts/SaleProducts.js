@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
-import ProductCard from "./Sale_Product_Card.js";
+import ProductCard from "../ProductCard/ProductCard";
 
 const Sale_Products = () => {
   const [products, setproducts] = useState([]);
@@ -13,14 +13,14 @@ const Sale_Products = () => {
     axios
       .get("http://localhost:5000/api/sale_products")
       .then((res) => {
-        // console.log(res.data)
+        console.log(res.data, "slae products");
         setproducts(res.data.orders);
         setloading(false);
       })
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
         history.push("/");
       });
@@ -30,8 +30,8 @@ const Sale_Products = () => {
     return (
       <div style={{ height: "80vh" }}>
         <center>
-          <div class="fa-3x mt-5 pt-5">
-            <i class="fas fa-spinner fa-spin"></i>
+          <div className="fa-3x mt-5 pt-5">
+            <i className="fas fa-spinner fa-spin"></i>
           </div>
         </center>
       </div>
@@ -49,15 +49,21 @@ const Sale_Products = () => {
                   fontWeight: 400,
                   textAlign: "center",
                   color: "black",
-                  fontSize: "2em"
+                  fontSize: "2em",
                 }}
               >
                 PRODUCTS ON SALE
               </h4>
               <div className="row items product-all-items">
-                {products.map((item, idx) => {
-                  return <ProductCard item={item} key={item.product_id} />;
-                })}
+                {products.map((item, idx) => (
+                  <ProductCard
+                    item={item.product_data}
+                    key={item.product_id}
+                    sale={true}
+                    serialNo={item.product_serial_number}
+                    nftOwnerAddress={item.owner_details.wallet_address}
+                  />
+                ))}
               </div>
             </>
           ) : (
@@ -68,7 +74,7 @@ const Sale_Products = () => {
                 fontWeight: 400,
                 textAlign: "center",
                 color: "black",
-                fontSize: "2em"
+                fontSize: "2em",
               }}
             >
               No Products On Sale

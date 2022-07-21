@@ -11,7 +11,7 @@ const ProductDetails = (props) => {
       <Header />
       <ProductDetail
         productid={props.match.params.productid}
-        sale={props.location.state}
+        state={props.location.state}
       />
       <ModalSearch />
       <ModalMenu />

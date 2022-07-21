@@ -11,9 +11,13 @@ import ProductFeatureImage from "../../Images/product_features.png";
 
 const ProductDetail = (props) => {
   const productid = props.productid;
-  let sale = props.sale ? true : false;
+  const sale = props?.state?.sale ? true : false;
+  const tokenId = props?.state?.sale ? props.state.tokenId : null;
+  const nftOwnerAddress = props?.state?.sale
+    ? props.state.nftOwnerAddress
+    : null;
 
-  // console.log(sale);
+  console.log(sale, tokenId, "from sale page");
   const [loading, setloading] = useState(true);
   const [product, setproduct] = useState({});
   const history = useHistory();
@@ -24,7 +28,7 @@ const ProductDetail = (props) => {
     setloading(true);
     axios
       .get("http://localhost:5000/api/product", {
-        params: { productid: productid }
+        params: { productid: productid },
       })
       .then((res) => {
         setproduct(res.data.product);
@@ -33,7 +37,7 @@ const ProductDetail = (props) => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
         history.push("/");
       });
@@ -74,12 +78,16 @@ const ProductDetail = (props) => {
                         <Link
                           to={{
                             pathname: `/payment/${productid}`,
-                            state: { sale: sale }
+                            state: {
+                              sale: sale,
+                              tokenId: tokenId,
+                              nftOwnerAddress: nftOwnerAddress,
+                            },
                           }}
                           style={{
                             color: "white",
                             fontWeight: 500,
-                            marginLeft: "10px"
+                            marginLeft: "10px",
                           }}
                         >
                           BUY NOW
@@ -111,7 +119,7 @@ const ProductDetail = (props) => {
                     style={{
                       fontSize: "24px",
                       fontWeight: 600,
-                      color: "#191f23"
+                      color: "#191f23",
                     }}
                   >
                     ₹ {product.product_price}

@@ -35,48 +35,55 @@ const Orders = () => {
       .then(async (res) => {
         console.log(res.data);
         // setorders(res.data.orders);
-        const productData = res.data.orders;
-        const nftData = await Contract.methods
-          .getAllNftsOfUser(res.data.wallet_address)
-          .call();
 
-        const userOrders = [];
-        for (let i = 0; i < nftData.length; i++) {
-          const serialNo = nftData[i].warrentyDetails.ProductSerialNumber;
-          const filtredProductData = productData.filter((pd) => {
-            return pd.orders_details.product_serial_number === serialNo;
-          });
+        try {
+          const productData = res.data.orders;
+          const nftData = await Contract.methods
+            .getAllNftsOfUser(res.data.wallet_address)
+            .call();
 
-          const newOrdersObj = {
-            nft_details: nftData[i],
-          };
+          const userOrders = [];
+          for (let i = 0; i < nftData.length; i++) {
+            const serialNo = nftData[i].warrentyDetails.ProductSerialNumber;
+            const filtredProductData = productData.filter((pd) => {
+              return pd.orders_details.product_serial_number === serialNo;
+            });
 
-          if (filtredProductData.length > 0) {
-            newOrdersObj["order_details"] =
-              filtredProductData[0].orders_details;
-            newOrdersObj["product_details"] =
-              filtredProductData[0].product_details;
+            const newOrdersObj = {
+              nft_details: nftData[i],
+            };
+
+            if (filtredProductData.length > 0) {
+              newOrdersObj["order_details"] =
+                filtredProductData[0].orders_details;
+              newOrdersObj["product_details"] =
+                filtredProductData[0].product_details;
+            }
+
+            userOrders.push(newOrdersObj);
           }
 
-          userOrders.push(newOrdersObj);
+          const dataToShow = userOrders.map((item) => {
+            const obj = {
+              title: (
+                <OrderCardHeader
+                  item={item}
+                  walletAddress={res.data.wallet_address}
+                />
+              ),
+              content: <OrderCardBody item={item} />,
+            };
+            return obj;
+          });
+
+          console.log(dataToShow, userOrders, "sd");
+          setRenderData({ rows: dataToShow });
+          setloading(false);
+        } catch (err) {
+          console.log(err);
+          setloading(false);
+          history.push("/");
         }
-
-        const dataToShow = userOrders.map((item) => {
-          const obj = {
-            title: (
-              <OrderCardHeader
-                item={item}
-                walletAddress={res.data.wallet_address}
-              />
-            ),
-            content: <OrderCardBody item={item} />,
-          };
-          return obj;
-        });
-
-        console.log(dataToShow, userOrders, "sd");
-        setRenderData({ rows: dataToShow });
-        setloading(false);
       })
       .catch((err) => {
         setloading(false);

@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header/Header";
-import SaleProducts from "../components/Sale_Products/Sale_Products";
+import SaleProducts from "../components/SaleProducts/SaleProducts";
 import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
 import Scrollup from "../components/Scrollup/Scrollup";

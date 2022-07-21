@@ -1,12 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import contractABI from "../../abi.json";
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { ContractAddress } from "../../core/constant";
 
-function ProductCard({ item }) {
+function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
+  const [tId, setTId] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const web3 = createAlchemyWeb3(
+        "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
+      );
+
+      const Contract = new web3.eth.Contract(
+        JSON.parse(contractABI.result),
+        ContractAddress
+      );
+
+      const tokenId = await Contract.methods
+        .getTokenIdFromSerialNo(serialNo)
+        .call();
+      console.log(tokenId, "tid");
+      setTId(tokenId);
+    };
+
+    if (sale) {
+      fetchData();
+    }
+  }, []);
+
   return (
     <Link
       key={`cd_${item.product_id}`}
       className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 item"
-      to={`/product/${item.product_id}`}
+      style={{ pointerEvents: sale && !tId ? "none" : "auto" }}
+      to={
+        sale
+          ? {
+              pathname: `/product/${item.product_id}`,
+              state: {
+                sale: true,
+                tokenId: tId,
+                nftOwnerAddress: nftOwnerAddress,
+              },
+            }
+          : `/product/${item.product_id}`
+      }
     >
       <div className="card hover text-center">
         <div
@@ -34,7 +73,7 @@ function ProductCard({ item }) {
                   textAlign: "left",
                   padding: "0 6px",
                   overflow: "hidden",
-                  textVverflow: "ellipsis",
+                  textOverflow: "ellipsis",
                   display: "-webkit-box",
                   webkitLineClamp: "2",
                   lineClamp: "2",

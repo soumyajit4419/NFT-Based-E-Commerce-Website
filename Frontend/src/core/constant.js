@@ -1,2 +1,2 @@
 export const baseApi = `https://loud-backend.herokuapp.com/`;
-export const ContractAddress = "0xC4280eCf2aC53Ae1AF3B725Ddee808Aaa872c5E0";
+export const ContractAddress = "0x06FA0b53C909448B998De9bE5750114f4e120D59";

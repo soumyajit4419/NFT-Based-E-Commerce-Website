@@ -6,6 +6,7 @@ import { ContractAddress } from "../../core/constant";
 
 function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
   const [tId, setTId] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const web3 = createAlchemyWeb3(
@@ -16,7 +17,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
         JSON.parse(contractABI.result),
         ContractAddress
       );
-
+console.log(serialNo)
       const tokenId = await Contract.methods
         .getTokenIdFromSerialNo(serialNo)
         .call();
@@ -41,6 +42,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
               state: {
                 sale: true,
                 tokenId: tId,
+                serialNo:serialNo,
                 nftOwnerAddress: nftOwnerAddress,
               },
             }

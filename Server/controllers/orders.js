@@ -276,6 +276,19 @@ exports.all_sale_orders = async (req, res) => {
         $unwind: {
           path: "$product_data"
         }
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "owner_id",
+          foreignField: "_id",
+          as: "owner_details"
+        }
+      },
+      {
+        $unwind: {
+          path: "$owner_details"
+        }
       }
     ]);
 
@@ -359,9 +372,11 @@ exports.buy_sale_product = async (req, res) => {
     await order_data.save();
 
     if (!new_user.orders.includes(order_data._id)) {
-      new_user_data.push(order_data._id);
+      new_user_data.orders.push(order_data._id);
       prev_owner_user.orders.remove(order_data._id);
       prev_owner_user.transfers.push(order_data._id);
+      await new_user_data.save();
+      await prev_owner_user.save();
     } else {
       return res.status(400).json({
         message: "You only sold the product, You cannot buy it once again"

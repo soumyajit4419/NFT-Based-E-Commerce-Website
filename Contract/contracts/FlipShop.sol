@@ -5,11 +5,12 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ItemNFT_V1 is ERC721Enumerable, Ownable {
-    uint256 public tokenId;
+    uint256 public tokenId = 1000;
     address public AdminAddress;
     mapping(address => bool) public whitelistedAddresses;
     mapping(uint256 => Warranty) TokenWarranty;
     mapping(uint256 => Product) TokenProduct;
+    mapping(string => uint256) SerialNumberTokenId;
 
     struct Product {
         string ProductId;
@@ -89,6 +90,8 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
 
         TokenWarranty[tokenId] = ProductWarranty;
 
+        SerialNumberTokenId[_productSerialNumber] = tokenId;
+
         _safeMint(_ownerAddress, tokenId);
     }
 
@@ -152,6 +155,14 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
         }
 
         return _allNFTDetailsOfUser;
+    }
+
+    function getTokenIdFromSerialNo(string memory _serialNo)
+        public
+        view
+        returns (uint256)
+    {
+        return SerialNumberTokenId[_serialNo];
     }
 
     function whilelistAddress(address _address) public onlyAdmin {

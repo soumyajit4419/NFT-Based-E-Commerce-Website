@@ -192,7 +192,7 @@ class PaymentCard extends React.Component {
                 this.setState({ loading: false });
                 clearInterval(interval);
                 setTimeout(() => {
-                  this.props.history.push("/");
+                  window.location = "/orders";
                 }, 500);
                 toast.success(`Transaction Successful 🔥`, {
                   position: toast.POSITION.TOP_RIGHT
@@ -285,7 +285,7 @@ class PaymentCard extends React.Component {
                 this.setState({ loading: false });
                 clearInterval(interval);
                 setTimeout(() => {
-                  this.props.history.push("/");
+                  window.location = "/orders";
                 }, 500);
                 toast.success(`Transaction Successful 🔥`, {
                   position: toast.POSITION.TOP_RIGHT

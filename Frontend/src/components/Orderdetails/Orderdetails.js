@@ -71,7 +71,12 @@ const Orders = () => {
                   walletAddress={res.data.wallet_address}
                 />
               ),
-              content: <OrderCardBody item={item} />,
+              content: (
+                <OrderCardBody
+                  item={item}
+                  walletAddress={res.data.wallet_address}
+                />
+              ),
             };
             return obj;
           });
@@ -106,27 +111,13 @@ const Orders = () => {
     );
   } else {
     return (
-      <section className="popular-collections-area">
-        <div className="container" style={{ marginTop: "80px" }}>
-          <h4
-            className="mb-2"
-            style={{
-              opacity: 0.6,
-              fontWeight: 400,
-              textAlign: "center",
-              color: "black",
-              fontSize: "2em",
-            }}
-          >
-            MY ORDERS
-          </h4>
-          <div className="row">
-            <div className="col-12  faq-style-wrapper">
-              <Faq data={renderData} />
-            </div>
+      <div className="container" style={{ marginTop: "120px" }}>
+        <div className="row">
+          <div className="col-12 faq-style-wrapper">
+            <Faq data={renderData} />
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 };

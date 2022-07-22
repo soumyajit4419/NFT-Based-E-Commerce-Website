@@ -3,8 +3,11 @@ import styled from "styled-components";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
+import contractABI from "../../abi.json";
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { ContractAddress } from "../../core/constant";
 
-function TransferDetails() {
+function AdminUserOrderDetails() {
   const [loading, setloading] = useState(true);
   const [items, setItems] = useState([]);
   const history = useHistory();
@@ -12,20 +15,55 @@ function TransferDetails() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/transfer_orders", {
+      .get("http://localhost:5000/admin/brand_products", {
         headers: {
-          Authorization: "Bearer " + token,
-        },
+          Authorization: "Bearer " + token
+        }
       })
       .then(async (res) => {
-        console.log(res.data, "trasdn dta");
-        setItems(res.data.orders);
+        var data = res.data.orders;
+
+        const web3 = createAlchemyWeb3(
+          "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
+        );
+
+        const Contract = new web3.eth.Contract(
+          JSON.parse(contractABI.result),
+          ContractAddress
+        );
+
+        for (let order of data) {
+          const tokenId = await Contract.methods
+            .getTokenIdFromSerialNo(order.product_serial_number)
+            .call();
+
+          const product = await Contract.methods.getProductInfo(tokenId).call();
+
+          let expiry_date = new Date(
+            product?.ProductExpiryDate * 1000
+          ).toLocaleString();
+
+          let purchase_date = new Date(
+            product?.ProductPurchaseDate * 100
+          ).toLocaleString();
+
+          order.expiry_date = expiry_date;
+
+          order.purchase_date = purchase_date;
+
+          order.nftid = tokenId;
+        }
+
+        setItems(data);
+
+        // console.log(data);
+
         setloading(false);
       })
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         });
         history.push("/");
       });
@@ -51,10 +89,10 @@ function TransferDetails() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "2rem",
+                fontSize: "2rem"
               }}
             >
-              No Items sold
+              No Items ordered of your brand
             </div>
           )}
 
@@ -63,11 +101,11 @@ function TransferDetails() {
               <>
                 <div
                   className="card-order text-center row"
-                  key={item?.product_details?.product_id}
+                  key={item?.product_data?.product_id}
                   style={{
                     border: "1px solid #d1d1d199",
-                    borderRadius: "12px !important",
-                    margin: "45px 0",
+                    borderRadius: "15px !important",
+                    margin: "10px 0"
                   }}
                 >
                   <div
@@ -75,105 +113,100 @@ function TransferDetails() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      justifyContent: "center"
                     }}
                   >
                     <img
                       className="card-order-img-top"
-                      src={item?.product_details?.product_image}
-                      alt={item?.product_details?.product_name}
+                      src={item?.product_data?.product_image}
+                      alt={item?.product_data?.product_name}
                     />
                   </div>
 
                   <div className="card-caption p-1 col-md-5">
                     <StyledHeading6>
-                      {item?.product_details?.product_brand}
+                      {item?.product_data?.product_brand}
                     </StyledHeading6>
 
                     <StyledHeading6>
-                      {item?.product_details?.product_name}
+                      {item?.product_data?.product_name}
                     </StyledHeading6>
 
                     <StyledHeading6>
-                      Product Price: ₹ {item?.product_details?.product_price}
+                      Product Price: ₹ {item?.product_data?.product_price}
                     </StyledHeading6>
 
                     <StyledHeading6>
-                      Warranty Duration:{" "}
-                      {item?.product_details?.warranty_duration} days
+                      Warranty Duration: {item?.product_data?.warranty_duration}{" "}
+                      days
+                    </StyledHeading6>
+                    <StyledHeading6>NFT_ID: {item?.nftid} </StyledHeading6>
+
+                    <StyledHeading6>
+                      Product Serial Number: {item?.product_serial_number}
+                    </StyledHeading6>
+
+                    <StyledHeading6>
+                      Product Purchase Date: {item.purchase_date}
+                    </StyledHeading6>
+
+                    <StyledHeading6>
+                      Warranty Expiry Date: {item.expiry_date}
                     </StyledHeading6>
                   </div>
 
-                  {/* <div className="card-caption p-0 col-md-5">
+                  <div className="card-caption p-0 col-md-5">
                     <div>
                       <StyledText
                         style={{
                           display: "flex",
                           justifyContent: "center",
                           fontWeight: 600,
-                          fontSize: "1.1rem",
+                          fontSize: "1.1rem"
                         }}
                       >
-                        NFT Details
+                        User Details
                       </StyledText>
                       <StyledText>
-                        NFT ID
+                        User Name
                         <span
                           style={{
                             fontWeight: 500,
-                            width: "50%",
-                            textAlign: "left",
+                            width: "40%",
+                            textAlign: "left"
                           }}
                         >
-                          {item.nft_details.tokenId}
+                          {item.user_data.name}
                         </span>
                       </StyledText>
 
                       <StyledText>
-                        Product Serial Number
+                        User Email
                         <span
                           style={{
                             fontWeight: 500,
-                            width: "50%",
-                            textAlign: "left",
+                            width: "40%",
+                            textAlign: "left"
                           }}
                         >
-                          {
-                            item?.nft_details?.warrentyDetails
-                              ?.ProductSerialNumber
-                          }
+                          {item.user_data.email}
                         </span>
                       </StyledText>
 
                       <StyledText>
-                        Product Purchase Date
+                        User Phone Number
                         <span
                           style={{
                             fontWeight: 500,
-                            width: "50%",
-                            textAlign: "left",
+                            width: "40%",
+                            textAlign: "left"
                           }}
                         >
-                          {" "}
-                          {pd}
-                        </span>
-                      </StyledText>
-
-                      <StyledText>
-                        Warranty Expiry Date
-                        <span
-                          style={{
-                            fontWeight: 500,
-                            width: "50%",
-                            textAlign: "left",
-                          }}
-                        >
-                          {" "}
-                          {ed}
+                          {item.user_data.phone_number}
                         </span>
                       </StyledText>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </>
             ))}
@@ -183,7 +216,7 @@ function TransferDetails() {
   }
 }
 
-export default TransferDetails;
+export default AdminUserOrderDetails;
 
 const StyledHeading6 = styled.h6`
   opacity: 0.6;
@@ -201,5 +234,5 @@ const StyledText = styled.div`
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
-  margin: 0.6rem 0.5rem;
+  margin: 1.6rem 3.8rem;
 `;

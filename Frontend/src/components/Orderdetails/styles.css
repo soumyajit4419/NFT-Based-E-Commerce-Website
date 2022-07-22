@@ -17,6 +17,10 @@
   padding: 0;
 }
 
+.faq-style-wrapper .faq-body .faq-row .row-title .row-title-text {
+  padding-right: 0.5rem;
+}
+
 .faq-style-wrapper .faq-body .faq-row .row-content-text {
   padding: 2em !important;
   font-size: medium !important;

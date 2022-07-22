@@ -10,7 +10,7 @@ import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { ContractAddress } from "../../core/constant";
 import "./styles.css";
 
-const Orders = () => {
+const OrdersDetails = () => {
   const [loading, setloading] = useState(true);
   const [renderData, setRenderData] = useState({});
   const history = useHistory();
@@ -111,15 +111,13 @@ const Orders = () => {
     );
   } else {
     return (
-      <div className="container" style={{ marginTop: "120px" }}>
-        <div className="row">
-          <div className="col-12 faq-style-wrapper">
-            <Faq data={renderData} />
-          </div>
+      <div className="row" style={{ marginTop: "80px" }}>
+        <div className="col-12 faq-style-wrapper">
+          <Faq data={renderData} />
         </div>
       </div>
     );
   }
 };
 
-export default Orders;
+export default OrdersDetails;

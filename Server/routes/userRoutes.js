@@ -20,7 +20,6 @@ app.route("/valid_user").get(verify.valid_user);
 // app.route("/sendmsg").post(verify.verify, sendmsg.sendmsg);
 
 // product routes
-app.route("/add_product").post(product.add_products);
 
 app.route("/all_products").get(product.get_all_products);
 

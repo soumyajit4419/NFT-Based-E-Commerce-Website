@@ -7,6 +7,6 @@ const verify = require("../middlewares/verify");
 
 app.route("/add_product").post(verify.verify, admin.add_product);
 
-app.route("/get_brand_products").post(verify.verify, admin.get_brand_products);
+app.route("/brand_products").get(verify.verify, admin.get_brand_products);
 
 module.exports = app;

@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import contractABI from "../../abi.json";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { ContractAddress } from "../../core/constant";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
   const [tId, setTId] = useState(null);
-
+  console.log(item, "sds");
   useEffect(() => {
     const fetchData = async () => {
       const web3 = createAlchemyWeb3(
@@ -17,7 +18,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
         JSON.parse(contractABI.result),
         ContractAddress
       );
-console.log(serialNo)
+      console.log(serialNo);
       const tokenId = await Contract.methods
         .getTokenIdFromSerialNo(serialNo)
         .call();
@@ -42,7 +43,7 @@ console.log(serialNo)
               state: {
                 sale: true,
                 tokenId: tId,
-                serialNo:serialNo,
+                serialNo: serialNo,
                 nftOwnerAddress: nftOwnerAddress,
               },
             }
@@ -71,6 +72,19 @@ console.log(serialNo)
                 className="mb-2"
                 style={{
                   opacity: 0.6,
+                  fontWeight: 600,
+                  textAlign: "left",
+                  padding: "0 6px",
+                }}
+              >
+                {item.product_brand}
+              </h6>
+            </div>
+            <div>
+              <h6
+                className="mb-2"
+                style={{
+                  opacity: 0.6,
                   fontWeight: 400,
                   textAlign: "left",
                   padding: "0 6px",
@@ -94,12 +108,53 @@ console.log(serialNo)
                   fontWeight: 600,
                   textAlign: "left",
                   padding: "4px 6px",
-                  margin: "8px 0",
+                  margin: "0 0",
                 }}
               >
                 {" "}
                 ₹ {item.product_price}
               </h5>
+            </div>
+            <div
+              className="row"
+              style={{
+                justifyContent: "space-between",
+                padding: "0 6px",
+                alignItems: "center",
+                marginBottom: "6px",
+              }}
+            >
+              {sale ? (
+                <span
+                  style={{
+                    backgroundColor: "rgb(255, 218, 219)",
+                    fontSize: "12px",
+                    marginTop: "6px",
+                    borderRadius: "6px",
+                    color: "rgb(217, 32, 39)",
+                    padding: "4px 7px",
+                  }}
+                >
+                  On Sale
+                </span>
+              ) : (
+                <span
+                  style={{
+                    backgroundColor: "rgb(218 255 233)",
+                    fontSize: "12px",
+                    marginTop: "6px",
+                    borderRadius: "6px",
+                    color: "#088a3b",
+                    padding: "4px 7px",
+                  }}
+                >
+                  New Arrival
+                </span>
+              )}
+
+              <span>
+                <AiOutlineShoppingCart style={{ fontSize: "1.2rem" }} />
+              </span>
             </div>
           </div>
         </div>

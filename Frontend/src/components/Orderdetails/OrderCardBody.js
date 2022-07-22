@@ -46,7 +46,7 @@ function OrderCardBody({ item, walletAddress }) {
     try {
       if (active) {
         if (active && account && account !== walletAddress) {
-          toast.error("Not connected to valid address", {
+          toast.error("Not connected to registered address", {
             position: toast.POSITION.TOP_CENTER,
           });
           return;
@@ -87,6 +87,10 @@ function OrderCardBody({ item, walletAddress }) {
             .catch((err) => {
               console.log(err);
             });
+
+          setTimeout(() => {
+            window.location.reload(false);
+          }, 2000);
 
           toast.success("Item Put on sale", {
             position: toast.POSITION.TOP_CENTER,
@@ -158,7 +162,7 @@ function OrderCardBody({ item, walletAddress }) {
               <button
                 className="mb-2 btn btn-primary btn-block"
                 disabled
-                style={{ width: "230px" }}
+                style={{ width: "230px", cursor: "not-allowed" }}
               >
                 Item Already On Sale
               </button>

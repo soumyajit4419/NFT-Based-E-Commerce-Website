@@ -69,6 +69,39 @@ const ProductDetail = (props) => {
                       alt=""
                       onLoad={() => setImageLoading(false)}
                     />
+                    {sale ? (
+                      <span
+                        style={{
+                          backgroundColor: "rgb(255, 218, 219)",
+                          fontSize: "16px",
+                          marginTop: "6px",
+                          borderRadius: "6px",
+                          color: "rgb(217, 32, 39)",
+                          padding: "6px 14px",
+                          top: "10px",
+                          right: "40px",
+                          position: "absolute",
+                        }}
+                      >
+                        On Sale
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          backgroundColor: "rgb(218 255 233)",
+                          fontSize: "16px",
+                          marginTop: "6px",
+                          borderRadius: "6px",
+                          color: "#088a3b",
+                          padding: "6px 14px",
+                          top: "10px",
+                          right: "40px",
+                          position: "absolute",
+                        }}
+                      >
+                        New Arrival
+                      </span>
+                    )}
                   </div>
                 </StyledCard>
                 <div className="row items mt-4">
@@ -82,7 +115,7 @@ const ProductDetail = (props) => {
                             state: {
                               sale: sale,
                               tokenId: tokenId,
-                              serialNo:serialNo,
+                              serialNo: serialNo,
                               nftOwnerAddress: nftOwnerAddress,
                             },
                           }}
@@ -106,7 +139,8 @@ const ProductDetail = (props) => {
                     className="m-0"
                     style={{ fontWeight: 500, color: "#191f23", opacity: 0.5 }}
                   >
-                    {product.product_brand}
+                    {product.product_brand}{" "}
+                    {sale ? `| ${serialNo}` : ""}
                   </h6>
                   <h4
                     className="mt-4"

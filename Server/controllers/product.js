@@ -1,32 +1,4 @@
 const product_model = require("../models/product.js");
-const { customAlphabet } = require("nanoid");
-
-exports.add_products = async (req, res) => {
-  try {
-    let product_data = req.body.product_data;
-
-    await Promise.all(
-      product_data.map((eachproduct) => {
-        let product_id = customAlphabet("1234567890abcdef", 10)();
-        eachproduct.product_id = product_id;
-        eachproduct.product_serial_number =
-          eachproduct.product_brand.substring(0, 2) +
-          Math.random().toString(30).slice(2);
-      })
-    );
-
-    await product_model.insertMany(product_data);
-
-    res.status(200).json({
-      message: "All Products Added Successfully"
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Some error occured",
-      error: `${error.name}, ${error.message}, ${error.stack}`
-    });
-  }
-};
 
 exports.get_all_products = async (req, res) => {
   try {

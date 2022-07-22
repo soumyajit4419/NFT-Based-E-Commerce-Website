@@ -2540,7 +2540,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 
 .author-area .item-form .form-group input,
 .author-area .item-form .form-group textarea,
-.author-area .item-form .form-group select,
 .author-area .item-form .form-group .custom-file-input,
 .author-area .item-form .form-group .custom-file-label,
 .author-area .item-form .form-group .custom-file-label::after {
@@ -2562,6 +2561,28 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
+
+.author-area .item-form .form-group select{
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057 !important;
+  padding: 10px;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: white;
+  border: 1.2px solid rgba(25, 31, 35, 0.6);
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px var(--primary-l-color);
+  box-shadow: 0 5px 10px var(--primary-l-color);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+
+}
+
 
 .author-area .item-form .form-group input,
 .author-area .item-form .form-group .custom-file-input,

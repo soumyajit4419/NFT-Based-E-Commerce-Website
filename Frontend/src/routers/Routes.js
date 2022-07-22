@@ -18,6 +18,7 @@ import ProductDetails from "../themes/productdetails";
 import Payment from "../themes/payment";
 import Orderdetails from "../themes/order_details";
 import SaleProducts from "../themes/sale_products.js";
+import AdminProduct from "../themes/admin_product.js";
 
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
@@ -64,6 +65,7 @@ const PrivateRoute = (privateRouteProps) => {
 
 const Routes = () => {
   const [validuser, setvaliduser] = useState(false);
+  const [adminuser, setadminuser] = useState(false);
   const [loading, setloading] = useState(true);
   const token = localStorage.getItem("token");
 
@@ -75,7 +77,7 @@ const Routes = () => {
         }
       })
       .then((res) => {
-        // console.log(res);
+        setadminuser(res.data.isadmin);
         setvaliduser(true);
         setloading(false);
       })
@@ -130,6 +132,12 @@ const Routes = () => {
               isAuthenticated={validuser}
             />
             <Route exact path="/sale" component={SaleProducts} />
+            <PrivateRoute
+              exact
+              path="/admin_product"
+              component={AdminProduct}
+              isAuthenticated={adminuser}
+            />
 
             {/* <Route exact path="/faq" component={Faq} /> */}
 

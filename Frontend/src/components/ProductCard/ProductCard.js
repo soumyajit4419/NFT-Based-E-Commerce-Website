@@ -7,7 +7,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
   const [tId, setTId] = useState(null);
-  console.log(item, "sds");
+
   useEffect(() => {
     const fetchData = async () => {
       const web3 = createAlchemyWeb3(
@@ -44,8 +44,8 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                 sale: true,
                 tokenId: tId,
                 serialNo: serialNo,
-                nftOwnerAddress: nftOwnerAddress,
-              },
+                nftOwnerAddress: nftOwnerAddress
+              }
             }
           : `/product/${item.product_id}`
       }
@@ -58,7 +58,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
             height: "200px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "center"
           }}
         >
           <img className="card-img-top" src={item.product_image} alt="" />
@@ -74,7 +74,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                   opacity: 0.6,
                   fontWeight: 600,
                   textAlign: "left",
-                  padding: "0 6px",
+                  padding: "0 6px"
                 }}
               >
                 {item.product_brand}
@@ -94,7 +94,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                   webkitLineClamp: "2",
                   lineClamp: "2",
                   webkitBoxOrient: "vertical",
-                  minHeight: "2.5rem",
+                  minHeight: "2.5rem"
                 }}
               >
                 {item.product_name.substr(0, 45) === item.product_name
@@ -108,7 +108,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                   fontWeight: 600,
                   textAlign: "left",
                   padding: "4px 6px",
-                  margin: "0 0",
+                  margin: "0 0"
                 }}
               >
                 {" "}
@@ -121,7 +121,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                 justifyContent: "space-between",
                 padding: "0 6px",
                 alignItems: "center",
-                marginBottom: "6px",
+                marginBottom: "6px"
               }}
             >
               {sale ? (
@@ -132,7 +132,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                     marginTop: "6px",
                     borderRadius: "6px",
                     color: "rgb(217, 32, 39)",
-                    padding: "4px 7px",
+                    padding: "4px 7px"
                   }}
                 >
                   On Sale
@@ -145,7 +145,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                     marginTop: "6px",
                     borderRadius: "6px",
                     color: "#088a3b",
-                    padding: "4px 7px",
+                    padding: "4px 7px"
                   }}
                 >
                   New Arrival

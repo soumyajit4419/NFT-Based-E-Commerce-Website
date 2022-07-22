@@ -6,6 +6,7 @@ var cors = require("cors");
 const mongoConnect = require("./util/database");
 const fs = require("fs");
 const userroutes = require("./routes/userRoutes");
+const adminroutes = require("./routes/adminroutes");
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,8 @@ generateDocs().then(() => {
 });
 
 app.use("/api", userroutes);
+
+app.use("/admin", adminroutes);
 
 mongoConnect();
 

@@ -19,6 +19,7 @@ import Payment from "../themes/payment";
 import Orderdetails from "../themes/order_details";
 import SaleProducts from "../themes/sale_products.js";
 import AdminProduct from "../themes/admin_product.js";
+import Adminorders from "../themes/admin_user_orders.js";
 
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
@@ -136,6 +137,12 @@ const Routes = () => {
               exact
               path="/admin_product"
               component={AdminProduct}
+              isAuthenticated={adminuser}
+            />
+            <PrivateRoute
+              exact
+              path="/admin_user_orders"
+              component={Adminorders}
               isAuthenticated={adminuser}
             />
 

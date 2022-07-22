@@ -1762,7 +1762,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   padding: 0.5rem;
   /* border: 2px solid #d1d1d199; */
   border-radius: 20px;
-  height: 100%;
   background-color: var(--card-bg-color);
   /* -webkit-box-shadow: 0 4px 12px 0px var(--primary-l-color); */
   /* box-shadow: 0 4px 12px 0px var(--primary-l-color); */
@@ -1782,7 +1781,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   height: auto;
   width: auto;
   /* max-width: 200px; */
-  max-height: 150px;
+  max-height: 200px;
   padding: 12px;
 }
 

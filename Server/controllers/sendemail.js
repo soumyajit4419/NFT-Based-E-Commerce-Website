@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const config = require("./../config");
+// const config = require("./../config");
 
 const sendEmail = (subject, htmlMessage, email) => {
     let transport = nodemailer.createTransport({

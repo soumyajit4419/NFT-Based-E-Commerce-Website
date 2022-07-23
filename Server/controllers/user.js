@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const bcrypt = require("bcryptjs");
-var config = require("../config");
+// var config = require("../config");
 const jwt = require("jsonwebtoken");
 const user_model = require("../models/user");
 
@@ -79,11 +79,11 @@ exports.register = async (req, res) => {
         wallet_address: wallet_address,
         blockchain: "ROPSTEN TESTNET",
       },
-      `${config.jwt_secret}`,
+      `${process.env.JWT_SECRET}`,
       { expiresIn: "30d" }
     );
 
-    const decoded_values = jwt.decode(token, `${config.jwt_secret}`);
+    const decoded_values = jwt.decode(token, `${process.env.JWT_SECRET}`);
 
     await usermodel.save();
 
@@ -133,16 +133,16 @@ exports.login = async (req, res) => {
           wallet_address: data[0].wallet_address,
           blockchain: data[0].blockchain,
         },
-        `${config.jwt_secret}`,
+        `${process.env.JWT_SECRET}`,
         { expiresIn: "30d" }
       );
 
-      if (`${config.jwt_secret}` === "undefined") {
+      if (`${process.env.JWT_SECRET}` === "undefined") {
         return res.status(500).json({
           message: "Jwt Secret is undefined",
         });
       }
-      const decoded_values = jwt.decode(token, `${config.jwt_secret}`);
+      const decoded_values = jwt.decode(token, `${process.env.JWT_SECRET}`);
 
       return res.status(200).json({
         message: "Login Successful",

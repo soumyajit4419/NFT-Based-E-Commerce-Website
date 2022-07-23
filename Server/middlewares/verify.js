@@ -1,6 +1,4 @@
 const jwt = require("jsonwebtoken");
-const config = require("./../config");
-
 const user_model = require("./../models/user");
 
 exports.verify = async (req, res, next) => {
@@ -10,7 +8,7 @@ exports.verify = async (req, res, next) => {
       req.headers.authorization.split(" ")[0] === "Bearer"
     ) {
       const token = req.headers.authorization.split(" ")[1];
-      jwt.verify(token, config.jwt_secret, (err, user) => {
+      jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
           return res.status(401).json({
             message: "Invalid token or token expired"
@@ -36,7 +34,7 @@ exports.valid_user = async (req, res, next) => {
   try {
     const token = req.query.token;
 
-    jwt.verify(token, config.jwt_secret, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {
         return res.status(400).json({
           message: "Invalid token or token expired"

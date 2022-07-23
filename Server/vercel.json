@@ -1,0 +1,7 @@
+{
+   "version": 2,
+   "name": "",
+   "routes": [
+      { "src": "/(.*)", "dest": "/app.js" }
+   ]
+}

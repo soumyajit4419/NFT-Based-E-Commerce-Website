@@ -15,7 +15,7 @@ function AdminUserOrderDetails() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/admin/brand_products", {
+      .get("https://flipkart-grid-server.vercel.app/admin/brand_products", {
         headers: {
           Authorization: "Bearer " + token
         }

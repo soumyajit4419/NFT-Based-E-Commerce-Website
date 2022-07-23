@@ -166,7 +166,7 @@ const Signup = () => {
       console.log(phone);
       var res = await axios({
         method: "POST",
-        url: "http://localhost:5000/api/register",
+        url: "https://flipkart-grid-server.vercel.app/api/register",
         data: {
           name: profileName,
           email: email,
@@ -207,7 +207,7 @@ const Signup = () => {
     try {
       var res = await axios({
         method: "POST",
-        url: "http://localhost:5000/api/login",
+        url: "https://flipkart-grid-server.vercel.app/api/login",
         data: {
           email: email,
           password: password,

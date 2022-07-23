@@ -11,7 +11,7 @@ const Sale_Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/sale_products")
+      .get("https://flipkart-grid-server.vercel.app/api/sale_products")
       .then((res) => {
         console.log(res.data, "slae products");
         setproducts(res.data.orders);

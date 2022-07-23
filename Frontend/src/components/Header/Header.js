@@ -9,8 +9,6 @@ import { TbHome } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FiLogIn, FiInfo, FiLogOut, FiUser } from "react-icons/fi";
 import { BiData } from "react-icons/bi";
-import { IoBagCheckOutline } from "react-icons/io5";
-import { TbDiscount2 } from "react-icons/tb";
 import { RiFileList3Line } from "react-icons/ri";
 
 const Header = () => {
@@ -20,7 +18,7 @@ const Header = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/valid_user", {
+      .get("https://flipkart-grid-server.vercel.app/api/valid_user", {
         params: {
           token: token,
         },

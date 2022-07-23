@@ -28,7 +28,7 @@ const ProductDetail = (props) => {
   useEffect(() => {
     setloading(true);
     axios
-      .get("http://localhost:5000/api/product", {
+      .get("https://flipkart-grid-server.vercel.app/api/product", {
         params: { productid: productid },
       })
       .then((res) => {

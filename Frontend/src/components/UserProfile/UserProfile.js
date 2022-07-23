@@ -10,7 +10,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/user", {
+      .get("https://flipkart-grid-server.vercel.app/api/user", {
         headers: {
           Authorization: "Bearer " + token
         }

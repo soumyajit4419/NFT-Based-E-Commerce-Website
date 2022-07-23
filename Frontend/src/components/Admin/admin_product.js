@@ -143,7 +143,7 @@ const AdminProduct = () => {
     try {
       let res = await axios({
         method: "POST",
-        url: "http://localhost:5000/admin/add_product",
+        url: "https://flipkart-grid-server.vercel.app/admin/add_product",
         data: { product_data: senddata }
       });
       // localStorage.setItem("user_id", res.data.decoded_values._id);

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
 import Header from "../components/Header/Header";
-import ModalSearch from "../components/Modal/ModalSearch";
 import ModalMenu from "../components/Modal/ModalMenu";
-import Scrollup from "../components/Scrollup/Scrollup";
 import Signup from "../components/Signup/Signup";
 
 class SignupTheme extends Component {
@@ -12,9 +10,7 @@ class SignupTheme extends Component {
       <div className="main main-bg">
         <Header />
         <Signup />
-        <ModalSearch />
         <ModalMenu />
-        <Scrollup />
       </div>
     );
   }

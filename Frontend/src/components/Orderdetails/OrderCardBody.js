@@ -70,7 +70,7 @@ function OrderCardBody({ item, walletAddress }) {
 
           axios
             .post(
-              "http://localhost:5000/api/sale",
+              "https://flipkart-grid-server.vercel.app/api/sale",
               {
                 product_serial_number:
                   item?.order_details?.product_serial_number,

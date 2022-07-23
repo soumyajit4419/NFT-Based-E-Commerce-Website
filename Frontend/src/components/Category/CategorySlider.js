@@ -27,7 +27,7 @@ function CategorySlider({ category, title = null }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/category_products", {
+      .get("https://flipkart-grid-server.vercel.app/api/category_products", {
         params: { category: category },
         headers: {
           Authorization: "Bearer " + token,

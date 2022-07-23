@@ -48,7 +48,7 @@ const Categories = () => {
     const token = localStorage.getItem("token");
 
     axios
-      .get("http://localhost:5000/api/all_category", {
+      .get("https://flipkart-grid-server.vercel.app/api/all_category", {
         headers: {
           Authorization: "Bearer " + token,
         },

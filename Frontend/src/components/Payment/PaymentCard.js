@@ -59,7 +59,7 @@ class PaymentCard extends React.Component {
     );
     this.setState({ productid: this.props.productid }, () => {
       axios
-        .get("http://localhost:5000/api/product", {
+        .get("https://flipkart-grid-server.vercel.app/api/product", {
           params: { productid: this.state.productid }
         })
         .then((res) => {
@@ -81,7 +81,7 @@ class PaymentCard extends React.Component {
 
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/user", {
+      .get("https://flipkart-grid-server.vercel.app/api/user", {
         headers: {
           Authorization: "Bearer " + token
         }
@@ -222,7 +222,7 @@ class PaymentCard extends React.Component {
       let token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:5000/api/buy_sale_product",
+          "https://flipkart-grid-server.vercel.app/api/buy_sale_product",
           {
             address: this.state.address1,
             state: this.state.state1,
@@ -315,7 +315,7 @@ class PaymentCard extends React.Component {
       let token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:5000/api/order",
+          "https://flipkart-grid-server.vercel.app/api/order",
           {
             address: this.state.address1,
             state: this.state.state1,

@@ -12,7 +12,7 @@ function TransferDetails() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/api/transfer_orders", {
+      .get("https://flipkart-grid-server.vercel.app/api/transfer_orders", {
         headers: {
           Authorization: "Bearer " + token,
         },

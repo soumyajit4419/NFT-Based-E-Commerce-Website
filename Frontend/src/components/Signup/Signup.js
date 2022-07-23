@@ -94,7 +94,7 @@ const Signup = () => {
       },
       (error) => {
         // Error function
-        console.log(error);
+        // console.log(error);
         alert(error.message);
       },
       () => {
@@ -163,7 +163,7 @@ const Signup = () => {
     }
 
     try {
-      console.log(phone);
+
       var res = await axios({
         method: "POST",
         url: "https://flipkart-grid-server.vercel.app/api/register",
@@ -181,7 +181,9 @@ const Signup = () => {
       toast.success("User Registered Successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      history.push("/");
+      setTimeout(() => {
+        window.location = '/';
+      }, 1000);
     } catch (err) {
       toast.error(`${err.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
@@ -213,14 +215,13 @@ const Signup = () => {
           password: password,
         },
       });
-      // console.log(res);
       localStorage.setItem("token", res.data.token);
       // localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("You Logged In Successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
       setTimeout(() => {
-        history.push("/");
+        window.location = '/';
       }, 1000);
     } catch (err) {
       toast.error(`${err.response.data.message}`, {

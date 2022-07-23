@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "name": "flip-shop-nft",
+    "builds": [
+       { "src": "app.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "/app.js" }
+    ]
+ }

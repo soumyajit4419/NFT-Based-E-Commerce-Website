@@ -87,8 +87,8 @@ function CategorySlider({ category, title = null }) {
             ]}
           >
             {products.map((item) => (
-              <StyledImageContainer>
-                <ProductCard item={item} key={item.product_id} />
+              <StyledImageContainer key={item.product_id}>
+                <ProductCard item={item} />
               </StyledImageContainer>
             ))}
           </Carousel>

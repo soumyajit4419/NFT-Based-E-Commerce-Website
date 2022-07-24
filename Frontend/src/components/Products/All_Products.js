@@ -34,8 +34,8 @@ const Products = () => {
     return (
       <div style={{ height: "80vh" }}>
         <center>
-          <div class="fa-3x mt-5 pt-5">
-            <i class="fas fa-spinner fa-spin"></i>
+          <div className="fa-3x mt-5 pt-5">
+            <i className="fas fa-spinner fa-spin"></i>
           </div>
         </center>
       </div>

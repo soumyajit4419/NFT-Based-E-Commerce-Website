@@ -11,7 +11,7 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
   useEffect(() => {
     const fetchData = async () => {
       const web3 = createAlchemyWeb3(
-        "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
+        process.env.REACT_APP_ALCHEMY_ID
       );
 
       const Contract = new web3.eth.Contract(
@@ -91,9 +91,9 @@ function ProductCard({ item, sale = false, serialNo, nftOwnerAddress }) {
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   display: "-webkit-box",
-                  webkitLineClamp: "2",
+                  WebkitLineClamp: "2",
                   lineClamp: "2",
-                  webkitBoxOrient: "vertical",
+                  WebkitBoxOrient: "vertical",
                   minHeight: "2.5rem"
                 }}
               >

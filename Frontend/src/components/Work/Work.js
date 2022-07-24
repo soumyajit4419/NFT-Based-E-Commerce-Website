@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-
-const BASE_URL =
-  "https://my-json-server.typicode.com/themeland/netstorm-json/work";
 
 class Work extends Component {
   state = {
@@ -37,16 +33,8 @@ class Work extends Component {
       },
     ],
   };
-  componentDidMount() {
-    // axios.get(`${BASE_URL}`)
-    //     .then(res => {
-    //         this.setState({
-    //             data: res.data,
-    //             workData: res.data.workData
-    //         })
-    //     })
-    // .catch(err => console.log(err))
-  }
+  componentDidMount() {}
+
   render() {
     return (
       <section className="work-area">

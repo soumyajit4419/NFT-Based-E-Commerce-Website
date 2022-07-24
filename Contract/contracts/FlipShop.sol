@@ -21,7 +21,6 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
         uint256 ProductExpiryDate;
         uint256 ProductwarrantyDuration;
         uint256 ProductPrice;
-        address ProductOwnerAddress;
     }
 
     struct Warranty {
@@ -74,8 +73,7 @@ contract ItemNFT_V1 is ERC721Enumerable, Ownable {
             ProductExpiryDate: block.timestamp +
                 _productWarrantyDuration *
                 1 days,
-            ProductPrice: _productPrice,
-            ProductOwnerAddress: _ownerAddress
+            ProductPrice: _productPrice
         });
 
         Warranty memory ProductWarranty = Warranty({

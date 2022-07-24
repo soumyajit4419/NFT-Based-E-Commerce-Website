@@ -53,8 +53,6 @@ function AdminUserOrderDetails() {
 
           order.nftid = tokenId;
 
-          order.ownerAddress = product?.ProductOwnerAddress;
-
           order.isInWarranty = product?.ProductExpiryDate * 1000 > Date.now();
         }
         console.log(data, "sds");
@@ -214,7 +212,7 @@ function AdminUserOrderDetails() {
                     </StyledHeading6>
 
                     <StyledHeading6>
-                      Owner Address: {item.ownerAddress}
+                      Owner Address: {item.user_data.wallet_address}
                     </StyledHeading6>
 
                     <StyledHeading6>

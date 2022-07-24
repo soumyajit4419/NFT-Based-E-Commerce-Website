@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../components/Header/Header";
 import ModalMenu from "../components/Modal/ModalMenu";
-import AdminProduct from "../components/Admin/admin_product";
+import AdminProduct from "../components/Admin/AdminProduct";
 
 class SignupTheme extends Component {
   render() {

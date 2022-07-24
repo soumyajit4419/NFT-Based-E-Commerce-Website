@@ -121,4 +121,5 @@ const StyledText = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0.6rem 0.5rem;
+  text-align: left;
 `;

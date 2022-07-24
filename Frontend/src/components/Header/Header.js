@@ -9,12 +9,13 @@ import { TbHome } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FiLogIn, FiInfo, FiLogOut, FiUser } from "react-icons/fi";
 import { BiData } from "react-icons/bi";
-import { RiFileList3Line } from "react-icons/ri";
+import { RiFileList3Line, RiAdminLine } from "react-icons/ri";
 
 const Header = () => {
   const [validuser, setvaliduser] = useState(false);
   const history = useHistory();
   let token = localStorage.getItem("token");
+  const [isadmin, setisadmin] = useState(false);
 
   useEffect(() => {
     axios
@@ -24,7 +25,8 @@ const Header = () => {
         },
       })
       .then((res) => {
-        // console.log(res);
+        console.log(res);
+        setisadmin(res.data.isadmin);
         setvaliduser(true);
       })
       .catch((err) => {
@@ -40,7 +42,7 @@ const Header = () => {
         data-aos-delay={800}
         className="navbar navbar-expand"
       >
-        <div className="container header">
+        <div className="container-fluid header">
           {/* Navbar Brand*/}
           <a className="navbar-brand" href="/">
             <img className="navbar-brand-sticky" src={logo} alt="img" />
@@ -110,6 +112,29 @@ const Header = () => {
                   <FiLogOut className="menu-icon" />
                   Logout
                 </StyledLink>
+              </li>
+            )}
+
+            {isadmin && (
+              <li className="nav-item dropdown">
+                <StyledLink to="/profile" className="nav-link">
+                  <RiAdminLine className="menu-icon" />
+                  <span>
+                    Admin <i className="fas fa-angle-down ml-1" />
+                  </span>
+                </StyledLink>
+                <ul className="dropdown-menu">
+                  <li className="nav-item">
+                    <Link to="/admin_product" className="nav-link">
+                      Add Product
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/admin_user_orders" className="nav-link">
+                      Check User Product
+                    </Link>
+                  </li>
+                </ul>
               </li>
             )}
 

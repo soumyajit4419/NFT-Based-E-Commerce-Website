@@ -44,7 +44,7 @@ function AdminUserOrderDetails() {
           ).toLocaleString();
 
           let purchase_date = new Date(
-            product?.ProductPurchaseDate * 100
+            product?.ProductPurchaseDate * 1000
           ).toLocaleString();
 
           order.expiry_date = expiry_date;

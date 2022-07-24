@@ -29,8 +29,8 @@ const OrdersDetails = () => {
     axios
       .get("https://flipkart-grid-server.vercel.app/api/user_orders", {
         headers: {
-          Authorization: "Bearer " + token,
-        },
+          Authorization: "Bearer " + token
+        }
       })
       .then(async (res) => {
         console.log(res.data);
@@ -50,7 +50,7 @@ const OrdersDetails = () => {
             });
 
             const newOrdersObj = {
-              nft_details: nftData[i],
+              nft_details: nftData[i]
             };
 
             if (filtredProductData.length > 0) {
@@ -76,7 +76,7 @@ const OrdersDetails = () => {
                   item={item}
                   walletAddress={res.data.wallet_address}
                 />
-              ),
+              )
             };
             return obj;
           });
@@ -93,7 +93,7 @@ const OrdersDetails = () => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         });
         history.push("/");
       });
@@ -112,9 +112,28 @@ const OrdersDetails = () => {
   } else {
     return (
       <div className="row" style={{ marginTop: "80px" }}>
-        <div className="col-12 faq-style-wrapper">
-          <Faq data={renderData} />
-        </div>
+        {renderData? (
+          <>
+            <div className="col-12 faq-style-wrapper">
+              <Faq data={renderData} />
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className="col-12"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "2rem",
+                marginTop: "80px"
+              }}
+            >
+              No Orders done yet
+            </div>
+          </>
+        )}
       </div>
     );
   }

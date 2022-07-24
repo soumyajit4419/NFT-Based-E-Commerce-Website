@@ -52,34 +52,9 @@ const data = [
 
 class HowItWork extends Component {
   state = {
-    initData: {},
-    data: [],
-    isVerified: false,
+    initData: initData,
+    data: data,
   };
-  componentDidMount() {
-    axios({
-      method: "POST",
-      url: "https://loud-backend.herokuapp.com/get_user_details",
-      data: {
-        user: localStorage.getItem("wallet"),
-      },
-    })
-      .then((res) => {
-        if (res.data.is_verified) {
-          console.log(res, "dsds");
-          this.setState({ isVerified: true });
-        } else {
-          console.log("not artist");
-        }
-      })
-      .catch((err) => {
-        console.log(err, "error");
-      });
-    this.setState({
-      initData: initData,
-      data: data,
-    });
-  }
   render() {
     return (
       <section className="help-center-area">

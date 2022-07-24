@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
-const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const order_model = require("../models/orders.js");
 const product_model = require("../models/product");
 const user_model = require("../models/user");
-const contractABI = require("./../abi.json");
 const constants = require("../core/constants");
 
 exports.new_order = async (req, res) => {

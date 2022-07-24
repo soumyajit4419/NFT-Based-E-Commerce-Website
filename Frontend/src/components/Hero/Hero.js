@@ -12,35 +12,11 @@ const initData = {
 
 class Hero extends Component {
   state = {
-    data: {},
-    isVerified: false
+    data: initData,
   };
 
-  componentDidMount() {
-    axios({
-      method: "POST",
-      url: "https://loud-backend.herokuapp.com/get_user_details",
-      data: {
-        user: localStorage.getItem("wallet")
-      }
-    })
-      .then((res) => {
-        if (res.data.is_verified) {
-          this.setState({ isVerified: true });
-        } else {
-          console.log("not authorised");
-        }
-      })
-      .catch((err) => {
-        console.log(err, "error");
-      });
-
-    this.setState({
-      data: initData
-    });
-  }
   render() {
-    return ( 
+    return (
       <section className="hero-section">
         <div className="container" style={{ marginTop: "100px" }}>
           <div className="row">
@@ -50,7 +26,6 @@ class Hero extends Component {
               <p>{this.state.data.content}</p>
               {/* Buttons */}
               <div className="button-group">
- 
                 {localStorage.getItem("wallet") && this.state.isVerified && (
                   <a className="btn btn-bordered-white" href="/create">
                     <i className="icon-note mr-2" />
@@ -101,51 +76,6 @@ class Hero extends Component {
             </g>
           </svg>
         </div>{" "}
-        {/* <div style={{ height: "200px", overflow: "hidden", display: "block" }}>
-          <video
-            className="videoTag"
-            style={{
-              position: "absolute",
-              top: 0,
-
-              backgroundPosition: "stretch",
-              minWidth: "100vw",
-              minHeight: "100vh",
-
-              zIndex: -1000,
-            }}
-            autoPlay
-            loop
-            muted
-          >
-            <source src={sample} type="video/mp4" />
-          </video>
-        </div>
-
-        {/* <div
-          dangerouslySetInnerHTML={{
-            __html: `
-        <video
-          loop
-          muted
-          autoplay
-          playsinline
-          src="${sample}"
-          class="video-element"
-          style="top:0; z-index:-1000;"
-        />,
-      `,
-          }}
-          style={{
-            // background: "red",
-            position: "absolute",
-            top: 0,
-            height: "650px",
-            overflow: "hidden",
-            zIndex: "-1000",
-            width: "100%",
-          }}
-        ></div> */}
       </section>
     );
   }

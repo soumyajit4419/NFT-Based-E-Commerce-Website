@@ -51,24 +51,24 @@ class PaymentCard extends React.Component {
   };
 
   componentDidMount() {
-    console.log(
-      this.state.serialNo,
-      this.state.fromsale,
-      this.state.tokenId,
-      "paymet"
-    );
+    // console.log(
+    //   this.state.serialNo,
+    //   this.state.fromsale,
+    //   this.state.tokenId,
+    //   "paymet"
+    // );
     this.setState({ productid: this.props.productid }, () => {
       axios
         .get("https://flipkart-grid-server.vercel.app/api/product", {
           params: { productid: this.state.productid }
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.setState({ product: res.data.product });
           this.setState({ loading: false });
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.setState({ loading: false });
           toast.error(`${err.response.data.message}`, {
             position: toast.POSITION.TOP_RIGHT
@@ -237,10 +237,10 @@ class PaymentCard extends React.Component {
           }
         )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     };
 
@@ -276,7 +276,7 @@ class PaymentCard extends React.Component {
         tx,
         process.env.REACT_APP_PRIVATE_KEY
       );
-      console.log("jsaoj2");
+      // console.log("jsaoj2");
       web3.eth.sendSignedTransaction(signedTx.rawTransaction, (error, hash) => {
         if (!error) {
           const interval = setInterval(() => {
@@ -331,10 +331,10 @@ class PaymentCard extends React.Component {
           }
         )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     };
 

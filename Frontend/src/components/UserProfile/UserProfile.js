@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const UserProfile = () => {
   const [user, setuser] = useState({});
   const [loading, setloading] = useState(true);
+  const [isadmin, setisadmin] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -17,6 +19,7 @@ const UserProfile = () => {
       })
       .then((res) => {
         setloading(false);
+        setisadmin(res.data.isadmin);
         setuser(res.data.user);
       })
       .catch((err) => {
@@ -65,7 +68,34 @@ const UserProfile = () => {
           </div>
         </div>
 
-        <a href={`/artist/`}>Edit Profile</a>
+        {isadmin ? (
+          <>
+            <div
+              className="row col-12"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Link to="/admin_product">
+                <button
+                  className="mb-2 btn btn-primary"
+                  style={{ width: "230px" }}
+                >
+                  Add a Product
+                </button>
+              </Link>
+
+              <Link to="/admin_user_orders">
+                <button
+                  className="mb-2 btn btn-primary"
+                  style={{ width: "230px" }}
+                >
+                  User Bought Products
+                </button>
+              </Link>
+            </div>
+          </>
+        ) : (
+          <div></div>
+        )}
       </div>
     );
   }

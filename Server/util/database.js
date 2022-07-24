@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const mongo_uri =
-  "mongodb+srv://codedrift:rahul158@cluster0.rmrec.mongodb.net/flipkart_grid_nft";
+const mongo_uri = process.env.MONGO_URI;
 
 const mongoconnectdb = (callback) => {
   mongoose

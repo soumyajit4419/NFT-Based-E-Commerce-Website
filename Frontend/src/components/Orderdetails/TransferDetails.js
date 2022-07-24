@@ -14,8 +14,8 @@ function TransferDetails() {
     axios
       .get("https://flipkart-grid-server.vercel.app/api/transfer_orders", {
         headers: {
-          Authorization: "Bearer " + token,
-        },
+          Authorization: "Bearer " + token
+        }
       })
       .then(async (res) => {
         console.log(res.data, "trasdn dta");
@@ -25,7 +25,7 @@ function TransferDetails() {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_RIGHT
         });
         history.push("/");
       });
@@ -51,7 +51,7 @@ function TransferDetails() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "2rem",
+                fontSize: "2rem"
               }}
             >
               No Items sold
@@ -67,7 +67,7 @@ function TransferDetails() {
                   style={{
                     border: "1px solid #d1d1d199",
                     borderRadius: "12px !important",
-                    margin: "45px 0",
+                    margin: "45px 0"
                   }}
                 >
                   <div
@@ -75,7 +75,7 @@ function TransferDetails() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      justifyContent: "center"
                     }}
                   >
                     <img

@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const product = require("../controllers/product.js");
 const user = require("../controllers/user.js");
-const nft = require("../controllers/nft.js");
 const verify = require("../middlewares/verify");
 const sendmsg = require("../controllers/sendmsg");
 const order = require("../controllers/orders");
@@ -20,7 +19,6 @@ app.route("/valid_user").get(verify.valid_user);
 // app.route("/sendmsg").post(verify.verify, sendmsg.sendmsg);
 
 // product routes
-
 app.route("/all_products").get(product.get_all_products);
 
 app.route("/all_category").get(product.get_all_categories);

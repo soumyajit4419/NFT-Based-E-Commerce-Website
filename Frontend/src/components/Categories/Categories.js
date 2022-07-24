@@ -90,6 +90,7 @@ const Categories = () => {
                       className="col-6 col-sm-4  col-md-3  col-lg-2 item"
                       to={`/category/${item}`}
                       style={{ height: "190px" }}
+                      key={idx}
                     >
                       <StyleCard className="card hover">
                         <div

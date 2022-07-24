@@ -24,7 +24,7 @@ function AdminUserOrderDetails() {
         var data = res.data.orders;
 
         const web3 = createAlchemyWeb3(
-          "wss://eth-rinkeby.alchemyapi.io/v2/REVztWHAcBv-D3_6p9JkKZo4ima_Hspi"
+          process.env.REACT_APP_ALCHEMY_ID
         );
 
         const Contract = new web3.eth.Contract(

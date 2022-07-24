@@ -32,16 +32,8 @@ class Work extends Component {
       }
     ]
   };
-  componentDidMount() {
-    // axios.get(`${BASE_URL}`)
-    //     .then(res => {
-    //         this.setState({
-    //             data: res.data,
-    //             workData: res.data.workData
-    //         })
-    //     })
-    // .catch(err => console.log(err))
-  }
+  componentDidMount() {}
+
   render() {
     return (
       <section className="work-area">

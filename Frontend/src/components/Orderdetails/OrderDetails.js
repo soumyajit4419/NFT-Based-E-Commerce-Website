@@ -13,11 +13,10 @@ import "./styles.css";
 const OrdersDetails = () => {
   const [loading, setloading] = useState(true);
   const [renderData, setRenderData] = useState({});
+  const [userOrdersLength, setUserOrdersLength] = useState(0);
   const history = useHistory();
 
-  const web3 = createAlchemyWeb3(
-   process.env.REACT_APP_ALCHEMY_ID
-  );
+  const web3 = createAlchemyWeb3(process.env.REACT_APP_ALCHEMY_ID);
 
   const Contract = new web3.eth.Contract(
     JSON.parse(contractABI.result),
@@ -29,8 +28,8 @@ const OrdersDetails = () => {
     axios
       .get("https://flipkart-grid-server.vercel.app/api/user_orders", {
         headers: {
-          Authorization: "Bearer " + token
-        }
+          Authorization: "Bearer " + token,
+        },
       })
       .then(async (res) => {
         console.log(res.data);
@@ -50,7 +49,7 @@ const OrdersDetails = () => {
             });
 
             const newOrdersObj = {
-              nft_details: nftData[i]
+              nft_details: nftData[i],
             };
 
             if (filtredProductData.length > 0) {
@@ -62,7 +61,7 @@ const OrdersDetails = () => {
 
             userOrders.push(newOrdersObj);
           }
-
+          setUserOrdersLength(userOrders.length);
           const dataToShow = userOrders.map((item) => {
             const obj = {
               title: (
@@ -76,7 +75,7 @@ const OrdersDetails = () => {
                   item={item}
                   walletAddress={res.data.wallet_address}
                 />
-              )
+              ),
             };
             return obj;
           });
@@ -93,7 +92,7 @@ const OrdersDetails = () => {
       .catch((err) => {
         setloading(false);
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
         history.push("/");
       });
@@ -112,7 +111,7 @@ const OrdersDetails = () => {
   } else {
     return (
       <div className="row" style={{ marginTop: "80px" }}>
-        {renderData? (
+        {userOrdersLength > 0 && renderData ? (
           <>
             <div className="col-12 faq-style-wrapper">
               <Faq data={renderData} />
@@ -127,10 +126,10 @@ const OrdersDetails = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "2rem",
-                marginTop: "80px"
+                marginTop: "80px",
               }}
             >
-              No Orders done yet
+              No Items Orders
             </div>
           </>
         )}

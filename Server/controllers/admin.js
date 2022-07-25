@@ -90,7 +90,6 @@ exports.get_brand_products = async (req, res) => {
             "product_id",
             "address",
             "user_data.password",
-            "user_data.wallet_address",
             "user_data.orders",
             "user_data.transfers",
             "user_data.blockchain",

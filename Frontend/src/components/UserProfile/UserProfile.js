@@ -72,7 +72,7 @@ const UserProfile = () => {
           </div>
         </div>
 
-        {isadmin ? (
+        {/* {isadmin ? (
           <>
             <div
               className="row col-12"
@@ -99,7 +99,7 @@ const UserProfile = () => {
           </>
         ) : (
           <div></div>
-        )}
+        )} */}
       </div>
     );
   }

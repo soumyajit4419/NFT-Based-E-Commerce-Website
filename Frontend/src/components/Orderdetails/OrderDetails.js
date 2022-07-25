@@ -111,7 +111,7 @@ const OrdersDetails = () => {
   } else {
     return (
       <div className="row" style={{ marginTop: "80px" }}>
-        {userOrdersLength.length > 0 && renderData ? (
+        {userOrdersLength > 0 && renderData ? (
           <>
             <div className="col-12 faq-style-wrapper">
               <Faq data={renderData} />

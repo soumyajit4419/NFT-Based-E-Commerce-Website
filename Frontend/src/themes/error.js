@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
 import ModalMenu from "../components/Modal/ModalMenu";
 
 export default function Error() {
@@ -14,7 +13,6 @@ export default function Error() {
           <h2>Page you requested not Found!</h2>
         </center>
       </div>
-      <Footer />
       <ModalMenu />
     </div>
   );

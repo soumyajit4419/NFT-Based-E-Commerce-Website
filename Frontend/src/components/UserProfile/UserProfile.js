@@ -42,9 +42,9 @@ const UserProfile = () => {
     );
   } else {
     return (
-      <div className="row" style={{ marginTop: "160px", justifyContent:"center" }}>
-        <div className="col-md-6">
-          <div className="card no-hover text-center">
+      <div className="row" style={{ justifyContent: "center" }}>
+        <div className="col-md-6" style={{ paddingTop: "160px" }}>
+          <div className="card card-profile  text-center">
             <div>
               <img className="card-img-top" src={user.profile_image} alt="" />
             </div>

@@ -129,7 +129,7 @@ const OrdersDetails = () => {
                 marginTop: "80px",
               }}
             >
-              No Items Orders
+              No Items Ordered
             </div>
           </>
         )}

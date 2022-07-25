@@ -3,34 +3,34 @@ class Work extends Component {
   state = {
     data: {
       preHeading: "How It Works",
-      heading: "Create and sell your NFTs"
+      heading: "Create and sell your NFTs",
     },
     workData: [
       {
         id: 1,
         icon: "icons icon-wallet text-effect",
         title: "Set up your wallet",
-        text: "Once you’ve set up your wallet of choice, connect it to Loud Market by clicking the Wallet Connect in the top right corner. Learn about the wallets we support."
+        text: "Once you’ve set up your wallet of choice, connect it to Loud Market by clicking the Wallet Connect in the top right corner. Learn about the wallets we support.",
       },
       {
         id: 2,
         icon: "icons icon-grid text-effect",
         title: "Create your collection",
-        text: "Click create and set up your collection. Add social links, a description, profile & banner images."
+        text: "Click create and set up your collection. Add social links, a description, profile & banner images.",
       },
       {
         id: 3,
         icon: "icons icon-drawer text-effect",
         title: "Add your NFTs",
-        text: "Upload your work (image and audio MP3), add a title and description. Then choose the sale and/or auction starting price and a 'Royalty Fee' for all future sales."
+        text: "Upload your work (image and audio MP3), add a title and description. Then choose the sale and/or auction starting price and a 'Royalty Fee' for all future sales.",
       },
       {
         id: 4,
         icon: "icons icon-bag text-effect",
         title: "List them for sale",
-        text: "Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs!"
-      }
-    ]
+        text: "Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs!",
+      },
+    ],
   };
   componentDidMount() {}
 
@@ -59,7 +59,16 @@ class Work extends Component {
                   {/* Single Work */}
                   <div className="single-work">
                     <i className={item.icon} />
-                    <h4 color="black">{item.title}</h4>
+                    <h4
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(150deg, #5045e2 0%, #6919d9 78%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {item.title}
+                    </h4>
                     <p>{item.text}</p>
                   </div>
                 </div>

@@ -55,7 +55,7 @@ const data = [
 
 const Faq = () => {
   return (
-    <section className="faq-area pt-0" style={{ marginTop: "120px" }}>
+    <section className="faq-area pt-0" style={{ marginTop: "60px" }}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">

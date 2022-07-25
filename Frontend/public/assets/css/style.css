@@ -8,7 +8,7 @@
 ----------------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 /*----------------------------------------------
 
 [ALL CONTENTS]
@@ -407,7 +407,7 @@ h3 {
   font-weight: 600;
   line-height: 1.2;
   font-family: var(--primary-font);
-  color: #7971EA;
+  color: #7971ea;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
 }
@@ -645,8 +645,6 @@ section {
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  background: linear-gradient(-45deg, #5b0e9e,  #000000);
-  
 }
 
 section.no-hero {
@@ -1499,7 +1497,6 @@ header .navbar-expand .dropdown .dropdown-menu {
 header .navbar-expand .dropdown .dropdown-menu .dropdown-menu {
   position: absolute;
   top: -8px;
-
 }
 
 header .navbar-expand .dropdown .dropdown-item.active,
@@ -1778,7 +1775,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   transition-property: opacity, transform, -webkit-transform;
 }
 
-
 .card-order .card-order-img-top {
   border-radius: 6px;
   height: auto;
@@ -1786,6 +1782,24 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   /* max-width: 200px; */
   max-height: 200px;
   padding: 12px;
+}
+
+.card-profile {
+  padding: 0.5rem;
+  border: none !important;
+  border-radius: 12px;
+  height: 100%;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 4px 12px 0px #00000085 !important;
+  box-shadow: 0 4px 12px 0px #00000085 !important; 
+  -webkit-transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  transition-timing-function: cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
 }
 
 .card {
@@ -1933,9 +1947,9 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 
 .hero-section {
   position: relative;
-  background: linear-gradient(-45deg, #5b0e9e,  #000000);
-	background-size: 100% 100%;
-	height: 100vh;
+  /* background: linear-gradient(-45deg, #5b0e9e,  #000000); */
+  background-size: 100% 100%;
+  height: 100vh;
   z-index: 1;
 }
 
@@ -1944,7 +1958,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   display: inline-block;
   font-weight: 600;
   text-transform: uppercase;
-  
 }
 
 .hero-section span::after {
@@ -1952,11 +1965,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   content: "";
   height: 3px;
   width: 45px;
-  background-image: linear-gradient(
-    135deg,
-    var(--primary-color) 10%,
-    var(--secondary-color)
-  );
+  background-image: linear-gradient(135deg, #5045e2, #5045e2);
   top: 50%;
   left: calc(100% + 20px);
   -webkit-transform: translateY(-50%);
@@ -1975,7 +1984,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .hero-section h1 {
   font-family: cursive;
   color: rgba(255, 255, 255, 0.653);
-  text-shadow:
+  /* text-shadow:
     0 0 5px rgb(252, 236, 252),
     0 0 10px rgb(252, 222, 252),
     0 0 20px rgb(252, 193, 252),
@@ -1983,7 +1992,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
     0 0 80px rgb(252, 122, 252),
     0 0 90px rgb(255, 86, 255),
     0 0 100px rgb(254, 55, 254),
-    0 0 150px rgb(255, 0, 255);
+    0 0 150px rgb(255, 0, 255); */
 }
 
 .hero-section p {
@@ -2578,7 +2587,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   transition: 0.5s;
 }
 
-.author-area .item-form .form-group select{
+.author-area .item-form .form-group select {
   font-size: 1rem;
   font-weight: 500;
   color: #495057 !important;
@@ -2596,9 +2605,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   box-shadow: 0 5px 10px var(--primary-l-color);
   -webkit-transition: 0.5s;
   transition: 0.5s;
-
 }
-
 
 .author-area .item-form .form-group input,
 .author-area .item-form .form-group .custom-file-input,

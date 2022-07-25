@@ -35,7 +35,7 @@ const Header = () => {
         setvaliduser(false);
         setloading(false);
       });
-  }, []);
+  }, [token]);
 
   return (
     <header id="header">

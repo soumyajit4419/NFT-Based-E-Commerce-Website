@@ -407,7 +407,7 @@ h3 {
   font-weight: 600;
   line-height: 1.2;
   font-family: var(--primary-font);
-  color: black;
+  color: #7971EA;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
 }
@@ -645,6 +645,8 @@ section {
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
+  background: linear-gradient(-45deg, #5b0e9e,  #000000);
+  
 }
 
 section.no-hero {
@@ -1721,7 +1723,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .hero-section span,
 .share-list .nav-link i,
 .blog-details .pagination > li.active > a {
-  background-image: linear-gradient(150deg, #7971ea 0%, #7971ea 78%);
+  background-image: linear-gradient(150deg, #5045e2 0%, #6919d9 78%);
 }
 
 .card-columns {
@@ -1930,7 +1932,9 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 
 .hero-section {
   position: relative;
-  background-color: var(--footer-bg-color);
+  background: linear-gradient(-45deg, #5b0e9e,  #000000);
+	background-size: 100% 100%;
+	height: 100vh;
   z-index: 1;
 }
 
@@ -1939,6 +1943,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   display: inline-block;
   font-weight: 600;
   text-transform: uppercase;
+  
 }
 
 .hero-section span::after {
@@ -1967,11 +1972,22 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   }
 }
 .hero-section h1 {
-  color: var(--white-color);
+  font-family: cursive;
+  color: rgba(255, 255, 255, 0.653);
+  text-shadow:
+    0 0 5px rgb(252, 236, 252),
+    0 0 10px rgb(252, 222, 252),
+    0 0 20px rgb(252, 193, 252),
+    0 0 40px rgb(254, 160, 254),
+    0 0 80px rgb(252, 122, 252),
+    0 0 90px rgb(255, 86, 255),
+    0 0 100px rgb(254, 55, 254),
+    0 0 150px rgb(255, 0, 255);
 }
 
 .hero-section p {
   font-size: 1.2rem;
+  color: rgb(247, 231, 248);
 }
 
 .countdown {

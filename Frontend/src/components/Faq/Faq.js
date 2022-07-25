@@ -5,7 +5,7 @@ const data = [
     id: "1",
     btnClass: "btn d-block text-left w-100 py-4",
     target: "#collapseOne",
-    quote: "Any transaction fees?",
+    quote: "How can I buy the products from Flipkart?",
     contentId: "collapseOne",
     contentClass: "collapse show",
     content:
@@ -15,7 +15,7 @@ const data = [
     id: "2",
     btnClass: "btn d-block text-left w-100 collapsed py-4",
     target: "#collapseTwo",
-    quote: "How can I buy Loud tokens?",
+    quote: "Can I sell my purchases on this website?",
     contentId: "collapseTwo",
     contentClass: "collapse",
     content:
@@ -25,7 +25,7 @@ const data = [
     id: "3",
     btnClass: "btn d-block text-left w-100 collapsed py-4",
     target: "#collapseThree",
-    quote: "How do Royalties work on Loud Market?",
+    quote: "What happens when the warranty period is up?",
     contentId: "collapseThree",
     contentClass: "collapse",
     content:
@@ -35,7 +35,7 @@ const data = [
     id: "4",
     btnClass: "btn d-block text-left w-100 collapsed py-4",
     target: "#collapseFour",
-    quote: "How do I create an NFT?",
+    quote: "Can I sell my NFTs here?",
     contentId: "collapseFour",
     contentClass: "collapse",
     content:
@@ -45,7 +45,7 @@ const data = [
     id: "5",
     btnClass: "btn d-block text-left w-100 collapsed py-4",
     target: "#collapseFive",
-    quote: "What can be done about copyright breaches?",
+    quote: "Where can I check my NFT details?",
     contentId: "collapseFive",
     contentClass: "collapse",
     content:

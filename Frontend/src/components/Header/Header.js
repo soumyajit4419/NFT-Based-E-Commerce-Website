@@ -16,23 +16,26 @@ const Header = () => {
   const history = useHistory();
   let token = localStorage.getItem("token");
   const [isadmin, setisadmin] = useState(false);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     axios
       .get("https://flipkart-grid-server.vercel.app/api/valid_user", {
         params: {
-          token: token,
-        },
+          token: token
+        }
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setisadmin(res.data.isadmin);
         setvaliduser(true);
+        setloading(false);
       })
       .catch((err) => {
         setvaliduser(false);
+        setloading(false);
       });
-  });
+  }, []);
 
   return (
     <header id="header">
@@ -49,102 +52,111 @@ const Header = () => {
           </a>
           <div className="ml-auto" />
           {/* Navbar */}
-          <ul className="navbar-nav items ml-auto ">
-            <li className="nav-item ">
-              <StyledLink to="/" className="nav-link">
-                <TbHome className="menu-icon" />
-                Home
-              </StyledLink>
-            </li>
-            <li className="nav-item">
-              <StyledLink to="/allproducts" className="nav-link">
-                <HiOutlineShoppingBag className="menu-icon" />
-                Shop
-              </StyledLink>
-            </li>
-            <li className="nav-item">
-              <StyledLink to="/sale" className="nav-link">
-                <BiData className="menu-icon" />
-                Sale
-              </StyledLink>
-            </li>
 
-            {validuser && (
-              <li className="nav-item">
-                <StyledLink to="/profile" className="nav-link">
-                  <FiUser className="menu-icon" />
-                  My Profile
-                </StyledLink>
-              </li>
-            )}
+          {!loading ? (
+            <>
+              <ul className="navbar-nav items ml-auto ">
+                <li className="nav-item ">
+                  <StyledLink to="/" className="nav-link">
+                    <TbHome className="menu-icon" />
+                    Home
+                  </StyledLink>
+                </li>
+                <li className="nav-item">
+                  <StyledLink to="/allproducts" className="nav-link">
+                    <HiOutlineShoppingBag className="menu-icon" />
+                    Shop
+                  </StyledLink>
+                </li>
+                <li className="nav-item">
+                  <StyledLink to="/sale" className="nav-link">
+                    <BiData className="menu-icon" />
+                    Sale
+                  </StyledLink>
+                </li>
 
-            {validuser && (
-              <li className="nav-item">
-                <StyledLink to="/orders" className="nav-link">
-                  <RiFileList3Line className="menu-icon" />
-                  My Orders
-                </StyledLink>
-              </li>
-            )}
-
-            {!validuser && (
-              <li className="nav-item">
-                <StyledLink to="/signup" className="nav-link">
-                  <FiLogIn className="menu-icon" />
-                  Signup
-                </StyledLink>
-              </li>
-            )}
-
-            {validuser && (
-              <li className="nav-item">
-                <StyledLink
-                  to="/"
-                  className="nav-link"
-                  onClick={() => {
-                    localStorage.clear();
-                    history.push("/");
-                    toast.success("You Logged Out Successfully", {
-                      position: toast.POSITION.TOP_RIGHT,
-                    });
-                  }}
-                >
-                  <FiLogOut className="menu-icon" />
-                  Logout
-                </StyledLink>
-              </li>
-            )}
-
-            {isadmin && (
-              <li className="nav-item dropdown">
-                <StyledLink to="/profile" className="nav-link">
-                  <RiAdminLine className="menu-icon" />
-                  <span>
-                    Admin <i className="fas fa-angle-down ml-1" />
-                  </span>
-                </StyledLink>
-                <ul className="dropdown-menu">
+                {validuser && (
                   <li className="nav-item">
-                    <Link to="/admin_product" className="nav-link">
-                      Add Product
-                    </Link>
+                    <StyledLink to="/profile" className="nav-link">
+                      <FiUser className="menu-icon" />
+                      My Profile
+                    </StyledLink>
                   </li>
-                  <li className="nav-item">
-                    <Link to="/admin_user_orders" className="nav-link">
-                      Check User Product
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-            )}
+                )}
 
-            <li className="nav-item ">
-              <StyledLink to="/home" className="nav-link">
-                <FiInfo className="menu-icon" />
-                About
-              </StyledLink>
-            </li>
-          </ul>
+                {validuser && (
+                  <li className="nav-item">
+                    <StyledLink to="/orders" className="nav-link">
+                      <RiFileList3Line className="menu-icon" />
+                      My Orders
+                    </StyledLink>
+                  </li>
+                )}
+
+                {!validuser && (
+                  <li className="nav-item">
+                    <StyledLink to="/signup" className="nav-link">
+                      <FiLogIn className="menu-icon" />
+                      Signup
+                    </StyledLink>
+                  </li>
+                )}
+
+                {validuser && (
+                  <li className="nav-item">
+                    <StyledLink
+                      to="/"
+                      className="nav-link"
+                      onClick={() => {
+                        localStorage.clear();
+                        history.push("/");
+                        toast.success("You Logged Out Successfully", {
+                          position: toast.POSITION.TOP_RIGHT
+                        });
+                      }}
+                    >
+                      <FiLogOut className="menu-icon" />
+                      Logout
+                    </StyledLink>
+                  </li>
+                )}
+
+                {isadmin && (
+                  <li className="nav-item dropdown">
+                    <StyledLink to="/profile" className="nav-link">
+                      <RiAdminLine className="menu-icon" />
+                      <span>
+                        Admin <i className="fas fa-angle-down ml-1" />
+                      </span>
+                    </StyledLink>
+                    <ul className="dropdown-menu">
+                      <li className="nav-item">
+                        <Link to="/admin_product" className="nav-link">
+                          Add Product
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link to="/admin_user_orders" className="nav-link">
+                          Check User Products
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                )}
+
+                <li className="nav-item ">
+                  <StyledLink to="/home" className="nav-link">
+                    <FiInfo className="menu-icon" />
+                    About
+                  </StyledLink>
+                </li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <div></div>
+            </>
+          )}
 
           {/* Navbar Toggler */}
           <ul className="navbar-nav toggle">

@@ -15,8 +15,8 @@ app.route("/user").get(verify.verify, user.get_user);
 
 app.route("/valid_user").get(verify.valid_user);
 
-//send message (15 credits left so dont use this api unless required)
-// app.route("/sendmsg").post(verify.verify, sendmsg.sendmsg);
+//send message (14.50 credits left so dont use this api unless required)
+app.route("/sendmsg").post(verify.verify, sendmsg.sendmsg);
 
 // product routes
 app.route("/all_products").get(product.get_all_products);

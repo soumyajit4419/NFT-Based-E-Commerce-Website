@@ -4,41 +4,39 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)
+
 
 # 📱 _E-Commerce Website with Warranty attached NFT's_ 
 
-_**Connecting Doctors and Patients and making hassle free storage and access to medical information from anywhere**_ <br />
-
-### 😔 Challenges in Indian Medical System :
-
-1. Most of the medical records we have today are in `unstructured form`. For a patient it is difficult to store tons of data in the form of `doctor’s notes`, `discharge statements`, `prescriptions` and lab reports which are all in paper.
-2. Such data is mostly unstructured, and very` difficult` to `analyse`.
-3. The `past medical data` is important for a doctor, because in our country, we go to various doctors depending on their specialities and the current doctor must know what all has been `administered` in the `past` for `better diagnosis`.
-4. On top of that, because of the obvious `difficulties` of storing them as `hard copies`, some of them might be `misplaced` which may make it all the more `difficult` for a `doctor` to help.
-5. By using this `application`, the `doctor` doesn't have to `sift` through tons of `paperwork` and the data is available in a structured way which makes the diagnosis `fast` and `effective`. With the `Symptoms Checker System`, many people of our country who `don't` have `access` to nearby emergency medical facilities can check with the help of this application by what `disease` they may be `suffering` from.
-
-With the amount of pressure Indian Medical system has, this one application will go a long way in making things faster, smoother and easier for patients as well as doctors.
+_**Buy any Product and get warranty attached NFT**_ <br />
 
 ### 🎯 Our Goals :
 
-1.  Extract, store and retrieve medical information from `Medical Reports` using `OCR`.
-2.  Display the information online `Graphically` for the use of `Patients` as well as `Doctors` only with `Authorised Access`.
-3.  Disease prediction from existing medical records using `ML-Models`, to `Caution Patients and Recommend` them for `Check-Ups.`
-4.  Giving an complete health `Analytics` to doctors of `Patients` as well as `Doctors` preseving user privacy.
+1.  Product warranty card as an NFT.
+2.  Ownership of product through NFTs
+3.  Sellers selling their products and verify warranty
+4.  User can sell their product 
 
-## 📝 Module-Wise Description
+## 📝 Product Description
 
-_📌 **Registration**_ <br/>
-The web application have a facility for the users to register as either doctors or patients. After registering you can login as a doctor or patient using the same credentials used for registration. After logging in both of them would have access to specific features of the application. They will have a unique authentication ID so that their data is completely protected and giving access to specific users securely.
+_📌 **Users can prove ownership**_ <br/>
+After the customer purchases the product through our website, we mint an NFT and send it to the user's wallet address and store the product warranty with the NFT. In this way, with each product that the user purchases, the corresponding NFT is fully owned by the user. It allows users to get the physical product along with its digital version and prove the ownership of product.
 
-_📌 **Data Retrieval System**_ <br/>
-So much medical data will obviously not be typed by the patient or else the whole purpose of saving time will be defeated. Hence, the application will do the job itself by scanning paperwork and storing all the relevant data. Once the users as patients or doctors upload their reports we extract all the necessary information and store it in our database respectively.
+_📌 **Providing the purchasing history, warranty period, and other item information**_ <br/>
+The user can view the purchase history of all the products ordered by that specific user. They  can also view the NFT details, product warranty details, product details and address details.
 
-_📌 **Medical Record Analytics**_ <br/>
-This would enable online storage of the data of the user's medical reports. It will help preserve the data and avoid the hassle of carrying the documents for every consultation. It will also be presented in a pictorial manner so that it is easier to grasp by the patient and even more easy for the doctors to diagonise the patients as for doctors they can get the graphical analysis in pictorial format of a particular patient by giving that particular USER ID. The Analysis of Blood Sugar Levels, Blood Count Levels etc are shown in a graphical manner. For Doctors all Analytics section is also there where the average data of Blood Sugar, Blood Count etc are shown user wise of patients and doctors so that how a particular user average value varies among all can be analysed.
+_📌 **Warranty Card containing the product’s serial number**_ <br/>
+The Warranty card will contain the product’s serial number which will be unique for every product bought using our website as we generate a unique serial number while minting the NFT for every product ordered through our website.
 
-_📌 **Disease Prediction**_ <br/>
-The disease prediction by the application will alert the patient to take immediate action before the situation turns sour as in our hectic lives as we don't take the time out for routine checkups. Some symptoms will be asked to the users and by those results a disease will be predicted. Also if there is some discrepancy or negligence from the side of the doctor, the patient will realise that.
+_📌 **Transfer Ownership**_ <br/>
+We have added a feature to transfer the already minted NFTs to another user. We give the user the opportunity to list for sale the particular product they wish to transfer ownership of. To do so, the current owner of the product, i.e. the user, will have to approve the popup coming from MetaMask. After it is done the item will be on sale. When the user does this in the sale section of ​​the application, that specific product will be displayed there. The user who puts the product for sale cannot buy the product again. Any other user using our website can buy sale products from this section and after that, the product will be transferred to that particular user from the previous owner.
+
+_📌 **On purchase the customer will get a notification on their smartphone**_ <br/>
+We are using the Twilio free messaging service and sending a message when the customer successfully places the order.
+
+_📌 **For Brands and Retailers**_ <br/>
+For the brands and retailers we have added a separate feature like they can add any product of their brand to our website and they will be able to see all the products of their brand ordered by the user with the warranty information of each product with the user details. By this, the brands / retailers will be able to get the user details and approve when the user requests for replacements and repairs.
 
 ## 🤝 How to Contribute?
 

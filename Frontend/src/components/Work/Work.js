@@ -3,32 +3,32 @@ class Work extends Component {
   state = {
     data: {
       preHeading: "How It Works",
-      heading: "Create and sell your NFTs",
+      // heading: "Create and sell your NFTs",
     },
     workData: [
       {
         id: 1,
         icon: "icons icon-wallet text-effect",
-        title: "Set up your wallet",
-        text: "Once you’ve set up your wallet of choice, connect it to Loud Market by clicking the Wallet Connect in the top right corner. Learn about the wallets we support.",
+        title: "Shop",
+        text: "Go to the Shop section and pick the product of your choice. Click on buy now and fill in the relevant details. After successful payment, you will get an NFT and the product  will be shipped to you at the earliest.",
       },
       {
         id: 2,
         icon: "icons icon-grid text-effect",
-        title: "Create your collection",
-        text: "Click create and set up your collection. Add social links, a description, profile & banner images.",
+        title: "Check your collection",
+        text: 'Go to "My Orders" and check your NFT collection along with all its details..',
       },
       {
         id: 3,
-        icon: "icons icon-drawer text-effect",
-        title: "Add your NFTs",
-        text: "Upload your work (image and audio MP3), add a title and description. Then choose the sale and/or auction starting price and a 'Royalty Fee' for all future sales.",
+        icon: "icons icon-bag text-effect",
+        title: "Sell your collection",
+        text: 'Go to "My Orders" and select the product you wish to sell. Connect your Metamask wallet and proceed. Now you can put up your product for sale',
       },
       {
         id: 4,
-        icon: "icons icon-bag text-effect",
-        title: "List them for sale",
-        text: "Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs!",
+        icon: "icons icon-drawer text-effect",
+        title: "Sell as a retailer",
+        text: 'Click "Add Product" and add your products for sale.',
       },
     ],
   };

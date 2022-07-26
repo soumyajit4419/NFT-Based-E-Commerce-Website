@@ -29,6 +29,9 @@ $(document).ready(function () {
       navResponsive();
     });
 
+    $(window).on("load", function () {
+      navResponsive();
+    });
     $(".menu .dropdown-menu").each(function () {
       var children = $(this).children(".dropdown").length;
       $(this).addClass("children-" + children);

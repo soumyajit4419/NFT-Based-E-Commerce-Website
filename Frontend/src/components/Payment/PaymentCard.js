@@ -5,7 +5,7 @@ import {
   formatCreditCardNumber,
   formatCVC,
   formatExpirationDate,
-  formatFormData
+  formatFormData,
 } from "./utils";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -47,7 +47,7 @@ class PaymentCard extends React.Component {
       : null,
     nftOwnerAddress: this.props.location.state.sale
       ? this.props.location.state.nftOwnerAddress
-      : null
+      : null,
   };
 
   componentDidMount() {
@@ -60,7 +60,7 @@ class PaymentCard extends React.Component {
     this.setState({ productid: this.props.productid }, () => {
       axios
         .get("https://flipkart-grid-server.vercel.app/api/product", {
-          params: { productid: this.state.productid }
+          params: { productid: this.state.productid },
         })
         .then((res) => {
           // console.log(res.data);
@@ -71,7 +71,7 @@ class PaymentCard extends React.Component {
           // console.log(err);
           this.setState({ loading: false });
           toast.error(`${err.response.data.message}`, {
-            position: toast.POSITION.TOP_RIGHT
+            position: toast.POSITION.TOP_RIGHT,
           });
           setTimeout(() => {
             window.location = "/";
@@ -83,8 +83,8 @@ class PaymentCard extends React.Component {
     axios
       .get("https://flipkart-grid-server.vercel.app/api/user", {
         headers: {
-          Authorization: "Bearer " + token
-        }
+          Authorization: "Bearer " + token,
+        },
       })
       .then((res) => {
         this.setState({ wallet_address: res.data.user.wallet_address });
@@ -92,7 +92,7 @@ class PaymentCard extends React.Component {
       .catch((err) => {
         this.setState({ loading: false });
         toast.error(`${err.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         });
       });
   }
@@ -105,7 +105,7 @@ class PaymentCard extends React.Component {
 
   handleInputFocus = ({ target }) => {
     this.setState({
-      focused: target.name
+      focused: target.name,
     });
   };
 
@@ -144,7 +144,7 @@ class PaymentCard extends React.Component {
 
     if (this.state.nftOwnerAddres === this.state.wallet_address) {
       toast.error(`❗You already have the same item...`, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
 
       return;
@@ -156,9 +156,7 @@ class PaymentCard extends React.Component {
     this.setState({ loading: true });
 
     const transfer = async () => {
-      const web3 = createAlchemyWeb3(
-        process.env.REACT_APP_ALCHEMY_ID
-      );
+      const web3 = createAlchemyWeb3(process.env.REACT_APP_ALCHEMY_ID);
 
       const Contract = new web3.eth.Contract(
         JSON.parse(contractABI.result),
@@ -176,7 +174,7 @@ class PaymentCard extends React.Component {
             this.state.wallet_address,
             this.state.tokenId
           )
-          .encodeABI()
+          .encodeABI(),
       };
 
       const signedTx = await web3.eth.accounts.signTransaction(
@@ -195,13 +193,13 @@ class PaymentCard extends React.Component {
                   window.location = "/orders";
                 }, 500);
                 toast.success(`Transaction Successful 🔥`, {
-                  position: toast.POSITION.TOP_RIGHT
+                  position: toast.POSITION.TOP_RIGHT,
                 });
               } else {
                 toast.error(
                   `❗Something went wrong while submitting your transaction`,
                   {
-                    position: toast.POSITION.TOP_RIGHT
+                    position: toast.POSITION.TOP_RIGHT,
                   }
                 );
                 this.setState({ loading: false });
@@ -212,7 +210,7 @@ class PaymentCard extends React.Component {
           toast.error(
             `❗Something went wrong while submitting your transaction`,
             {
-              position: toast.POSITION.TOP_RIGHT
+              position: toast.POSITION.TOP_RIGHT,
             }
           );
           this.setState({ loading: false });
@@ -228,7 +226,7 @@ class PaymentCard extends React.Component {
             state: this.state.state1,
             city: this.state.city,
             pincode: this.state.pincode,
-            product_serial_number: this.state.serialNo
+            product_serial_number: this.state.serialNo,
           },
           {
             headers: {
@@ -245,9 +243,7 @@ class PaymentCard extends React.Component {
     };
 
     const mint = async () => {
-      const web3 = createAlchemyWeb3(
-       process.env.REACT_APP_ALCHEMY_ID
-      );
+      const web3 = createAlchemyWeb3(process.env.REACT_APP_ALCHEMY_ID);
 
       const Contract = new web3.eth.Contract(
         JSON.parse(contractABI.result),
@@ -269,7 +265,7 @@ class PaymentCard extends React.Component {
             this.state.wallet_address,
             productSerialNumber
           )
-          .encodeABI()
+          .encodeABI(),
       };
 
       const signedTx = await web3.eth.accounts.signTransaction(
@@ -286,15 +282,19 @@ class PaymentCard extends React.Component {
                 clearInterval(interval);
                 setTimeout(() => {
                   window.location = "/orders";
-                }, 500);
+                }, 3000);
                 toast.success(`Transaction Successful 🔥`, {
-                  position: toast.POSITION.TOP_RIGHT
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+
+                toast.success(`NFT Details send to Mobile Phone`, {
+                  position: toast.POSITION.TOP_RIGHT,
                 });
               } else {
                 toast.error(
                   `❗Something went wrong while submitting your transaction`,
                   {
-                    position: toast.POSITION.TOP_RIGHT
+                    position: toast.POSITION.TOP_RIGHT,
                   }
                 );
                 this.setState({ loading: false });
@@ -306,7 +306,7 @@ class PaymentCard extends React.Component {
           toast.error(
             `❗Something went wrong while submitting your transaction`,
             {
-              position: toast.POSITION.TOP_RIGHT
+              position: toast.POSITION.TOP_RIGHT,
             }
           );
           this.setState({ loading: false });
@@ -323,12 +323,12 @@ class PaymentCard extends React.Component {
             city: this.state.city,
             pincode: this.state.pincode,
             product_id: this.state.productid,
-            product_serial_number: productSerialNumber
+            product_serial_number: productSerialNumber,
           },
           {
             headers: {
-              Authorization: "Bearer " + token
-            }
+              Authorization: "Bearer " + token,
+            },
           }
         )
         .then((res) => {
@@ -372,7 +372,7 @@ class PaymentCard extends React.Component {
                   gutterBottom
                   style={{
                     textAlign: "center",
-                    color: "#7971ea"
+                    color: "#7971ea",
                   }}
                 >
                   Enter Your Address Details
@@ -383,7 +383,7 @@ class PaymentCard extends React.Component {
                   style={{
                     color: "#ff5499",
                     fontSize: "15px",
-                    textAlign: "center"
+                    textAlign: "center",
                   }}
                 >
                   Fill all the required(*) fields to Pay
@@ -610,7 +610,7 @@ class PaymentCard extends React.Component {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "center"
+                          justifyContent: "center",
                         }}
                       >
                         <button

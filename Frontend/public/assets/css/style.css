@@ -1630,7 +1630,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 }
 
 .menu .nav-link:not(.btn):hover {
-  color: var(--primary-color);
+  color: #1f1f1fc9;
 }
 
 .menu .nav-link:first-child {
@@ -1648,7 +1648,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   font-size: 1.5rem;
   font-weight: 600;
   border: none;
-  color: var(--primary-t-color);
+  color: #1f1f1fc9;
 }
 
 .menu .dropdown-menu .dropdown > .nav-link:first-child {

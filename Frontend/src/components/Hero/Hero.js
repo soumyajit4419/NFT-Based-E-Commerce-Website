@@ -4,8 +4,8 @@ import axios from "axios";
 
 const initData = {
   pre_heading: "Welcome to Flipkart",
-  heading: "Buy any Product and get Warranty attached NFTs",
-  content: "The World's First Product Warranty NFT Marketplace",
+  heading: "Buy Any Product And Get Warranty Attached NFTs",
+  content: "The World's First NFT Based Marketplace",
   btn_1: "Explore",
   btn_2: "More",
 };

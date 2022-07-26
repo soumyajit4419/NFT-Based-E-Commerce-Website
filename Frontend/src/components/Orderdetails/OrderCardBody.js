@@ -15,11 +15,12 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    width: "100%",
   },
   overlay: {
-    zIndex: 3000
-  }
+    zIndex: 3000,
+  },
 };
 
 function OrderCardBody({ item, walletAddress }) {
@@ -47,7 +48,7 @@ function OrderCardBody({ item, walletAddress }) {
       if (active) {
         if (active && account && account !== walletAddress) {
           toast.error("Not connected to registered address", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
           });
           return;
         }
@@ -73,12 +74,12 @@ function OrderCardBody({ item, walletAddress }) {
               "https://flipkart-grid-server.vercel.app/api/sale",
               {
                 product_serial_number:
-                  item?.order_details?.product_serial_number
+                  item?.order_details?.product_serial_number,
               },
               {
                 headers: {
-                  Authorization: "Bearer " + token
-                }
+                  Authorization: "Bearer " + token,
+                },
               }
             )
             .then((res) => {
@@ -93,7 +94,7 @@ function OrderCardBody({ item, walletAddress }) {
           }, 2000);
 
           toast.success("Item Put on sale", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
           });
         } catch (er) {
           console.log("approve error", er);
@@ -117,7 +118,7 @@ function OrderCardBody({ item, walletAddress }) {
                 color: " black",
                 opacity: "0.6",
                 display: "flex",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
             >
               Shipping Address
@@ -154,7 +155,7 @@ function OrderCardBody({ item, walletAddress }) {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           {item?.order_details?.transferred ? (
@@ -173,7 +174,7 @@ function OrderCardBody({ item, walletAddress }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                flexDirection: "column"
+                flexDirection: "column",
               }}
             >
               {active && account ? (

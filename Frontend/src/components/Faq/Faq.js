@@ -9,7 +9,7 @@ const data = [
     contentId: "collapseOne",
     contentClass: "collapse show",
     content:
-      "The only fees you will pay on Loud Market are gas fees! These tend to be under $0.05 per transaction! We don’t take a single penny from transactions on the Loud marketplace."
+      'Go to the "Shop" section and search for the product you want to buy. Click on buy now. Fill in your address and card details and proceed to pay. Voila, the product is yours now.',
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ const data = [
     contentId: "collapseTwo",
     contentClass: "collapse",
     content:
-      "You will need a MetaMask/TrustWallet connected to the BSC. Then you can buy $LOUD on PancakeSwap using either BNB or BUSC.Click here to buy from PanCakeSwap - link https://pancakeswap.finance/swap?outputCurrency=0x3d0e22387ddfe75d1aea9d7108a4392922740b96"
+      'You can sell your purchases as NFTs to other users. Go to the "My Orders" section and go to the product which you want to sell. Connect your metamask wallet to appove that you want to sale and you are done. Your product will now be displayed in the "Sale" section for others to buy',
   },
   {
     id: "3",
@@ -29,28 +29,18 @@ const data = [
     contentId: "collapseThree",
     contentClass: "collapse",
     content:
-      "Artists can add a percentage “Royalty Fee” on their NFTs. When their NFTs are resold they will then receive that percentage of sale price. This fee does not go to the Loud Market team - but goes straight to the artists. This allows musicians to earn money from their work in the long run, after they have already sold their work."
+      'All the warranty details are available in the custom NFT generated for you. You can find it in the "My Orders" section. Once the warranty is up, it gets mentioned in the NFT and this NFT becomes void which will stop users from claiming false warranties.',
   },
   {
     id: "4",
     btnClass: "btn d-block text-left w-100 collapsed py-4",
     target: "#collapseFour",
-    quote: "Can I sell my NFTs here?",
+    quote: "I am a retailer. How can I sell my goods here?",
     contentId: "collapseFour",
     contentClass: "collapse",
     content:
-      "Simply go to “Create” on the menu at the top of the screen, or on the home page. From here you can upload your MP3 file, image URL, sale/auction price and royalty fee. You do not have to list NFTs straight for sale, and can just create and hold on to them for sale at a later date."
+      'Contact Flipkart. After you are approved as a seller, you will be given an admin account through which you can easily sell your goods. Go to your profile and click on "Add product". List all the relevant information and submit. Now this product will be up for sale for other users to buy.',
   },
-  {
-    id: "5",
-    btnClass: "btn d-block text-left w-100 collapsed py-4",
-    target: "#collapseFive",
-    quote: "Where can I check my NFT details?",
-    contentId: "collapseFive",
-    contentClass: "collapse",
-    content:
-      "The team reserves the right to remove any NFTs and block any wallets associated with any copyright breaches. If you see any work that you think violates copyright laws then please inform the team and it will be removed after investigation."
-  }
 ];
 
 const Faq = () => {

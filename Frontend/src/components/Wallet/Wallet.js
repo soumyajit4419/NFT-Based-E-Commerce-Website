@@ -77,7 +77,7 @@ const Wallet = () => {
   };
 
   return (
-    <div className="container wallet-connect-area">
+    <div className="container-fluid wallet-connect-area">
       <div className="row justify-content-center">
         <div className="col-12 col-md-6 col-lg-5">
           {/* Intro */}
@@ -104,8 +104,7 @@ const Wallet = () => {
               <h4 className="mb-0">MetaMask</h4>
               <p>
                 You are almost there. All you have to do is connect your wallet
-                and you will be able to create NFTs, Collections and access your
-                Dashboard.
+                to buy or sell your NFTs.
               </p>
             </div>
           </div>
@@ -126,8 +125,7 @@ const Wallet = () => {
               <h4 className="mb-0">WalletConnect</h4>
               <p>
                 You are almost there. All you have to do is connect your wallet
-                and you will be able to create NFTs, Collections and access your
-                Dashboard.
+                to buy or sell your NFTs.
               </p>
             </div>
           </div>

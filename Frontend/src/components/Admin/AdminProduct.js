@@ -10,11 +10,11 @@ const customStyles = {
   content: {
     border: "none",
     background: "rgb(255 255 255 / 0%)",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   overlay: {
-    backgroundColor: "#2a2a2ac9"
-  }
+    backgroundColor: "#2a2a2ac9",
+  },
 };
 
 const AdminProduct = () => {
@@ -121,7 +121,7 @@ const AdminProduct = () => {
       toast.error(
         "Any of the fields cannot be empty! Please fill all the fields!",
         {
-          position: toast.POSITION.TOP_RIGHT
+          position: toast.POSITION.TOP_RIGHT,
         }
       );
       setLoading(false);
@@ -135,27 +135,32 @@ const AdminProduct = () => {
       warranty_duration: warranty,
       product_price: productprice,
       product_brand: productbrand,
-      product_quantity: productquantity
+      product_quantity: productquantity,
     };
 
     const senddata = [data];
 
     try {
-      let res = await axios({
-        method: "POST",
-        url: "https://flipkart-grid-server.vercel.app/admin/add_product",
-        data: { product_data: senddata }
-      });
+      let token = localStorage.getItem("token");
+      let res = await axios.post(
+        "https://flipkart-grid-server.vercel.app/admin/add_product",
+        { product_data: senddata },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       // localStorage.setItem("user_id", res.data.decoded_values._id);
       toast.success("Product Added Successfully!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
-        console.log(res);
+      console.log(res);
       history.push("/");
     } catch (err) {
-        console.log(err);
+      console.log(err);
       toast.error(`${err.response.data.message}`, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
     }
@@ -217,7 +222,7 @@ const AdminProduct = () => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          margin: "auto"
+                          margin: "auto",
                         }}
                       >
                         <i className="fas fa-spinner fa-spin"></i>
